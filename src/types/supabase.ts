@@ -1,69 +1,63 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   public: {
     Tables: {
       alarms: {
         Row: {
-          created_at: string
-          group_post_id: string
-          id: string
-          is_read: boolean
-          link: string
-          must_post_id: string
-          type: string
-          user_id: string
-        }
+          created_at: string;
+          group_post_id: string;
+          id: string;
+          is_read: boolean;
+          link: string;
+          must_post_id: string;
+          type: string;
+          user_id: string;
+        };
         Insert: {
-          created_at?: string
-          group_post_id?: string
-          id?: string
-          is_read?: boolean
-          link: string
-          must_post_id?: string
-          type: string
-          user_id?: string
-        }
+          created_at?: string;
+          group_post_id?: string;
+          id?: string;
+          is_read: boolean;
+          link: string;
+          must_post_id?: string;
+          type: string;
+          user_id?: string;
+        };
         Update: {
-          created_at?: string
-          group_post_id?: string
-          id?: string
-          is_read?: boolean
-          link?: string
-          must_post_id?: string
-          type?: string
-          user_id?: string
-        }
+          created_at?: string;
+          group_post_id?: string;
+          id?: string;
+          is_read?: boolean;
+          link?: string;
+          must_post_id?: string;
+          type?: string;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "alarms_group_post_id_fkey"
-            columns: ["group_post_id"]
-            isOneToOne: false
-            referencedRelation: "group_posts"
-            referencedColumns: ["id"]
+            foreignKeyName: "alarms_group_post_id_fkey";
+            columns: ["group_post_id"];
+            isOneToOne: false;
+            referencedRelation: "group_posts";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "alarms_must_post_id_fkey"
-            columns: ["must_post_id"]
-            isOneToOne: false
-            referencedRelation: "must_posts"
-            referencedColumns: ["id"]
+            foreignKeyName: "alarms_must_post_id_fkey";
+            columns: ["must_post_id"];
+            isOneToOne: false;
+            referencedRelation: "must_posts";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "alarms_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
+            foreignKeyName: "alarms_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["user_id"];
+          }
+        ];
+      };
       chat: {
         Row: {
           created_at: string
@@ -73,12 +67,12 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          created_at?: string
-          id?: string
-          post_id?: string
-          text: string
-          user_id?: string
-        }
+          created_at?: string;
+          id?: string;
+          post_id?: string;
+          text: string;
+          user_id?: string;
+        };
         Update: {
           created_at?: string
           id?: string
@@ -116,16 +110,16 @@ export type Database = {
           user_phone: string
         }
         Insert: {
-          created_at?: string
-          id?: string
-          is_paid?: boolean
-          post_id?: string
-          user_address: string
-          user_detail_address?: string | null
-          user_id?: string
-          user_name: string
-          user_phone: string
-        }
+          created_at?: string;
+          id?: string;
+          is_paid?: boolean;
+          post_id?: string;
+          user_address: string;
+          user_detail_address?: string | null;
+          user_id?: string;
+          user_name: string;
+          user_phone: string;
+        };
         Update: {
           created_at?: string
           id?: string
@@ -192,53 +186,53 @@ export type Database = {
       }
       group_posts: {
         Row: {
-          content: string
-          created_at: string
-          end_date: string
-          id: string
-          img_url: string
-          is_finished: boolean
-          is_free: boolean
-          item: string
-          link: string | null
-          people_num: number
-          price: number
-          start_date: string
-          title: string
-          user_id: string
-        }
+          content: string;
+          created_at: string;
+          end_date: string;
+          id: string;
+          img_url: string;
+          is_finished: boolean;
+          is_free: boolean;
+          item: string;
+          link: string | null;
+          people_num: number;
+          price: number;
+          start_date: string;
+          title: string;
+          user_id: string;
+        };
         Insert: {
-          content: string
-          created_at?: string
-          end_date: string
-          id?: string
-          img_url: string
-          is_finished: boolean
-          is_free: boolean
-          item: string
-          link?: string | null
-          people_num: number
-          price: number
-          start_date: string
-          title: string
-          user_id?: string
-        }
+          content: string;
+          created_at?: string;
+          end_date: string;
+          id?: string;
+          img_url: string;
+          is_finished: boolean;
+          is_free: boolean;
+          item: string;
+          link?: string | null;
+          people_num: number;
+          price: number;
+          start_date: string;
+          title: string;
+          user_id?: string;
+        };
         Update: {
-          content?: string
-          created_at?: string
-          end_date?: string
-          id?: string
-          img_url?: string
-          is_finished?: boolean
-          is_free?: boolean
-          item?: string
-          link?: string | null
-          people_num?: number
-          price?: number
-          start_date?: string
-          title?: string
-          user_id?: string
-        }
+          content?: string;
+          created_at?: string;
+          end_date?: string;
+          id?: string;
+          img_url?: string;
+          is_finished?: boolean;
+          is_free?: boolean;
+          item?: string;
+          link?: string | null;
+          people_num?: number;
+          price?: number;
+          start_date?: string;
+          title?: string;
+          user_id?: string;
+        };
         Relationships: [
           {
             foreignKeyName: "group_posts_user_id_fkey"
@@ -288,6 +282,7 @@ export type Database = {
         }
         Relationships: [
           {
+<<<<<<< HEAD
             foreignKeyName: "must_comments_post_id_fkey"
             columns: ["post_id"]
             isOneToOne: false
@@ -303,6 +298,23 @@ export type Database = {
           },
         ]
       }
+=======
+            foreignKeyName: "must_comments_post_id_fkey";
+            columns: ["post_id"];
+            isOneToOne: false;
+            referencedRelation: "must_posts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "must_comments_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["user_id"];
+          }
+        ];
+      };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       must_posts: {
         Row: {
           category_id: string
@@ -345,6 +357,7 @@ export type Database = {
         }
         Relationships: [
           {
+<<<<<<< HEAD
             foreignKeyName: "must_posts_category_id_fkey"
             columns: ["category_id"]
             isOneToOne: false
@@ -360,6 +373,23 @@ export type Database = {
           },
         ]
       }
+=======
+            foreignKeyName: "must_posts_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "must_categories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "must_posts_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["user_id"];
+          }
+        ];
+      };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       must_wishes: {
         Row: {
           created_at: string
@@ -368,11 +398,19 @@ export type Database = {
           user_id: string
         }
         Insert: {
+<<<<<<< HEAD
           created_at?: string
           id?: string
           post_id?: string
           user_id?: string
         }
+=======
+          created_at?: string;
+          id?: string;
+          post_id?: string;
+          user_id?: string;
+        };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
         Update: {
           created_at?: string
           id?: string
@@ -381,6 +419,7 @@ export type Database = {
         }
         Relationships: [
           {
+<<<<<<< HEAD
             foreignKeyName: "must_wishes_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
@@ -389,6 +428,16 @@ export type Database = {
           },
         ]
       }
+=======
+            foreignKeyName: "must_wishes_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["user_id"];
+          }
+        ];
+      };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       payments: {
         Row: {
           address: string
@@ -401,6 +450,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+<<<<<<< HEAD
           address: string
           created_at?: string
           email: string
@@ -410,6 +460,17 @@ export type Database = {
           status: string
           user_id?: string
         }
+=======
+          address: string;
+          created_at?: string;
+          email: string;
+          id?: string;
+          name: string;
+          phone: string;
+          status: string;
+          user_id?: string;
+        };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
         Update: {
           address?: string
           created_at?: string
@@ -422,6 +483,7 @@ export type Database = {
         }
         Relationships: [
           {
+<<<<<<< HEAD
             foreignKeyName: "payment_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
@@ -430,6 +492,16 @@ export type Database = {
           },
         ]
       }
+=======
+            foreignKeyName: "payment_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["user_id"];
+          }
+        ];
+      };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       profiles: {
         Row: {
           address: string | null
@@ -440,6 +512,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+<<<<<<< HEAD
           address?: string | null
           created_at?: string
           detail_address?: string | null
@@ -458,12 +531,37 @@ export type Database = {
         Relationships: []
       }
     }
+=======
+          address?: string | null;
+          created_at?: string;
+          detail_address?: string | null;
+          nickname: string;
+          profile_image_url: string;
+          user_id?: string;
+        };
+        Update: {
+          address?: string | null;
+          created_at?: string;
+          detail_address?: string | null;
+          nickname?: string;
+          profile_image_url?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+    };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
     Views: {
       [_ in never]: never
     }
     Functions: {
+<<<<<<< HEAD
       [_ in never]: never
     }
+=======
+      [_ in never]: never;
+    };
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
     Enums: {
       [_ in never]: never
     }
@@ -476,9 +574,7 @@ export type Database = {
 type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"]) | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
@@ -490,6 +586,7 @@ export type Tables<
     }
     ? R
     : never
+<<<<<<< HEAD
   : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
         PublicSchema["Views"])
     ? (PublicSchema["Tables"] &
@@ -498,12 +595,17 @@ export type Tables<
       }
       ? R
       : never
+=======
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+  ? (PublicSchema["Tables"] & PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+      Row: infer R;
+    }
+    ? R
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
     : never
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
@@ -522,9 +624,7 @@ export type TablesInsert<
     : never
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
@@ -543,15 +643,14 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
-    | { schema: keyof Database },
+  PublicEnumNameOrOptions extends keyof PublicSchema["Enums"] | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+<<<<<<< HEAD
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
     : never
 
@@ -569,3 +668,20 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
     ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
+=======
+  ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+  : never;
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"] | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database;
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+  ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : never;
+>>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
