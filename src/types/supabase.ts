@@ -282,23 +282,6 @@ export type Database = {
         }
         Relationships: [
           {
-<<<<<<< HEAD
-            foreignKeyName: "must_comments_post_id_fkey"
-            columns: ["post_id"]
-            isOneToOne: false
-            referencedRelation: "must_posts"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "must_comments_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-=======
             foreignKeyName: "must_comments_post_id_fkey";
             columns: ["post_id"];
             isOneToOne: false;
@@ -314,7 +297,6 @@ export type Database = {
           }
         ];
       };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       must_posts: {
         Row: {
           category_id: string
@@ -357,23 +339,6 @@ export type Database = {
         }
         Relationships: [
           {
-<<<<<<< HEAD
-            foreignKeyName: "must_posts_category_id_fkey"
-            columns: ["category_id"]
-            isOneToOne: false
-            referencedRelation: "must_categories"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "must_posts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-=======
             foreignKeyName: "must_posts_category_id_fkey";
             columns: ["category_id"];
             isOneToOne: false;
@@ -389,7 +354,6 @@ export type Database = {
           }
         ];
       };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       must_wishes: {
         Row: {
           created_at: string
@@ -398,19 +362,11 @@ export type Database = {
           user_id: string
         }
         Insert: {
-<<<<<<< HEAD
-          created_at?: string
-          id?: string
-          post_id?: string
-          user_id?: string
-        }
-=======
           created_at?: string;
           id?: string;
           post_id?: string;
           user_id?: string;
         };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
         Update: {
           created_at?: string
           id?: string
@@ -419,16 +375,6 @@ export type Database = {
         }
         Relationships: [
           {
-<<<<<<< HEAD
-            foreignKeyName: "must_wishes_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-=======
             foreignKeyName: "must_wishes_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
@@ -437,7 +383,6 @@ export type Database = {
           }
         ];
       };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       payments: {
         Row: {
           address: string
@@ -450,17 +395,6 @@ export type Database = {
           user_id: string
         }
         Insert: {
-<<<<<<< HEAD
-          address: string
-          created_at?: string
-          email: string
-          id?: string
-          name: string
-          phone: string
-          status: string
-          user_id?: string
-        }
-=======
           address: string;
           created_at?: string;
           email: string;
@@ -470,7 +404,6 @@ export type Database = {
           status: string;
           user_id?: string;
         };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
         Update: {
           address?: string
           created_at?: string
@@ -483,16 +416,6 @@ export type Database = {
         }
         Relationships: [
           {
-<<<<<<< HEAD
-            foreignKeyName: "payment_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-=======
             foreignKeyName: "payment_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
@@ -501,7 +424,6 @@ export type Database = {
           }
         ];
       };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
       profiles: {
         Row: {
           address: string | null
@@ -512,26 +434,6 @@ export type Database = {
           user_id: string
         }
         Insert: {
-<<<<<<< HEAD
-          address?: string | null
-          created_at?: string
-          detail_address?: string | null
-          nickname: string
-          profile_image_url: string
-          user_id?: string
-        }
-        Update: {
-          address?: string | null
-          created_at?: string
-          detail_address?: string | null
-          nickname?: string
-          profile_image_url?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-    }
-=======
           address?: string | null;
           created_at?: string;
           detail_address?: string | null;
@@ -550,18 +452,12 @@ export type Database = {
         Relationships: [];
       };
     };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
     Views: {
       [_ in never]: never
     }
     Functions: {
-<<<<<<< HEAD
-      [_ in never]: never
-    }
-=======
       [_ in never]: never;
     };
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
     Enums: {
       [_ in never]: never
     }
@@ -586,22 +482,11 @@ export type Tables<
     }
     ? R
     : never
-<<<<<<< HEAD
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-        PublicSchema["Views"])
-    ? (PublicSchema["Tables"] &
-        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
-=======
   : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"])
   ? (PublicSchema["Tables"] & PublicSchema["Views"])[PublicTableNameOrOptions] extends {
       Row: infer R;
     }
     ? R
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
     : never
 
 export type TablesInsert<
@@ -650,25 +535,6 @@ export type Enums<
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-<<<<<<< HEAD
-    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
-
-export type CompositeTypes<
-  PublicCompositeTypeNameOrOptions extends
-    | keyof PublicSchema["CompositeTypes"]
-    | { schema: keyof Database },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
-  }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
-=======
   ? PublicSchema["Enums"][PublicEnumNameOrOptions]
   : never;
 
@@ -684,4 +550,3 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
   ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
   : never;
->>>>>>> 8b141b8848bd25a54ddad9353ad7872a12892999
