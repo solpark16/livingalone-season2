@@ -1,62 +1,56 @@
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[];
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
   public: {
     Tables: {
-      alarm: {
+      alarms: {
         Row: {
           created_at: string;
-          group_post_id: string | null;
+          group_post_id: string;
           id: string;
           is_read: boolean;
           link: string;
-          must_post_id: string | null;
+          must_post_id: string;
           type: string;
           user_id: string;
         };
         Insert: {
           created_at?: string;
-          group_post_id?: string | null;
+          group_post_id?: string;
           id?: string;
           is_read: boolean;
           link: string;
-          must_post_id?: string | null;
+          must_post_id?: string;
           type: string;
-          user_id: string;
+          user_id?: string;
         };
         Update: {
           created_at?: string;
-          group_post_id?: string | null;
+          group_post_id?: string;
           id?: string;
           is_read?: boolean;
           link?: string;
-          must_post_id?: string | null;
+          must_post_id?: string;
           type?: string;
           user_id?: string;
         };
         Relationships: [
           {
-            foreignKeyName: "alarm_group_post_id_fkey";
+            foreignKeyName: "alarms_group_post_id_fkey";
             columns: ["group_post_id"];
             isOneToOne: false;
             referencedRelation: "group_posts";
             referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "alarm_must_post_id_fkey";
+            foreignKeyName: "alarms_must_post_id_fkey";
             columns: ["must_post_id"];
             isOneToOne: false;
             referencedRelation: "must_posts";
             referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "alarm_user_id_fkey";
+            foreignKeyName: "alarms_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
@@ -73,11 +67,11 @@ export type Database = {
           user_id: string;
         };
         Insert: {
-          created_at: string;
+          created_at?: string;
           id?: string;
-          post_id: string;
+          post_id?: string;
           text: string;
-          user_id: string;
+          user_id?: string;
         };
         Update: {
           created_at?: string;
@@ -118,11 +112,11 @@ export type Database = {
         Insert: {
           created_at?: string;
           id?: string;
-          is_paid: boolean;
-          post_id: string;
+          is_paid?: boolean;
+          post_id?: string;
           user_address: string;
           user_detail_address?: string | null;
-          user_id: string;
+          user_id?: string;
           user_name: string;
           user_phone: string;
         };
@@ -198,6 +192,7 @@ export type Database = {
           id: string;
           img_url: string;
           is_finished: boolean;
+          is_free: boolean;
           item: string;
           link: string | null;
           people_num: number;
@@ -213,13 +208,14 @@ export type Database = {
           id?: string;
           img_url: string;
           is_finished: boolean;
+          is_free: boolean;
           item: string;
           link?: string | null;
           people_num: number;
           price: number;
           start_date: string;
           title: string;
-          user_id: string;
+          user_id?: string;
         };
         Update: {
           content?: string;
@@ -228,6 +224,7 @@ export type Database = {
           id?: string;
           img_url?: string;
           is_finished?: boolean;
+          is_free?: boolean;
           item?: string;
           link?: string | null;
           people_num?: number;
@@ -285,14 +282,14 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "must_comments2_post_id_fkey";
+            foreignKeyName: "must_comments_post_id_fkey";
             columns: ["post_id"];
             isOneToOne: false;
             referencedRelation: "must_posts";
             referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "must_comments2_user_id_fkey";
+            foreignKeyName: "must_comments_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
@@ -342,18 +339,18 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "must_post_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["user_id"];
-          },
-          {
             foreignKeyName: "must_posts_category_id_fkey";
             columns: ["category_id"];
             isOneToOne: false;
             referencedRelation: "must_categories";
             referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "must_posts_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["user_id"];
           }
         ];
       };
@@ -367,8 +364,8 @@ export type Database = {
         Insert: {
           created_at?: string;
           id?: string;
-          post_id: string;
-          user_id: string;
+          post_id?: string;
+          user_id?: string;
         };
         Update: {
           created_at?: string;
@@ -377,13 +374,6 @@ export type Database = {
           user_id?: string;
         };
         Relationships: [
-          {
-            foreignKeyName: "must_wishes_post_id_fkey";
-            columns: ["post_id"];
-            isOneToOne: false;
-            referencedRelation: "must_posts";
-            referencedColumns: ["id"];
-          },
           {
             foreignKeyName: "must_wishes_user_id_fkey";
             columns: ["user_id"];
@@ -412,7 +402,7 @@ export type Database = {
           name: string;
           phone: string;
           status: string;
-          user_id: string;
+          user_id?: string;
         };
         Update: {
           address?: string;
@@ -426,7 +416,7 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "payments_user_id_fkey";
+            foreignKeyName: "payment_user_id_fkey";
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
@@ -448,7 +438,7 @@ export type Database = {
           created_at?: string;
           detail_address?: string | null;
           nickname: string;
-          profile_image_url?: string;
+          profile_image_url: string;
           user_id?: string;
         };
         Update: {
@@ -459,25 +449,14 @@ export type Database = {
           profile_image_url?: string;
           user_id?: string;
         };
-        Relationships: [
-          {
-            foreignKeyName: "profiles_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: true;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          }
-        ];
+        Relationships: [];
       };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
-      update_finished_groups: {
-        Args: Record<PropertyKey, never>;
-        Returns: undefined;
-      };
+      [_ in never]: never;
     };
     Enums: {
       [_ in never]: never;
@@ -491,9 +470,7 @@ export type Database = {
 type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"]) | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
@@ -505,10 +482,8 @@ export type Tables<
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-      PublicSchema["Views"])
-  ? (PublicSchema["Tables"] &
-      PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+  ? (PublicSchema["Tables"] & PublicSchema["Views"])[PublicTableNameOrOptions] extends {
       Row: infer R;
     }
     ? R
@@ -516,9 +491,7 @@ export type Tables<
   : never;
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never
@@ -537,9 +510,7 @@ export type TablesInsert<
   : never;
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends
-    | keyof PublicSchema["Tables"]
-    | { schema: keyof Database },
+  PublicTableNameOrOptions extends keyof PublicSchema["Tables"] | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never
@@ -558,9 +529,7 @@ export type TablesUpdate<
   : never;
 
 export type Enums<
-  PublicEnumNameOrOptions extends
-    | keyof PublicSchema["Enums"]
-    | { schema: keyof Database },
+  PublicEnumNameOrOptions extends keyof PublicSchema["Enums"] | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never
@@ -568,4 +537,17 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
   ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+  : never;
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"] | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database;
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+  ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
   : never;
