@@ -7,7 +7,7 @@ export async function GET(request: NextRequest, { params }: { params: { userId: 
   try {
     const supabase = createClient();
     const { data, error } = await supabase
-      .from("alarm")
+      .from("alarms")
       .select("*,group_posts(title, img_url), must_posts(title, img_url)")
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
@@ -24,7 +24,7 @@ export async function PUT(request: NextRequest, { params }: { params: { userId: 
 
   try {
     const supabase = createClient();
-    const { data, error } = await supabase.from("alarm").update(alarm).eq("user_id", userId).eq("id", alarm.id);
+    const { data, error } = await supabase.from("alarms").update(alarm).eq("user_id", userId).eq("id", alarm.id);
     if (error) throw error;
     return NextResponse.json(data);
   } catch (error) {
@@ -37,7 +37,7 @@ export async function DELETE(request: NextRequest) {
 
   try {
     const supabase = createClient();
-    const { data, error } = await supabase.from("alarm").delete().eq("id", alarm.id);
+    const { data, error } = await supabase.from("alarms").delete().eq("id", alarm.id);
 
     if (error) throw error;
     return NextResponse.json(data);
