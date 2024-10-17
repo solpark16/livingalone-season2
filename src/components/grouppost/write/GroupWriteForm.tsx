@@ -62,7 +62,7 @@ function GroupWriteForm() {
       setLoading(true);
       const response = await insertGroupImage(formData);
       setImgUrl(
-        `https://nqqsefrllkqytkwxfshk.supabase.co/storage/v1/object/public/groupposts/${response.path}`
+        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/groupposts/${response.path}`
       );
       setLoading(false);
     },
