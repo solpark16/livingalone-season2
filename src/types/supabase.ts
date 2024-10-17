@@ -6,6 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+
 export type Database = {
   public: {
     Tables: {
@@ -498,7 +499,6 @@ export type Tables<
       }
       ? R
       : never
-    : never
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
