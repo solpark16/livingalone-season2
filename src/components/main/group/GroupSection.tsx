@@ -17,6 +17,7 @@ function GroupSection() {
     queryKey: ["groupPost"],
     queryFn: getGroupPostOnMain,
   });
+
   if (isPending)
     return (
       <div className="flex justify-center items-center">
@@ -27,7 +28,7 @@ function GroupSection() {
   if (isError) return <div className="flex justify-center items-center">에러...</div>;
 
   return (
-    <div className="container mx-auto lg:max-w-[1024px] pt-[42px] pb-[90px] lg:pt-[58px] lg:pb-[153px]">
+    <div className="container mx-auto xl:max-w-[1200px] pt-[42px] pb-[90px] lg:pt-[58px] lg:pb-[153px]">
       <MainSectionTitle
         title="같이 사 공구템"
         content="공동구매를 통해 자취에 필요한 물품을 저렴한 금액에 구매해보세요"
