@@ -12,15 +12,14 @@ function Header() {
 
   return (
     <header>
-      <TopBanner />
       <AuthHeader />
-      <div className="container mx-auto w-full max-w-[1024px] flex justify-between items-center py-[18px] px-[16px] lg:px-0">
+      <div className="container mx-auto w-full max-w-[1200px] flex items-center py-4 px-10 lg:px-0">
         <h1 className="text-[30px] font-extrabold">
           <Link href="/">
-            <Image src="/img/logo.svg" alt="혼자살때" width={90} height={42} />
+            <Image src="/img/logo.svg" alt="혼자살때" width={146} height={28} />
           </Link>
         </h1>
-        <div className="flex items-center">
+        <div className="flex items-center justify-between w-full pl-[50px]">
           <GlobalNav />
           {user && <WriteButton />}
         </div>

@@ -17,7 +17,10 @@ export async function getUser() {
     const noProfile = profileError?.code === "PGRST116";
 
     if (noProfile) {
-      await supabase.from("profiles").insert([{ user_id: userId, nickname: "혼살러" }]);
+      console.log("야임마");
+      await supabase
+        .from("profiles")
+        .insert([{ user_id: userId, nickname: "혼살러" }]);
     }
   }
 

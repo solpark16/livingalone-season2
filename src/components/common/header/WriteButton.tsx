@@ -1,18 +1,20 @@
 "use client";
 import { useIsOpen } from "@/zustand/isOpenStore";
 import Link from "next/link";
+import Button from "../button/Button";
 
 function WriteButton() {
   const { isOpenWriteButton, setIsOpenWriteButton } = useIsOpen();
 
   return (
-    <div className="relative ml-[34px] hidden md:block">
-      <button
-        className="rounded-full py-[10px] px-[22px] border border-main-7 bg-main-7 text-[20px] text-white font-bold hover:bg-white hover:text-main-8 hover:border-main-8"
+    <div className="relative ml-[26px] hidden md:block">
+      {/* <button
+        className="rounded-full py-[10px] px-[22px] border border-main-6 bg-main-6 text-[15px] text-white font-bold"
         onClick={() => setIsOpenWriteButton(!isOpenWriteButton)}
       >
         글쓰기
-      </button>
+      </button> */}
+
       {isOpenWriteButton && (
         <ul className="z-50 absolute right-[14px] top-[50px] w-[120px] border border-main-7">
           <li className="bg-white text-gray-3 text-[14px] hover:bg-main-7 hover:text-white text-center">

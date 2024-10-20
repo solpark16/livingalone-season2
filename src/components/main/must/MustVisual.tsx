@@ -3,7 +3,7 @@ import Image from "next/image";
 function MustVisual() {
   return (
     <div className="bg-green-1 flex items-center justify-center">
-      <div className="container mx-auto lg:max-w-[1024px] flex justify-center">
+      <div className="container mx-auto lg:max-w-[1200px] flex justify-center">
         <div className="hidden md:block relative py-[60px] px-0">
           <Image
             src="/img/main-visual-must.webp"

@@ -47,11 +47,16 @@ function Alarm() {
 
   return (
     <div className="relative">
-      <button onClick={() => setIsOpenAlarm(!isOpenAlarm)} className="flex gap-1">
-        <Image src="/img/icon-alarm.svg" alt="알람" width={24} height={24} />
-        {isAlarm && (
+      <button
+        onClick={() => setIsOpenAlarm(!isOpenAlarm)}
+        className={`flex gap-1 ${isAlarm && "text-yellow-2"}`}
+        // 작동 되는건지 모르겠음
+      >
+        {/* <Image src="/img/icon-alarm.svg" alt="알람" width={24} height={24} /> */}
+        알림
+        {/* {isAlarm && (
           <span className="absolute right-[2px] top-[3px] block border-2 border-white w-[10px] h-[10px] bg-main-7 rounded-full z-[10]"></span>
-        )}
+        )} */}
       </button>
       {isOpenAlarm && <AlarmList alarms={alarms} userId={userId} />}
     </div>

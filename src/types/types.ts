@@ -83,9 +83,9 @@ export type Chat = Tables<"chat">;
 export type Payment = Tables<"payments">;
 export type TNewPayment = Omit<Payment, "created_at">;
 
-export type Alarm = Tables<"alarm">;
+export type Alarm = Tables<"alarms">;
 export type TAddAlarm = Omit<Alarm, "id" | "created_at">;
-export type TAlarm = Tables<"alarm"> & {
+export type TAlarm = Tables<"alarms"> & {
   group_posts: { title: string; img_url: string };
   must_posts: { title: string; img_url: string };
 };
