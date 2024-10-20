@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Button from "@/components/common/button/Button";
 
 type MainSectionTitleProps = {
   title: string;
@@ -13,7 +13,7 @@ function MainSectionTitle({ title, content, link }: MainSectionTitleProps) {
         <p className="text-[16px] text-gray-5 mt-[10px]">{content}</p>
       </div>
       <div>
-        <Link href={link}>더 많은 게시글 보기</Link>
+        <Button size="sm" bgColor="bg-main-2" textColor="text-main-7" href={link} content="더 많은 게시물 보기" />
       </div>
     </div>
   );
