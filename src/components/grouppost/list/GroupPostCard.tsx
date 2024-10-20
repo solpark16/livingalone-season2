@@ -27,13 +27,13 @@ function GroupPostCard({
   postId,
 }: GroupPostCardProps) {
   return (
-    <div className="border border-gray-4 hover:border-main-7 rounded-lg overflow-hidden">
+    <div className="relative border border-gray-4 hover:border-main-7 rounded-lg overflow-hidden">
       <Link href={`/grouppost/read/${postId}`}>
         <div className="flex">
           <div className="relative w-[50%] max-w-[200px] md:max-w-[232px] shrink-0 aspect-square rounde-r-none overflow-hidden">
             <Image src={imgUrl} alt={title} fill quality={75} className="object-fill rounded-l-[6px]" />
           </div>
-          <div className="relative py-[20px] pl-[26px] pr-[20px] w-full bg-white ">
+          <div className=" py-[20px] pl-[26px] pr-[20px] w-full bg-white ">
             <div className="flex items-center">
               <span className="font-semibold text-[13px] mr-[6px] text-blue-6">{isFinished ? "종료됨" : "진행중"}</span>
               <div className="text-[13px] text-gray-4">
@@ -53,12 +53,12 @@ function GroupPostCard({
               <Label color="bg-red-1" textColor="text-red-5" name={`${peopleNum - application.length}명 남음`} />
               <Label color="bg-yellow-1" textColor="text-yellow-6" name="배송비 포함" />
             </div>
-            <div className="absolute right-[20px] bottom-[20px]">
-              <Like postId={postId} />
-            </div>
           </div>
         </div>
       </Link>
+      <div className="absolute right-[20px] bottom-[20px]">
+        <Like postId={postId} />
+      </div>
     </div>
   );
 }
