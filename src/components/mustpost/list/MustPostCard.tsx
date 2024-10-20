@@ -11,27 +11,28 @@ interface MustPostCardProps {
 
 function MustPostCard({ postId, title, item, imgUrl }: MustPostCardProps) {
   return (
-    <div className="relative">
+    <div className="must_post_card border border-gray-4 rounded-lg hover:border-main-7 box-border overflow-hidden">
       <Link href={`/mustpost/read/${postId}`}>
-        <div className="overflow-hidden relative aspect-square rounded-lg border border-gray-2">
+        <div className="overflow-hidden relative aspect-square rounded-t-lg rounded-b-none">
           <Image
             src={imgUrl}
             alt={item}
             fill
             sizes="(max-width: 1024px) 70vw, 50vw"
             className="object-cover"
-            loading="lazy"
             quality={75}
           />
         </div>
-        <div className="px-1 mt-2 md:mt-4">
-          <span className="block text-[12px] md:text-[14px] text-gray-3 truncate">{item}</span>
-          <h4 className="font-bold text-[16px] md:text-[20px] text-black mt-[3px] md:mt-[6px] truncate">{title}</h4>
+        <div className="px-[16px] py-[18px] bg-white">
+          <span className="text-[12px] text-gray-4">2024.08.18</span>
+          <span className="block mt-[10px] text-[14px] text-gray-6 truncate">{item}</span>
+          <h4 className="mt-[6px] font-bold text-[20px] text-gray-6 truncate">{title}</h4>
+          <div className="sub mt-[16px] border-t border-gray-4 pt-[10px] flex justify-between">
+            <Wish postId={postId} />
+            <span className="text-[14px] text-gray-4">댓글 999+</span>
+          </div>
         </div>
       </Link>
-      <div className="absolute right-[11px] rigth-[10px] md:right-[20px] top-[10px] md:top-[20px] rounded-full">
-        <Wish postId={postId} />
-      </div>
     </div>
   );
 }
