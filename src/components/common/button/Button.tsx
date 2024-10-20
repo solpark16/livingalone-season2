@@ -9,10 +9,18 @@ type ButtonProps = {
   content: string;
   href?: string;
 } & ComponentProps<"button">;
-function Button({ size = "default", bgColor, textColor, outline, href, content, ...props }: ButtonProps) {
+function Button({
+  size = "default",
+  bgColor,
+  textColor,
+  outline,
+  href,
+  content,
+  ...props
+}: ButtonProps) {
   const smProps = "px-5 py-[7px] text-xs font-bold rounded-full";
   const defaultProps = "px-5 py-[7px] text-sm font-bold rounded-full";
-  const lgProps = "w-[232px] text-center text-[15px] font-bold rounded-full";
+  const lgProps = "w-[280px] text-center text-[15px] font-bold rounded-full";
 
   const outlineProps = outline ? `border bg-white ${outline}` : "";
 

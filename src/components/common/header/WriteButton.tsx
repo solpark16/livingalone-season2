@@ -15,23 +15,19 @@ function WriteButton() {
         글쓰기
       </button> */}
       <Button
-        color="main-6"
-        textColor="white"
+        bgColor="bg-main-6"
+        textColor="text-white"
         content="글쓰기"
         onClick={() => setIsOpenWriteButton(!isOpenWriteButton)}
       />
 
       {isOpenWriteButton && (
-        <ul className="z-50 absolute right-[14px] top-[50px] w-[120px] border border-main-7">
-          <li className="bg-white text-gray-3 text-[14px] hover:bg-main-7 hover:text-white text-center">
-            <Link href="/mustpost/write" className="block py-[10px] ">
-              자취템 자랑하기
-            </Link>
+        <ul className="z-50 absolute top-[39px] right-0 w-[168px] px-[22px] py-[29px] border border-main-6 text-center text-[16px] font-semibold text-gray-6 bg-white rounded-lg">
+          <li className="w-auto bg-white text-[16px] hover:text-main-6 mb-[15px]">
+            <Link href="/mustpost/write">자취템 자랑하기</Link>
           </li>
-          <li className="bg-white text-gray-3 text-[14px] hover:bg-main-7 hover:text-white text-center border-t border-main-7">
-            <Link href="/grouppost/write" className="block py-[10px] ">
-              공동구매 만들기
-            </Link>
+          <li className="bg-white hover:text-main-6">
+            <Link href="/grouppost/write">공동구매 만들기</Link>
           </li>
         </ul>
       )}

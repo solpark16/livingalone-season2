@@ -6,6 +6,7 @@ import TopBanner from "../banner/TopBanner";
 import AuthHeader from "./AuthHeader";
 import GlobalNav from "./GlobalNav";
 import WriteButton from "./WriteButton";
+import SearchBar from "./SearchBar";
 
 function Header() {
   const user = useAuthStore((state) => state.user);
@@ -21,7 +22,10 @@ function Header() {
         </h1>
         <div className="flex items-center justify-between w-full pl-[50px]">
           <GlobalNav />
-          {user && <WriteButton />}
+          <div className="flex flex-row">
+            <SearchBar />
+            {user && <WriteButton />}
+          </div>
         </div>
       </div>
     </header>
