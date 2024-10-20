@@ -24,8 +24,8 @@ const config: Config = {
       },
       fontWeight: {
         bold: "600",
-        medium: "500",
-        regular: "400",
+        medium: "400",
+        regular: "200",
       },
       colors: {
         black: "#000000",
