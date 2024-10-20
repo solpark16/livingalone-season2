@@ -17,7 +17,10 @@ export type MustComments = Tables<"must_comments"> & {
 export type TNewMustPost = Omit<MustPost, "created_at">;
 
 export type TMainMustPost = Pick<MustPost, "id" | "title" | "item" | "img_url">;
-export type TMustPostList = Pick<MustPost, "id" | "title" | "content" | "item" | "img_url">;
+export type TMustPostList = Pick<
+  MustPost,
+  "id" | "title" | "content" | "item" | "img_url"
+>;
 
 export type TMustWishData = Omit<MustWish, "created_at" | "id">;
 
@@ -36,7 +39,14 @@ export type TGroupApplications = {
 
 export type TMainGroupPost = Pick<
   GroupPost,
-  "id" | "title" | "price" | "people_num" | "is_finished" | "img_url" | "start_date" | "end_date"
+  | "id"
+  | "title"
+  | "price"
+  | "people_num"
+  | "is_finished"
+  | "img_url"
+  | "start_date"
+  | "end_date"
 > &
   TGroupApplications;
 
@@ -49,13 +59,24 @@ export type TGroupApplicationsLikes = {
 
 export type TPopularGroupPost = Pick<
   GroupPost,
-  "id" | "title" | "price" | "people_num" | "is_finished" | "img_url" | "start_date" | "end_date"
+  | "id"
+  | "title"
+  | "price"
+  | "people_num"
+  | "is_finished"
+  | "img_url"
+  | "start_date"
+  | "end_date"
 > &
   TGroupApplicationsLikes;
 
 export type TMyGroupPost = GroupPost & TGroupApplications;
-export type TGroupLikeAndApplications = GroupPost & { group_applications: TGroupLike[] };
-export type TLikePosts = Tables<"group_likes"> & { group_posts: TGroupLikeAndApplications };
+export type TGroupLikeAndApplications = GroupPost & {
+  group_applications: TGroupLike[];
+};
+export type TLikePosts = Tables<"group_likes"> & {
+  group_posts: TGroupLikeAndApplications;
+};
 
 export type Chat = Tables<"chat">;
 
