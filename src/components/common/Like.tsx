@@ -127,21 +127,13 @@ function Like({ postId }: LikeProps) {
   if (isError) return <span>에러</span>;
 
   return (
-    <div>
-      <button onClick={handleToggleLike}>
-        {isLike ? (
-          <div className="flex justify-center items-center border border-gray-2 bg-white rounded-full py-1 px-3">
-            <Image src="/img/icon-like-on.svg" alt="좋아요 버튼" width={18} height={18} />
-            <span className="ml-1 text-main-8 font-bold">{likesCount}</span>
-          </div>
-        ) : (
-          <div className="flex justify-center items-center border border-gray-2 bg-white rounded-full py-1 px-3">
-            <Image src="/img/icon-like.svg" alt="좋아요 버튼" width={18} height={18} />
-            <span className="ml-1 text-gray-4 font-bold">{likesCount}</span>
-          </div>
-        )}
-      </button>
-    </div>
+    <button onClick={handleToggleLike}>
+      {isLike ? (
+        <Image src="/img/icon-like-on.svg" alt="좋아요 버튼" width={18} height={18} />
+      ) : (
+        <Image src="/img/icon-like.svg" alt="좋아요 버튼" width={18} height={18} />
+      )}
+    </button>
   );
 }
 
