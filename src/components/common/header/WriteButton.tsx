@@ -14,6 +14,12 @@ function WriteButton() {
       >
         글쓰기
       </button> */}
+      <Button
+        color="main-6"
+        textColor="white"
+        content="글쓰기"
+        onClick={() => setIsOpenWriteButton(!isOpenWriteButton)}
+      />
 
       {isOpenWriteButton && (
         <ul className="z-50 absolute right-[14px] top-[50px] w-[120px] border border-main-7">

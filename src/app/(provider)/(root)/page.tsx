@@ -13,7 +13,7 @@ function HomePage() {
       <FrontBanner />
       <MobileHeader />
       <IsOpenProvider>
-        <main className="bg-main-1">
+        <main className="bg-main-1 pb-[240px]">
           <Banner />
           <MustSection />
           <GroupSection />
