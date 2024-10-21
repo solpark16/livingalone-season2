@@ -18,13 +18,14 @@ function AuthHeader() {
   };
 
   return (
-    <div className="hidden md:block">
-      <ul className="container mx-auto w-full max-w-[1200px] flex items-center justify-end gap-5 py-[18px] text-[12px] text-gray-4 text-black px-[12px] lg:px-0">
+    <div className="hidden md:block bg-main-6">
+      <ul className="container mx-auto w-full max-w-[1200px] flex items-center justify-end gap-[15px] py-[8px] text-[12px] text-white font-medium px-[12px] lg:px-0">
         {!user ? (
           <>
             <li>
               <Link href="/login">로그인</Link>
             </li>
+            <li>|</li>
             <li>
               <Link href="/join">회원가입</Link>
             </li>
@@ -34,9 +35,11 @@ function AuthHeader() {
             <li>
               <button onClick={handleLogout}>로그아웃</button>
             </li>
+            <li>|</li>
             <li>
               <Link href="/mypage">마이페이지</Link>
             </li>
+            <li>|</li>
             <li>
               <Alarm />
             </li>

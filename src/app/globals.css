@@ -40,4 +40,12 @@ li {
   .pointer {
     @apply block w-0 h-0 absolute bottom-[-18px] right-[calc(50%-7px)] border-[10px] border-x-[7px] border-transparent border-t-white;
   }
+
+  .must_post_card:hover .sub {
+    @apply border-main-7;
+  }
+
+  .must_post_card:hover .sub span {
+    @apply text-main-7;
+  }
 }
