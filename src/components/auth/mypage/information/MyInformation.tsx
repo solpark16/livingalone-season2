@@ -1,7 +1,7 @@
 "use client";
 
 import { editMyProfile, getMyProfile, uploadImage } from "@/apis/mypage";
-import { useInputChange } from "@/hooks/useInput";
+import { useInputChange } from "@/hooks/common/useInput";
 import { Profile, TProfile } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

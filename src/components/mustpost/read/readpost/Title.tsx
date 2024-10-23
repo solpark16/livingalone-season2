@@ -1,4 +1,4 @@
-import Wish from "@/components/common/Wish";
+import Wish from "@/components/common/wish/Wish";
 
 interface TitleProps {
   postId: string;
@@ -10,9 +10,7 @@ function Title({ title, postId }: TitleProps) {
       <div className="shrink-0 hidden md:block">
         <Wish postId={postId} />
       </div>
-      <h2 className="md:ml-2 mb-1 md:mb-0 font-bold text-black text-[22px] md:text-2xl">
-        {title}
-      </h2>
+      <h2 className="md:ml-2 mb-1 md:mb-0 font-bold text-black text-[22px] md:text-2xl">{title}</h2>
     </div>
   );
 }
