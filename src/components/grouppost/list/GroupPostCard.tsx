@@ -1,5 +1,5 @@
-import Like from "@/components/common/Like";
 import Label from "@/components/common/label/Label";
+import Like from "@/components/common/like/Like";
 import Image from "next/image";
 import Link from "next/link";
 

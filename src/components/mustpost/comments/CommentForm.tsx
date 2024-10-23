@@ -85,7 +85,7 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
       link: `/mustpost/read/${postId}`,
       is_read: false,
     };
-    addAlarm(chatAlarmData);
+    //addAlarm(chatAlarmData);
   };
 
   return (
@@ -94,12 +94,7 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
         <form onSubmit={submitHandler} className=" flex flex-col relative">
           {loading && (
             <div className="absolute inset-0 flex justify-center items-center z-50">
-              <Image
-                src="/img/loading-spinner-transparent.svg"
-                alt="로딩중"
-                width={80}
-                height={80}
-              />
+              <Image src="/img/loading-spinner-transparent.svg" alt="로딩중" width={80} height={80} />
             </div>
           )}
           <textarea
@@ -119,9 +114,7 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
           </button>
         </form>
       </div>
-      <span className="text-gray-3 text-[12px] ml-auto mr-1 mt-1">
-        {countComment} / 500자
-      </span>
+      <span className="text-gray-3 text-[12px] ml-auto mr-1 mt-1">{countComment} / 500자</span>
     </div>
   );
 }
