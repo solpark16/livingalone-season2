@@ -48,12 +48,12 @@ export default function useWish(postId: string) {
 
       queryClient.setQueryData<MustWish[]>(["wish", postId], (old) => [...(old || []), wishData as MustWish]);
 
-      setIsWish(true); // 찜 상태를 true로 변경
+      setIsWish(true);
       return { previousWishes };
     },
     onError: (err, wishData, context) => {
       queryClient.setQueryData(["wish", postId], context?.previousWishes);
-      setIsWish(false); // 에러 시 상태 복구
+      setIsWish(false);
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["wish"] });

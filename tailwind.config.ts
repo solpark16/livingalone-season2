@@ -24,6 +24,7 @@ const config: Config = {
       },
       fontWeight: {
         bold: "600",
+        semibold: "500",
         medium: "400",
         regular: "200",
       },
