@@ -3,7 +3,7 @@ import Image from "next/image";
 function SearchBar() {
   return (
     <>
-      <form className="flex flex-row w-[186px] px-[10px] py-[6px] border border-gray-4 rounded-full text-[15px]">
+      <form className="flex flex-row w-[186px] px-[10px] py-[6px] border border-gray-3 rounded-full text-[15px]">
         <Image
           src="/img/icon-search.svg"
           alt="검색버튼"

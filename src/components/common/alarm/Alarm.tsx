@@ -36,12 +36,12 @@ function Alarm() {
     }
   }, [alarms, isAlarm]);
 
-  if (isPending)
-    return (
-      <div>
-        <Image src="/img/icon-alarm.svg" alt="알람" width={24} height={24} />
-      </div>
-    );
+  // if (isPending)
+  //   return (
+  //     <div>
+  //       <Image src="/img/icon-alarm.svg" alt="알람" width={24} height={24} />
+  //     </div>
+  //   );
 
   if (isError) return <div>오류</div>;
 
