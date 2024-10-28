@@ -1,14 +1,14 @@
 import { getMustPostAll, getMustPostbyCategory } from "@/apis/mustpost";
+import Empty from "@/components/common/empty/Empty";
+import Error from "@/components/common/error/Error";
+import IsLoading from "@/components/common/loading/IsLoading";
+import { useCategoryStore } from "@/zustand/mustStore";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useMemo } from "react";
 import MustPostCard from "./MustPostCard";
 
-interface MustPostListProps {
-  selectedCategory: string;
-}
-
-function MustPostList({ selectedCategory }: MustPostListProps) {
+function MustPostList() {
+  const selectedCategory = useCategoryStore((state) => state.selectedCategory);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
     queryKey: ["mustPosts", selectedCategory],
     queryFn: async ({ pageParam = 0 }) => {
@@ -31,14 +31,10 @@ function MustPostList({ selectedCategory }: MustPostListProps) {
 
   const mustPosts = useMemo(() => data?.pages?.flatMap((page) => page.posts) || [], [data]);
 
-  if (isPending)
-    return (
-      <div className="flex justify-center items-center">
-        <Image src="/img/loading-spinner.svg" alt="로딩중" width={200} height={200} />
-      </div>
-    );
+  if (isPending) return <IsLoading />;
 
-  if (isError) return <div className="flex justify-center items-center">데이터를 불러오는데 실패했습니다!</div>;
+  if (isError) return <Error />;
+
   return (
     <>
       {mustPosts.length > 0 ? (
@@ -63,14 +59,7 @@ function MustPostList({ selectedCategory }: MustPostListProps) {
           </div>
         </div>
       ) : (
-        <div className="min-h-[400px] md:min-h-screen flex justify-center">
-          <div className="flex flex-col justify-center items-center mb-[64px]">
-            <div className="relative w-[67px] md:w-[100px] h-[62px] md:h-[94px] mb-5">
-              <Image src="/img/icon-empty.png" alt="empty" layout="fill" />
-            </div>
-            <h4 className="text-gray-2 text-[16px] mb-1">해당 카테고리에 맞는 게시글이 없습니다.</h4>
-          </div>
-        </div>
+        <Empty />
       )}
     </>
   );
