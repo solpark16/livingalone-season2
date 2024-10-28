@@ -3,22 +3,22 @@ import Link from "next/link";
 function MobileWriteButton() {
   return (
     <>
-      <div className="z-[998] absolute bottom-[54px] inset-x-0 w-screen py-[64px] bg-white rounded-t-xl">
-        <ul className="flex flex-col items-center text-[20px] text-white gap-[32px]">
-          <li>
+      <div className="z-[998] absolute bottom-[45px] inset-x-0 w-screen py-[16px] px-[22px] bg-gray-1">
+        <ul className="flex flex-col items-center text-[14px] text-white gap-[13px]">
+          <li className="w-full">
             <Link
               href="/mustpost/write"
-              className="block py-[12px] w-[300px] mx-auto rounded-full bg-gray-5 text-center font-bold"
+              className="block min-w-[276px] py-[10px] w-full mx-auto rounded-full bg-white text-center font-bold text-blue-5"
             >
-              자취템을 자랑 할래요!
+              자취템 자랑하기
             </Link>
           </li>
-          <li>
+          <li className="w-full">
             <Link
               href="/grouppost/write"
-              className="block py-[12px] w-[300px] mx-auto rounded-full bg-main-8 text-center font-bold"
+              className="block min-w-[276px] py-[10px] w-full mx-auto rounded-full bg-white text-center font-bold text-blue-5"
             >
-              공구를 할래요!
+              공동구매 만들기
             </Link>
           </li>
         </ul>

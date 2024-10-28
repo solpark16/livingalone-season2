@@ -1,4 +1,4 @@
-import Wish from "@/components/common/Wish";
+import Wish from "@/components/common/wish/Wish";
 import Image from "next/image";
 import Link from "next/link";
 

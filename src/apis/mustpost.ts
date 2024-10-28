@@ -33,9 +33,7 @@ export async function getCategories() {
 }
 
 export async function getMustPostbyCategory(page = 0, categoryId: string) {
-  const response = await fetch(
-    `/api/mustpost/category/${categoryId}?page=${page}`
-  );
+  const response = await fetch(`/api/mustpost/category/${categoryId}?page=${page}`);
   const data = await response.json();
   return {
     posts: data.data,
@@ -53,8 +51,14 @@ export async function getMustPostDetail(id: string) {
   return data;
 }
 
-export async function getMyWish(userId: string, postId: string) {
-  const response = await fetch(`/api/mustpost/wish/${userId}/${postId}`);
+export async function getWishes(postId: string) {
+  const response = await fetch(`/api/mustpost/wish/${postId}`);
+  const data = await response.json();
+  return data;
+}
+
+export async function getMyWish(postId: string, userId: string) {
+  const response = await fetch(`/api/mustpost/wish/${postId}/${userId}`);
   const data = await response.json();
   return data;
 }
@@ -110,10 +114,7 @@ export async function updateMustPost(newMustPost: TNewMustPost) {
   });
 }
 
-export async function NewMustCategoryPost(
-  postCategoryId: string,
-  postId: string
-) {
+export async function NewMustCategoryPost(postCategoryId: string, postId: string) {
   const supabase = createClient();
   const { data } = await supabase
     .from("must_posts")

@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import InputField from "../../common/input/InputField";
 import SelectCategory from "./SelectCategory";
 
-import { useInputChange } from "@/hooks/useInput";
+import { useInputChange } from "@/hooks/common/useInput";
 import { useAuthStore } from "@/zustand/authStore";
 import { useCategoryStore } from "@/zustand/mustStore";
 import { EditorProps } from "@toast-ui/react-editor";
@@ -23,12 +23,9 @@ import { mustValidation } from "../common/MustValidation";
 
 import imageCompression from "browser-image-compression";
 
-const EditorModule = dynamic(
-  () => import("@/components/common/editor/EditorModule"),
-  {
-    ssr: false,
-  }
-);
+const EditorModule = dynamic(() => import("@/components/common/editor/EditorModule"), {
+  ssr: false,
+});
 
 function MustWriteForm() {
   const router = useRouter();
@@ -42,8 +39,7 @@ function MustWriteForm() {
   const editorRef = useRef<EditorProps>(null);
   const throttleRef = useRef(false);
 
-  const [selectedCategoryName, setSelectedCategoryName] =
-    useState<string>("선택");
+  const [selectedCategoryName, setSelectedCategoryName] = useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
   const [error, setError] = useState({
@@ -89,9 +85,7 @@ function MustWriteForm() {
 
       setLoading(true);
       const response = await insertMustImage(formData);
-      setImgUrl(
-        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`
-      );
+      setImgUrl(`https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`);
       setLoading(false);
     },
   });
@@ -131,15 +125,7 @@ function MustWriteForm() {
 
   const addMustPostBtn = async () => {
     if (throttleRef.current) return;
-    const isValid = mustValidation(
-      setError,
-      title,
-      selectedCategoryId,
-      itemName,
-      company,
-      price,
-      imgUrl
-    );
+    const isValid = mustValidation(setError, title, selectedCategoryId, itemName, company, price, imgUrl);
     if (!isValid) {
       return;
     }
@@ -244,13 +230,7 @@ function MustWriteForm() {
           />
           <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
             <div className="flex items-center gap-4 w-full md:w-auto">
-              <input
-                className="hidden"
-                id="image-file"
-                type="file"
-                accept="image/*"
-                onChange={addImageHandler}
-              />
+              <input className="hidden" id="image-file" type="file" accept="image/*" onChange={addImageHandler} />
               <label
                 className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] px-7 py-[7px] border border-gray-4 bg-gray-1 font-bold text-[12px] text-gray-4 rounded-full cursor-pointer leading-[normal]"
                 htmlFor="image-file"
@@ -265,21 +245,12 @@ function MustWriteForm() {
               )}
             </div>
 
-            {error.imageUrlError && (
-              <p className={`text-red-3 text-[12px] mt-2`}>
-                {error.imageUrlError}
-              </p>
-            )}
+            {error.imageUrlError && <p className={`text-red-3 text-[12px] mt-2`}>{error.imageUrlError}</p>}
             <div className="w-[44px] md:w-auto aspect-square ml-[72px] md:ml-0 rounded-[4px]">
               <div className="relative">
                 {loading && imgUrl && (
                   <div className="absolute inset-0 m-auto top flex justify-center items-center">
-                    <Image
-                      src="/img/loading-spinner-transparent.svg"
-                      alt="로딩중"
-                      width={150}
-                      height={150}
-                    />
+                    <Image src="/img/loading-spinner-transparent.svg" alt="로딩중" width={150} height={150} />
                   </div>
                 )}
 
