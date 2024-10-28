@@ -1,71 +1,38 @@
 "use client";
-import { getCategories } from "@/apis/mustpost";
+import Button from "@/components/common/button/Button";
+import Error from "@/components/common/error/Error";
+import { useCategory } from "@/hooks/mustpost/useCategory";
 import type { MustCategory } from "@/types/types";
 import { useCategoryStore } from "@/zustand/mustStore";
-import { useQuery } from "@tanstack/react-query";
+import SkeletonCategory from "./SkeletonCategory";
 
 function MustCategory() {
-  const setSelectedCategory = useCategoryStore((state) => state.setSelectedCategory);
   const selectedCategory = useCategoryStore((state) => state.selectedCategory);
+  const { mustCategories, isPending, isError, handClickCategory } = useCategory();
 
-  const {
-    data: mustCategories,
-    isPending,
-    isError,
-  } = useQuery<MustCategory[]>({
-    queryKey: ["mustCategory"],
-    queryFn: getCategories,
+  const activeStyle = (categoryId: string) => ({
+    bgColor: selectedCategory === categoryId ? "bg-main-7" : "bg-white",
+    textColor: selectedCategory === categoryId ? "text-white" : "text-main-7",
+    outline: selectedCategory === categoryId ? "" : "border-main-7",
   });
 
-  const handClickCategory = (category: string) => {
-    setSelectedCategory(category);
-  };
+  if (isPending) return <SkeletonCategory />;
 
-  if (isPending)
-    return (
-      <ul className="flex flex-row gap-[6px] md:gap-2 mb-[40px] md:mb-0">
-        <li className="w-[57px] md:w-[90px] h-[24px] md:h-[36px] py-2 px-4 border border-gray-2 bg-gray-2 rounded-full animate-pulse"></li>
-        <li className="w-[57px] md:w-[90px] h-[24px] md:h-[36px] py-2 px-4 border border-gray-2 bg-gray-2 rounded-full animate-pulse"></li>
-        <li className="w-[57px] md:w-[90px] h-[24px] md:h-[36px] py-2 px-4 border border-gray-2 bg-gray-2 rounded-full animate-pulse"></li>
-        <li className="w-[57px] md:w-[90px] h-[24px] md:h-[36px] py-2 px-4 border border-gray-2 bg-gray-2 rounded-full animate-pulse"></li>
-        <li className="w-[57px] md:w-[90px] h-[24px] md:h-[36px] py-2 px-4 border border-gray-2 bg-gray-2 rounded-full animate-pulse"></li>
-      </ul>
-    );
-
-  if (isError)
-    return (
-      <li className="w-[60px] md:w-[90px] h-[24px] md:h-[36px] py-2 px-4 border border-gray-2 bg-gray-2 rounded-full animate-pulse">
-        에러
-      </li>
-    );
+  if (isError) return <Error />;
 
   return (
-    <div>
-      <ul className="flex flex-row gap-[6px] md:gap-2 mb-[40px] md:mb-0 flex-wrap justify-between">
+    <div className="my-[50px]">
+      <ul className="flex flex-row gap-[10px] flex-wrap justify-between">
         <li>
-          <button
-            className={`w-[57px] md:w-[90px] py-[3px] md:py-[9px] border border-gray-3  rounded-full text-gray-3 font-bold text-xs md:text-[16px] hover:bg-main-8 hover:text-white ${
-              selectedCategory === "ALL"
-                ? "bg-main-8 font-bold text-white border-transparent"
-                : "hover:bg-main-8 hover:text-white hover:border-transparent"
-            }`}
-            onClick={() => handClickCategory("ALL")}
-          >
-            ALL
-          </button>
+          <Button {...activeStyle("ALL")} content="All" onClick={() => handClickCategory("ALL")} />
         </li>
         {mustCategories?.map((category) => (
           <li key={category.id}>
-            <button
-              className={`w-[57px] md:w-[90px] py-[3px] md:py-[9px] border border-gray-3  rounded-full text-gray-3 font-bold text-xs md:text-[16px] hover:bg-main-8 hover:text-white ${
-                selectedCategory === category.id
-                  ? "bg-main-8 font-bold text-white border-transparent"
-                  : "hover:bg-main-8 hover:text-white hover:border-transparent"
-              }`}
+            <Button
+              {...activeStyle(category.id)}
+              content={`${category.name}`}
               onClick={() => handClickCategory(category.id)}
-            >
-              {category.name}
-            </button>
+            />
           </li>
         ))}
       </ul>

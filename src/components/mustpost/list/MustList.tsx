@@ -2,17 +2,14 @@
 
 import { useCategoryStore } from "@/zustand/mustStore";
 import { useEffect } from "react";
-import SearchBar from "../search/SearchBar";
 import MustCategory from "./MustCategory";
-import Title from "./Title";
 import MustPostList from "./MustPostList";
+import Title from "./Title";
 
 function MustList() {
-  const selectedCategory = useCategoryStore((state) => state.selectedCategory);
-  const setSelectedCategory = useCategoryStore(
-    (state) => state.setSelectedCategory
-  );
+  const setSelectedCategory = useCategoryStore((state) => state.setSelectedCategory);
 
+  // unmount 시점에 ALL로 셋팅
   useEffect(() => {
     return setSelectedCategory("ALL");
   }, []);
@@ -20,11 +17,8 @@ function MustList() {
   return (
     <div className="flex flex-col items-center justify-center">
       <Title />
-      <div className="flex flex-col justify-center items-center mt-4 md:mb-[64px]">
-        <SearchBar />
-        <MustCategory />
-      </div>
-      <MustPostList selectedCategory={selectedCategory} />
+      <MustCategory />
+      <MustPostList />
     </div>
   );
 }
