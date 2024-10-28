@@ -7,7 +7,7 @@ function Empty() {
         <div className="relative w-[67px] md:w-[100px] h-[62px] md:h-[94px] mb-5">
           <Image src="/img/icon-empty.png" alt="empty" layout="fill" />
         </div>
-        <h4 className="text-gray-2 text-[16px] mb-1">해당 카테고리에 맞는 게시글이 없습니다.</h4>
+        <h4 className="text-gray-5 text-[16px]">해당 카테고리에 맞는 게시글이 없습니다.</h4>
       </div>
     </div>
   );
