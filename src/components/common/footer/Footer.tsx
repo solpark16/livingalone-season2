@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Footer() {
   return (
-    <footer className="hidden md:block py-[25px] absolute bottom-0 left-0 right-0">
+    <footer className="hidden md:block py-[25px] absolute bottom-0 left-0 right-0 border-t border-gray-3 box-border">
       <div className="container flex flex-row items-center justify-between mx-auto w-full max-w-[1200px] px-10 lg:px-0">
         <h1 className="text-[20px] font-bold">
           <Link href="/">
