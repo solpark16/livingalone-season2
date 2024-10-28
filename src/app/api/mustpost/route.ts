@@ -1,11 +1,11 @@
+import { MUST_ITEM_PER_PAGE } from "@/constants/post";
 import { createClient } from "@/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get("page") || "0");
-  const itemsPerPage = 9;
-  const offset = page * itemsPerPage;
+  const offset = page * MUST_ITEM_PER_PAGE;
 
   try {
     const supabase = createClient();
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         count: "exact",
       })
       .order("created_at", { ascending: false })
-      .range(offset, offset + itemsPerPage - 1);
+      .range(offset, offset + MUST_ITEM_PER_PAGE - 1);
     return NextResponse.json({ data, count });
   } catch (error) {
     return NextResponse.json({ error: "데이터를 가져오는 데 실패했습니다." });

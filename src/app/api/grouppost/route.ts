@@ -1,3 +1,4 @@
+import { GROUP_ITEM_PER_PAGE } from "@/constants/post";
 import { createClient } from "@/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -7,20 +8,18 @@ export async function GET(request: NextRequest) {
   const isFinished = url.searchParams.get("isFinished") === "true";
   const page = parseInt(url.searchParams.get("page") || "0");
 
-  const itemsPerPage = 6;
-  const offset = page * itemsPerPage;
+  const offset = page * GROUP_ITEM_PER_PAGE;
 
   try {
     const supabase = createClient();
     const { data, count } = await supabase
       .from("group_posts")
-      .select(
-        "id, title, is_finished, price, people_num , img_url, start_date, end_date, group_applications(id)",
-        { count: "exact" }
-      )
+      .select("id, title, is_finished, price, people_num , img_url, start_date, end_date, group_applications(id)", {
+        count: "exact",
+      })
       .eq("is_finished", isFinished)
       .order("created_at", { ascending: false })
-      .range(offset, offset + itemsPerPage - 1);
+      .range(offset, offset + GROUP_ITEM_PER_PAGE - 1);
     return NextResponse.json({ data, count });
   } catch (error) {
     return NextResponse.json({ error: "데이터를 가져오는 데 실패했습니다." });
