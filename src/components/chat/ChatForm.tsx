@@ -126,7 +126,7 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
           type: "chat",
           user_id: userId,
           group_post_id: postId,
-          must_post_id: null,
+          must_post_id: "",
           link: `/grouppost/read/${postId}`,
           is_read: false,
         };
