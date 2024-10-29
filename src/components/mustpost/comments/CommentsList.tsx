@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import CommentDeleteBtn from "./CommentDeleteBtn";
 import CommentBox from "./CommentBox";
 import { MustComments } from "@/types/types";
+import Button from "@/components/common/button/Button";
 
 export type TEditComment = {
   commentId: string | null;
@@ -102,74 +103,90 @@ function CommentsList({ postId }: { postId: string }) {
               <div>
                 {editCommentId === comment.id ? (
                   // 수정 모드
-                  <div className="flex flex-row w-full p-2 border-b border-gray-2">
-                    <div className="flex-shrink-0 relative mr-1 w-6 h-6">
-                      <Image
-                        src={comment.profiles.profile_image_url}
-                        alt="유저 프로필 사진"
-                        fill
-                        className="rounded-full"
-                      />
+                  <div className=" w-full p-3 border border-gray-2 rounded-lg mb-5">
+                    <div className="flex">
+                      <div className="flex-shrink-0 relative mr-1 w-6 h-6">
+                        <Image
+                          src={comment.profiles.profile_image_url}
+                          alt="유저 프로필 사진"
+                          fill
+                          className="rounded-full"
+                        />
+                      </div>
+                      <div className="flex-grow-1">
+                        <span className="inline-block font-semibold mb-1 text-gray-6 h-4 text-[13px]">
+                          {comment.profiles.nickname}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex-grow-1">
-                      <span className="inline-block mb-1 text-gray-4 h-4 text-[14px]">
-                        {comment.profiles.nickname}
-                      </span>
-                      <form
-                        onSubmit={handleUpdateComment}
-                        className="flex flex-col md:flex-row "
-                      >
-                        <div className="flex flex-col">
-                          <textarea
-                            value={editComment}
-                            cols={30}
-                            rows={2}
-                            maxLength={501}
-                            autoFocus={false}
-                            onChange={(e) => setEditComment(e.target.value)}
-                            className="w-full md:w-[514px] px-2 md:px-3 py-2 text-[16px] border border-gray-3 rounded-[4px] resize-none outline-none flex-grow-1"
-                          ></textarea>
-                          <span className="inline-block h-[14px] text-gray-3 text-[12px] ml-auto mt-1 mr-1">
-                            {editComment.length} / 500자
-                          </span>
-                        </div>
+                    <form onSubmit={handleUpdateComment} className="mt-[5px]">
+                      <div className="flex flex-col">
+                        <textarea
+                          value={editComment}
+                          cols={30}
+                          rows={2}
+                          maxLength={501}
+                          autoFocus={false}
+                          onChange={(e) => setEditComment(e.target.value)}
+                          className="w-full h-[45px] text-[14px] rounded-[4px] resize-none outline-none flex-grow-1"
+                        ></textarea>
+                      </div>
 
-                        <div className="flex flex-row justify-center items-center gap-1 w-[72px] md:mb-[18px] md:ml-1 flex-grow-0">
-                          <button
-                            type="button"
-                            onClick={handleCancelEdit}
-                            className="w-[34px] py-[3px] border text-[12px] text-gray-3 bg-gray-6 rounded-[4px]"
-                          >
-                            취소
-                          </button>
-                          <button
-                            type="submit"
-                            className="w-[34px] py-[3px] text-[12px] text-gray-1 rounded-[4px] bg-main-8"
-                          >
-                            완료
-                          </button>
-                        </div>
-                      </form>
-                    </div>
+                      <div className="flex flex-row justify-center items-center gap-1 w-[72px] mt-[9px] md:ml-auto flex-grow-0">
+                        {/* <button
+                          type="button"
+                          onClick={handleCancelEdit}
+                          className="w-[34px] py-[3px] border text-[12px] text-gray-3 bg-gray-6 rounded-[4px]"
+                        >
+                          취소
+                        </button>
+                        <button
+                          type="submit"
+                          className="w-[34px] py-[3px] text-[12px] text-gray-1 rounded-[4px] bg-main-8"
+                        >
+                          완료
+                        </button> */}
+                        <Button
+                          onClick={handleCancelEdit}
+                          bgColor="bg-main-7"
+                          textColor="text-white"
+                          size="sm"
+                          content="취소"
+                        />
+                        <Button
+                          bgColor="bg-main-7"
+                          textColor="text-white"
+                          size="sm"
+                          content="완료"
+                        />
+                      </div>
+                    </form>
                   </div>
                 ) : (
                   // 읽기 모드
-                  <div className="flex flex-col md:flex-row md:items-center border-b border-gray-2">
+                  <div className="mb-5">
                     <CommentBox
                       profileImg={comment.profiles.profile_image_url}
                       nickname={comment.profiles.nickname}
                       content={comment.content}
-                      date={comment.created_at}
                     />
-                    <div className="flex flex-row text-xs gap-1 mt-1 md:mt-0 mb-3 md:mb-0 ml-9 md:ml-0">
+                    <div className="flex flex-row text-xs gap-1 mt-1 md:mt-0 mb-3 md:mb-0 ml-9 md:ml-0 text-gray-4">
+                      <span className="text-gray-4 text-xs">
+                        {comment.created_at
+                          .split("T")
+                          .join(" ")
+                          .substring(0, 16)}
+                      </span>
+                      ・
                       <button
-                        className="w-[34px] py-[3px] text-gray-1 bg-gray-3 rounded-[4px]"
+                        className="text-gray-4 text-xs"
                         onClick={(e) =>
                           handleEditComment(comment.id, comment.content)
                         }
                       >
                         수정
                       </button>
+                      ・
                       <CommentDeleteBtn
                         commentId={comment.id}
                         postId={postId}
@@ -180,23 +197,29 @@ function CommentsList({ postId }: { postId: string }) {
               </div>
             ) : (
               // 댓글 작성자와 아이디가 다른 유저일 경우
-              <div className="border-b border-gray-2">
+              <div className="mb-5">
                 <CommentBox
                   profileImg={comment.profiles.profile_image_url}
                   nickname={comment.profiles.nickname}
                   content={comment.content}
-                  date={comment.created_at}
                 />
+                <span className="text-gray-4 text-xs">
+                  {comment.created_at.split("T").join(" ").substring(0, 16)}
+                </span>
               </div>
             )}
           </div>
         ))}
-      <div className="flex justify-center mt-[14px] gap-2">
+      <div className="flex justify-center pt-[50px] gap-2">
         {[...Array(totalPages)].map((_, index) => {
           return (
             <button
-              className={`w-4 h-4 border-[1px] border-gray-2 flex justify-center items-center text-[10px]
-              ${page === index + 1 ? "text-main-8" : "text-gray-2"}`}
+              className={`w-5 h-5 border-[1px] flex justify-center items-center text-[12px] rounded-[4px] font-semibold
+              ${
+                page === index + 1
+                  ? "text-main-7 border-main-7"
+                  : "text-gray-4 border-gray-4"
+              }`}
               key={index + 1}
               onClick={() => setPage(index + 1)}
             >
