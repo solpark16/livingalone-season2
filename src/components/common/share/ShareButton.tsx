@@ -18,7 +18,7 @@ function ShareButton({
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
-      <button
+      {/* <button
         onClick={() => {
           setIsModalOpen(true);
         }}
@@ -31,8 +31,15 @@ function ShareButton({
           height={22}
           className="w-[13px] md:w-[15px] h-[18px] md:h-[20px]"
         />
-        <p className="text-gray-3 text-[20px] hidden md:block">공유</p>
-      </button>
+      </button> */}
+      <p
+        onClick={() => {
+          setIsModalOpen(true);
+        }}
+        className="text-gray-5 cursor-pointer text-[14px]"
+      >
+        공유
+      </p>
       {isModalOpen && (
         <ShareModal
           postId={postId}

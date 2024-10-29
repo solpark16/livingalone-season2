@@ -16,9 +16,9 @@ async function MorePost({
 
   if (!latestPosts?.length) {
     return (
-      <div className="flex flex-col justify-center items-center mt-[132px]">
+      <div className="flex flex-col justify-center items-center mt-[100px]">
         <h3 className="pb-6 font-bold text-2xl">
-          <span className="text-main-7">{category_name} </span>최신 게시글
+          <span className="text-main-7">{category_name} </span>관련 추천템
         </h3>
         <div>해당 카테고리의 최신 게시글이 없습니다 🥹</div>
       </div>
@@ -26,12 +26,12 @@ async function MorePost({
   }
 
   return (
-    <div className="mt-16 md:mt-[190px]">
-      <h3 className="mb-6 font-bold text-[18px] md:text-[26px] text-black">
+    <div className="mt-16 md:mt-[100px]">
+      <h3 className="mb-[50px] font-bold text-[18px] md:text-[26px] text-black text-center">
         <span className="text-main-7">{category_name}</span> 관련 추천템
       </h3>
       <div className="overflow-x-scroll scrollbar-hide">
-        <ul className=" w-[430px] sm:w-[700px] md:w-auto grid grid-cols-3 gap-[32px]">
+        <ul className=" w-[430px] sm:w-[700px] md:w-auto grid grid-cols-4 gap-[32px]">
           {latestPosts.map((post) => (
             <li key={post.id} className="">
               <MustPostCard
