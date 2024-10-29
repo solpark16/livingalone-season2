@@ -13,7 +13,7 @@ function MustPostCard({ postId, title, item, imgUrl }: MustPostCardProps) {
   return (
     <div className="must_post_card border border-gray-4 rounded-lg hover:border-main-7 box-border overflow-hidden">
       <Link href={`/mustpost/read/${postId}`}>
-        <div className="overflow-hidden relative aspect-[16/10] rounded-t-lg rounded-b-none">
+        <div className="overflow-hidden relative aspect-square rounded-t-lg rounded-b-none">
           <Image
             src={imgUrl}
             alt={item}

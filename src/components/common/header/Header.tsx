@@ -2,17 +2,16 @@
 import { useAuthStore } from "@/zustand/authStore";
 import Image from "next/image";
 import Link from "next/link";
-import TopBanner from "../banner/TopBanner";
 import AuthHeader from "./AuthHeader";
 import GlobalNav from "./GlobalNav";
-import WriteButton from "./WriteButton";
 import SearchBar from "./SearchBar";
+import WriteButton from "./WriteButton";
 
 function Header() {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <header>
+    <header className="border-b border-b-gray-3">
       <AuthHeader />
       <div className="container mx-auto w-full max-w-[1200px] flex items-center py-4 px-10 lg:px-0">
         <h1 className="text-[30px] font-extrabold">

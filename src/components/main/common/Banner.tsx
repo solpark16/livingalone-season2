@@ -3,7 +3,7 @@ import Link from "next/link";
 
 function Banner() {
   return (
-    <div className="bg-gradient-to-r from-[#DDFFCD] to-[#FFFCB0] border border-b border-b-gray-3">
+    <div className="bg-gradient-to-r from-[#DDFFCD] to-[#FFFCB0] border-b border-b-gray-3">
       <div className="relative w-full xl:max-w-[1200px] mx-auto">
         <Link href="/payment">
           <Image
