@@ -59,28 +59,27 @@ function SelectCategory({
           </span>
           <div className="relative grow">
             <button
-              className="relative w-full md:w-[100px] pl-[2px] py-2 border-b border-gray-3 font-bold text-[16px] md:text-[18px] text-left text-gray-5"
+              className="flex items-center justify-between relative w-full md:w-[114px] pl-[10px] py-[7px] border-b border-gray-4 text-[16px] md:text-base text-left text-gray-6"
               onClick={handleIsOpen}
             >
               {initialCategoryName}
               <Image
-                src="/img/icon-input-must.png"
+                src="/img/icon-input-must.svg"
                 alt="카테고리 아이콘"
-                width={24}
-                height={24}
-                className="position absolute right-0 top-[6px]"
+                width={10}
+                height={5}
               />
             </button>
             {isOpen && (
-              <ul className="z-50 flex flex-col items-start justify-center absolute left-0 w-full md:w-[100px] border-t-0 border border-gray-4 bg-white py-[4px]">
+              <ul className="z-50 flex flex-col items-start justify-center absolute translate-y-[9px] w-full md:w-[114px]  py-[5px] border border-gray-4 bg-white">
                 {mustCategories?.map((category) => (
                   <li
                     key={category.id}
-                    className="w-full text-gray-4 text-[14px] hover:bg-main-2"
+                    className="w-full text-gray-6 text-[16px]"
                   >
                     <button
                       onClick={() => handleSelectCategory(category)}
-                      className="inline-flex justify-center w-full py-[5px] px-[16px]  hover:bg-main-2 tracking-wide md:tracking-normal"
+                      className="inline-flex justify-center w-full py-[5px] px-[16px]  hover:bg-yellow-2 tracking-wide md:tracking-normal"
                     >
                       {category.name}
                     </button>

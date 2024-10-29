@@ -23,6 +23,7 @@ import { mustValidation } from "../common/MustValidation";
 
 import imageCompression from "browser-image-compression";
 import Input from "@/components/common/input/Input";
+import Button from "@/components/common/button/Button";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -217,8 +218,7 @@ function MustWriteForm() {
           <Input
             name="price"
             labelName="판매가격"
-            // value={price || ""}
-            value={price}
+            value={price || ""}
             type="number"
             placeholder="0"
             onChange={onChangeInput}
@@ -228,7 +228,6 @@ function MustWriteForm() {
           <Input
             name="link"
             labelName="상품링크"
-            // value={price || ""}
             value={link || ""}
             type="text"
             placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
@@ -249,12 +248,6 @@ function MustWriteForm() {
               >
                 {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
               </label>
-
-              {loading && !imgUrl && (
-                <div className="w-full md:w-[200px] md:ml-0 mr-[10px] md:mr-0 py-1 bg-gray-6 rounded-full overflow-hidden">
-                  <div className="w-[60px] md:w-[90px] h-2 bg-main-7 rounded-full animate-progressBar"></div>
-                </div>
-              )}
             </div>
 
             {error.imageUrlError && (
@@ -269,8 +262,8 @@ function MustWriteForm() {
                     <Image
                       src="/img/loading-spinner-transparent.svg"
                       alt="로딩중"
-                      width={150}
-                      height={150}
+                      width={100}
+                      height={100}
                     />
                   </div>
                 )}
@@ -279,8 +272,8 @@ function MustWriteForm() {
                   <Image
                     src={imgUrl}
                     alt="포스팅한 이미지"
-                    width={200}
-                    height={200}
+                    width={100}
+                    height={100}
                     className="border border-gray-3 rounded-[4px]"
                   />
                 )}
@@ -292,12 +285,19 @@ function MustWriteForm() {
           </div>
         </form>
         <div className="flex justify-center pb-[123px] md:pb-0 mt-[18px] md:mt-[6px]">
-          <button
+          <Button
+            size="lg"
+            bgColor="bg-main-7"
+            textColor="text-white"
+            content="등록하기"
+            onClick={() => addMustPostBtn()}
+          />
+          {/* <button
             onClick={addMustPostBtn}
             className="px-[106px] py-[8px] text-xl text-white font-bold focus:outline-none bg-main-8 rounded-full"
           >
             등록하기
-          </button>
+          </button> */}
         </div>
       </div>
     </InnerLayout>
