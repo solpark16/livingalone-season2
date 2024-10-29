@@ -3,9 +3,10 @@ import CommentsList from "./CommentsList";
 
 function Comments({ postId, userId }: { postId: string; userId: string }) {
   return (
-    <div className="w-full md:w-[680px] py-[13px] px-[12px] md:px-[23px] bg-gray-6 rounded-[8px]">
-      <CommentsList postId={postId} />
+    <div className="w-full md:w-[640px]">
+      <h6 className="font-bold text-[18px] mt-[52px] mb-[10px]">댓글</h6>
       <CommentForm postId={postId} userId={userId} />
+      <CommentsList postId={postId} />
     </div>
   );
 }

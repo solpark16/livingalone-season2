@@ -5,29 +5,27 @@ interface CommentBoxProps {
   profileImg: string;
   nickname: string;
   content: string;
-  date: string;
 }
 
-function CommentBox({ profileImg, nickname, content, date }: CommentBoxProps) {
+function CommentBox({ profileImg, nickname, content }: CommentBoxProps) {
   return (
-    <div className="flex flex-row gap-1 w-full p-2 text-gray-4">
-      <div className="relative flex-shrink-0 w-6 h-6">
-        <Image
-          src={profileImg}
-          alt="프로필 이미지"
-          fill
-          className="rounded-full"
-        />
+    <div className="gap-1 w-full text-gray-4">
+      <div className="flex items-center gap-[5px] mb-[10px]">
+        <div className="relative flex-shrink-0 w-6 h-6">
+          <Image
+            src={profileImg}
+            alt="프로필 이미지"
+            fill
+            className="rounded-full"
+          />
+        </div>
+        <div className="flex flex-col text-[13px] text-gray-6 font-semibold">
+          <span>{nickname}</span>
+        </div>
       </div>
-      <div className="flex flex-col text-[14px]">
-        <span className="mb-1">{nickname}</span>
-        <p className="mb-[2px] text-[16px] whitespace-pre-wrap break-words text-justify leading-5">
-          {content}
-        </p>
-        <span className="text-gray-2">
-          {date.split("T").join(" ").substring(0, 16)}
-        </span>
-      </div>
+      <p className="text-[14px] text-gray-6 whitespace-pre-wrap break-words text-justify leading-5 mb-[10px]">
+        {content}
+      </p>
     </div>
   );
 }

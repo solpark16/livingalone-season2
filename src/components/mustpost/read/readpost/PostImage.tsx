@@ -9,7 +9,7 @@ interface PostImageProps {
 function PostImage({ img_url, link }: PostImageProps) {
   const [isLoading, setIsLoading] = useState(true);
   return (
-    <div className="mb-3 md:mb-6 w-full lg:min-w-[680px]">
+    <div className="mb-5 w-full lg:min-w-[640px]">
       {isLoading && (
         <div className="relative w-full h-[400px] md:h-[680px] border border-gray-2 animate-pulse rounded-[16px]"></div>
       )}
@@ -17,7 +17,7 @@ function PostImage({ img_url, link }: PostImageProps) {
         <Image
           src={img_url}
           alt="상품이미지"
-          className={`w-full h-auto rounded-[16px] border border-gray-2 ${
+          className={`w-full h-auto rounded-lg border border-gray-2 ${
             isLoading ? "hidden" : "block"
           }`}
           width={0}

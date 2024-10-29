@@ -7,6 +7,7 @@ import Comments from "../comments/Comments";
 import MorePost from "./MorePost";
 import MustPostAction from "./MustPostAction";
 import ReadPost from "./ReadPost";
+import Button from "@/components/common/button/Button";
 
 type Props = {
   params: { id: string };
@@ -75,20 +76,13 @@ async function Read({ params }: Props) {
         </div>
       </InnerLayout>
       <MorePost category_id={category_id} category_name={name} id={id} />
-      <div className="flex flex-col justify-center items-center mt-10 md:mt-[69px] mb-[77px] md:mb-[54px]">
-        <Link
-          href={`/mustpost`}
-          className="inline-flex flex-row  px-[17px] py-[8px] border border-gray-4 rounded-full font-bold text-[16px] text-gray-4"
-        >
-          <Image
-            src="/img/icon-left.svg"
-            alt="목록으로 돌아가기 아이콘"
-            width={7}
-            height={12}
-            className="mr-[9px] w-auto h-auto"
-          />
-          목록으로 돌아가기
-        </Link>
+      <div className="flex flex-col justify-center items-center mt-10 md:mt-[100px]">
+        <Button
+          href="/mustpost"
+          textColor="text-main-7"
+          content="목록으로 돌아가기"
+          outline="border border-main-7"
+        />
       </div>
     </>
   );
