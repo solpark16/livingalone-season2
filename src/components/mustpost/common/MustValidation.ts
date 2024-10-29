@@ -31,10 +31,10 @@ export function mustValidation(
     }));
     return false;
   }
-  if (title.length > 50) {
+  if (title.length > 30) {
     setError((prev) => ({
       ...prev,
-      titleError: "제목은 최대 50자까지 입력 가능합니다",
+      titleError: "제목은 최대 30자까지 입력 가능합니다",
     }));
     return false;
   }
