@@ -193,7 +193,7 @@ function MustWriteForm() {
             type="text"
             placeholder="제목을 입력해주세요."
             onChange={onChangeInput}
-            // error={error.titleError}
+            error={error.titleError}
           />
           <Input
             name="itemName"
@@ -202,7 +202,7 @@ function MustWriteForm() {
             type="text"
             placeholder="상품명을 입력해주세요."
             onChange={onChangeInput}
-            // error={error.itemNameError}
+            error={error.itemNameError}
           />
 
           <Input
@@ -212,7 +212,7 @@ function MustWriteForm() {
             type="text"
             placeholder="제작업체 또는 브랜드를 입력해주세요."
             onChange={onChangeInput}
-            // error={error.companyError}
+            error={error.companyError}
           />
 
           <Input
@@ -222,7 +222,7 @@ function MustWriteForm() {
             type="number"
             placeholder="0"
             onChange={onChangeInput}
-            // error={error.priceError}
+            error={error.priceError}
           />
 
           <Input
@@ -257,30 +257,19 @@ function MustWriteForm() {
             )}
             <div className="w-[44px] md:w-auto aspect-square ml-[72px] md:ml-0 rounded-[4px]">
               <div className="relative">
-                {loading && imgUrl && (
-                  <div className="absolute inset-0 m-auto top flex justify-center items-center">
-                    <Image
-                      src="/img/loading-spinner-transparent.svg"
-                      alt="로딩중"
-                      width={100}
-                      height={100}
-                    />
-                  </div>
-                )}
-
                 {imgUrl && (
                   <Image
                     src={imgUrl}
                     alt="포스팅한 이미지"
                     width={100}
                     height={100}
-                    className="border border-gray-3 rounded-[4px]"
+                    className="bg-gray-5 rounded-[4px]"
                   />
                 )}
               </div>
             </div>
           </div>
-          <div className="mb-[22px] md:mb-[58px]">
+          <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />
           </div>
         </form>
@@ -290,14 +279,8 @@ function MustWriteForm() {
             bgColor="bg-main-7"
             textColor="text-white"
             content="등록하기"
-            onClick={() => addMustPostBtn()}
-          />
-          {/* <button
             onClick={addMustPostBtn}
-            className="px-[106px] py-[8px] text-xl text-white font-bold focus:outline-none bg-main-8 rounded-full"
-          >
-            등록하기
-          </button> */}
+          />
         </div>
       </div>
     </InnerLayout>
