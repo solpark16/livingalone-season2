@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import ShareModal from "./ShareModal";
-import Image from "next/image";
 
 function ShareButton({
   postId,
@@ -36,7 +35,7 @@ function ShareButton({
         onClick={() => {
           setIsModalOpen(true);
         }}
-        className="text-gray-5 cursor-pointer text-[14px]"
+        className="text-gray-4 cursor-pointer text-[14px]"
       >
         공유
       </p>
