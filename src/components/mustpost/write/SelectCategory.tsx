@@ -39,11 +39,11 @@ function SelectCategory({
 
   if (isPending)
     return (
-      <div className="flex gap-[2px] items-center justify-center">
-        <span className="flex shrink-0 items-center w-[70px] md:w-[78px] h-[38px] py-2 md:py-[5px] text-[16px] md:text-lg text-gray-4">
+      <div className="flex items-center">
+        <span className="inline-block w-[55px] mr-5 text-base font-semibold text-gray-6">
           카테고리
         </span>
-        <span className="inline-block w-full md:w-[100px] h-[38px] pl-[2px] py-2 border-b border-gray-3 text-[16px]"></span>
+        <span className="inline-block w-full md:w-[114px] h-[38px] pl-[2px] py-2 border-b border-gray-4 text-base"></span>
       </div>
     );
 
