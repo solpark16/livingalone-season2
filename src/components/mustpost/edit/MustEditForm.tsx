@@ -17,6 +17,7 @@ import SelectCategory from "../write/SelectCategory";
 
 import imageCompression from "browser-image-compression";
 import Input from "@/components/common/input/Input";
+import Button from "@/components/common/button/Button";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
@@ -315,12 +316,13 @@ function MustEditForm({ params }: { params: { id: string } }) {
           </div>
         </form>
         <div className="flex justify-center pb-[123px] md:pb-0 mt-[40px] md:mt-[64px]">
-          <button
+          <Button
+            size="lg"
+            bgColor="bg-main-7"
+            textColor="text-white"
+            content="등록하기"
             onClick={addMustPostBtn}
-            className="px-[106px] py-[8px] text-xl text-white font-bold focus:outline-none bg-main-8 rounded-full"
-          >
-            등록하기
-          </button>
+          />
         </div>
       </div>
     </InnerLayout>
