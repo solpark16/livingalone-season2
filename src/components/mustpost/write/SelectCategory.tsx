@@ -52,7 +52,7 @@ function SelectCategory({
   return (
     <div className="relative">
       <div>
-        <div className="flex gap-[2px] items-center grow-0">
+        <div className="flex items-center grow-0">
           {/* <span className="flex w-[70px] md:w-[55px] h-[38px] items-center py-2 md:py-[5px] text-[16px] md:text-lg text-gray-4"> */}
           <span className="inline-block w-[55px] mr-5 text-base font-semibold text-gray-6">
             카테고리

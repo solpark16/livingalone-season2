@@ -10,7 +10,6 @@ import { Notify } from "notiflix";
 
 import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import InputField from "../../common/input/InputField";
 import SelectCategory from "./SelectCategory";
 
 import { useInputChange } from "@/hooks/common/useInput";
@@ -179,13 +178,11 @@ function MustWriteForm() {
     <InnerLayout>
       <div className="pb-[76px] md:pb-0">
         <form className="flex flex-col gap-3 md:gap-5 mt-[43px] md:mt-0">
-          <div className="flex flex-col gap-3 md:flex-row md:justify-between md:gap-2 md:w-auto">
-            <SelectCategory
-              selectCategory={selectCategory}
-              initialCategoryName={selectedCategoryName}
-              error={error.categoryError}
-            />
-          </div>
+          <SelectCategory
+            selectCategory={selectCategory}
+            initialCategoryName={selectedCategoryName}
+            error={error.categoryError}
+          />
           <Input
             name="title"
             labelName="제목"
@@ -234,21 +231,19 @@ function MustWriteForm() {
             onChange={onChangeInput}
           />
           <div className="flex flex-col md:flex-row gap-2 md:gap-[10px] items-start">
-            <div className="flex items-center gap-4 w-full md:w-auto">
-              <input
-                className="hidden"
-                id="image-file"
-                type="file"
-                accept="image/*"
-                onChange={addImageHandler}
-              />
-              <label
-                className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] w-[100px] aspect-square text-center font-bold text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
-                htmlFor="image-file"
-              >
-                {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
-              </label>
-            </div>
+            <input
+              className="hidden"
+              id="image-file"
+              type="file"
+              accept="image/*"
+              onChange={addImageHandler}
+            />
+            <label
+              className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] w-[100px] aspect-square text-center font-bold text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
+              htmlFor="image-file"
+            >
+              {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
+            </label>
 
             {error.imageUrlError && (
               <p className={`text-red-3 text-[12px] mt-2`}>

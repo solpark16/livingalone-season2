@@ -12,11 +12,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import InputField from "../../common/input/InputField";
 import { mustValidation } from "../common/MustValidation";
 import SelectCategory from "../write/SelectCategory";
 
 import imageCompression from "browser-image-compression";
+import Input from "@/components/common/input/Input";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
@@ -34,7 +34,8 @@ function MustEditForm({ params }: { params: { id: string } }) {
   const [imgUrl, setImgUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [selectedCategoryName, setSelectedCategoryName] = useState<string>("선택");
+  const [selectedCategoryName, setSelectedCategoryName] =
+    useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
   const [error, setError] = useState({
@@ -97,7 +98,9 @@ function MustEditForm({ params }: { params: { id: string } }) {
 
       setLoading(true);
       const response = await insertMustImage(formData);
-      setImgUrl(`https://nqqsefrllkqytkwxfshk.supabase.co/storage/v1/object/public/mustposts/${response.path}`);
+      setImgUrl(
+        `https://nqqsefrllkqytkwxfshk.supabase.co/storage/v1/object/public/mustposts/${response.path}`
+      );
       setLoading(false);
     },
   });
@@ -143,7 +146,15 @@ function MustEditForm({ params }: { params: { id: string } }) {
 
   const addMustPostBtn = () => {
     if (throttleRef.current) return;
-    const isValid = mustValidation(setError, title, selectedCategoryId, itemName, company, price, imgUrl);
+    const isValid = mustValidation(
+      setError,
+      title,
+      selectedCategoryId,
+      itemName,
+      company,
+      price,
+      imgUrl
+    );
     if (!isValid) {
       return;
     }
@@ -181,105 +192,118 @@ function MustEditForm({ params }: { params: { id: string } }) {
   if (isPending)
     return (
       <div className="flex justify-center items-center">
-        <Image src="/img/loading-spinner.svg" alt="로딩중" width={200} height={200} />
+        <Image
+          src="/img/loading-spinner.svg"
+          alt="로딩중"
+          width={200}
+          height={200}
+        />
       </div>
     );
 
-  if (isError) return <div className="flex justify-center items-center">오류가 발생하였습니다!...</div>;
+  if (isError)
+    return (
+      <div className="flex justify-center items-center">
+        오류가 발생하였습니다!...
+      </div>
+    );
 
   return (
     <InnerLayout>
       <div className="pb-[76px] md:pb-0">
         <form className="flex flex-col gap-3 md:gap-5 mt-[43px] md:mt-0">
-          <InputField
-            labelName="제목"
+          <SelectCategory
+            selectCategory={selectCategory}
+            initialCategoryName={selectedCategoryName}
+            error={error.categoryError}
+          />
+          <Input
             name="title"
-            type="text"
+            labelName="제목"
             value={title}
-            placeHolder="제목을 입력해주세요"
-            onchangeValue={onChangeInput}
+            type="text"
+            placeholder="제목을 입력해주세요."
+            onChange={onChangeInput}
             error={error.titleError}
           />
 
-          <div className="flex flex-row justify-between gap-2">
-            <SelectCategory
-              selectCategory={selectCategory}
-              initialCategoryName={selectedCategoryName}
-              error={error.categoryError}
-            />
-            <div className="md:pl-[72px] flex-grow">
-              <InputField
-                labelName="작성일자"
-                name="date"
-                type="text"
-                value={startDate}
-                onchangeValue={onChangeInput}
-              />
-            </div>
-          </div>
-
-          <InputField
-            labelName="상품이름"
+          <Input
             name="itemName"
-            type="text"
+            labelName="상품이름"
             value={itemName}
-            placeHolder="상품 이름을 입력해주세요."
-            onchangeValue={onChangeInput}
+            type="text"
+            placeholder="상품명을 입력해주세요."
+            onChange={onChangeInput}
             error={error.itemNameError}
           />
 
-          <InputField
-            labelName="제작업체"
+          <Input
             name="company"
-            type="text"
+            labelName="제작업체"
             value={company}
-            placeHolder="구매처를 입력해주세요."
-            onchangeValue={onChangeInput}
+            type="text"
+            placeholder="제작업체 또는 브랜드를 입력해주세요."
+            onChange={onChangeInput}
             error={error.companyError}
           />
 
-          <InputField
-            labelName="판매가격"
+          <Input
             name="price"
+            labelName="판매가격"
+            value={price || ""}
             type="number"
-            value={price}
-            placeHolder="숫자만 입력해주세요"
-            onchangeValue={onChangeInput}
+            placeholder="0"
+            onChange={onChangeInput}
             error={error.priceError}
           />
 
-          <InputField
-            labelName="상품링크"
+          <Input
             name="link"
-            type="text"
+            labelName="상품링크"
             value={link || ""}
-            placeHolder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
-            onchangeValue={onChangeInput}
+            type="text"
+            placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
+            onChange={onChangeInput}
           />
 
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
-            <input className="hidden" id="image-file" type="file" accept="image/*" onChange={addImageHandler} />
+          <div className="flex flex-col md:flex-row gap-2 md:gap-[10px] items-start">
+            <input
+              className="hidden"
+              id="image-file"
+              type="file"
+              accept="image/*"
+              onChange={addImageHandler}
+            />
             <label
-              className="flex justify-center items-center ml-[72px] md:ml-[78px] px-7 py-[7px] border border-gray-4 bg-gray-1 font-bold text-[12px] text-gray-4 rounded-full cursor-pointer"
+              className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] w-[100px] aspect-square text-center font-bold text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
               htmlFor="image-file"
             >
-              {imgUrl ? "이미지 수정" : "이미지 업로드"}
+              {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
             </label>
 
-            {error.imageUrlError && <p className={`text-red-3 text-[12px] mt-2`}>{error.imageUrlError}</p>}
+            {error.imageUrlError && (
+              <p className={`text-red-3 text-[12px] mt-2`}>
+                {error.imageUrlError}
+              </p>
+            )}
             <div className="w-[44px] md:w-auto aspect-square ml-[72px] md:ml-0 rounded-[4px]">
               <div className="relative">
                 {loading && (
                   <div className="absolute inset-0 m-auto top flex justify-center items-center">
-                    <Image src="/img/loading-spinner-transparent.svg" alt="로딩중" width={150} height={150} />
+                    <Image
+                      src="/img/loading-spinner-transparent.svg"
+                      alt="로딩중"
+                      width={150}
+                      height={150}
+                    />
                   </div>
                 )}
                 {imgUrl && (
                   <Image
                     src={imgUrl}
                     alt="포스팅한 이미지"
-                    width={200}
-                    height={200}
+                    width={100}
+                    height={100}
                     className="border border-gray-3 rounded-[4px]"
                   />
                 )}
