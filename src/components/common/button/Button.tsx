@@ -10,7 +10,7 @@ type ButtonProps = {
   href?: string;
 } & ComponentProps<"button">;
 function Button({ size = "default", bgColor, textColor, outline, href, content, ...props }: ButtonProps) {
-  const smProps = "px-[7px] py-[4px] text-xs font-bold rounded-lg";
+  const smProps = "px-[7px] py-[4px] text-xs font-bold rounded";
   const defaultProps = "px-5 py-[7px] text-[15px] font-bold rounded-full";
   const lgProps = "w-[280px] py-[7px] text-center text-[16px] font-bold rounded-full";
 
