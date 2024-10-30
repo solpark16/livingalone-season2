@@ -230,7 +230,7 @@ function MustWriteForm() {
             placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
             onChange={onChangeInput}
           />
-          <div className="flex flex-col md:flex-row gap-2 md:gap-[10px] items-start">
+          <div className="flex flex-row gap-2 md:gap-[10px] items-start">
             <input
               className="hidden"
               id="image-file"
@@ -239,7 +239,7 @@ function MustWriteForm() {
               onChange={addImageHandler}
             />
             <label
-              className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] w-[100px] aspect-square text-center font-bold text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
+              className="flex justify-center items-center shrink-0 w-[70px] md:w-[100px] aspect-square text-center font-bold text-sm md:text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
               htmlFor="image-file"
             >
               {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
@@ -250,7 +250,7 @@ function MustWriteForm() {
                 {error.imageUrlError}
               </p>
             )}
-            <div className="w-[44px] md:w-auto aspect-square ml-[72px] md:ml-0 rounded-[4px]">
+            <div className="w-[70px] md:w-auto aspect-square rounded-[4px]">
               <div className="relative">
                 {imgUrl && (
                   <Image

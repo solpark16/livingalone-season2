@@ -50,7 +50,6 @@ function Alarm() {
       <button
         onClick={() => setIsOpenAlarm(!isOpenAlarm)}
         className={`flex gap-1 ${isAlarm && "text-yellow-2"}`}
-        // 작동 되는건지 모르겠음
       >
         {/* <Image src="/img/icon-alarm.svg" alt="알람" width={24} height={24} /> */}
         알림

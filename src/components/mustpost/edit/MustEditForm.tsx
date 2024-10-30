@@ -18,6 +18,7 @@ import SelectCategory from "../write/SelectCategory";
 import imageCompression from "browser-image-compression";
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
+import IsLoading from "@/components/common/loading/IsLoading";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
@@ -190,17 +191,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
     }, 5000);
   };
 
-  if (isPending)
-    return (
-      <div className="flex justify-center items-center">
-        <Image
-          src="/img/loading-spinner.svg"
-          alt="로딩중"
-          width={200}
-          height={200}
-        />
-      </div>
-    );
+  if (isPending) return <IsLoading />;
 
   if (isError)
     return (
@@ -267,7 +258,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
             onChange={onChangeInput}
           />
 
-          <div className="flex flex-col md:flex-row gap-2 md:gap-[10px] items-start">
+          <div className="flex flex-row gap-2 md:gap-[10px] items-start">
             <input
               className="hidden"
               id="image-file"
@@ -276,7 +267,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
               onChange={addImageHandler}
             />
             <label
-              className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] w-[100px] aspect-square text-center font-bold text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
+              className="flex justify-center items-center shrink-0 w-[70px] md:w-[100px] aspect-square text-center font-bold text-sm md:text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
               htmlFor="image-file"
             >
               {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
@@ -287,16 +278,11 @@ function MustEditForm({ params }: { params: { id: string } }) {
                 {error.imageUrlError}
               </p>
             )}
-            <div className="w-[44px] md:w-auto aspect-square ml-[72px] md:ml-0 rounded-[4px]">
+            <div className="w-[70px] md:w-auto aspect-square rounded-[4px]">
               <div className="relative">
                 {loading && (
                   <div className="absolute inset-0 m-auto top flex justify-center items-center">
-                    <Image
-                      src="/img/loading-spinner-transparent.svg"
-                      alt="로딩중"
-                      width={150}
-                      height={150}
-                    />
+                    <IsLoading />
                   </div>
                 )}
                 {imgUrl && (
@@ -305,7 +291,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
                     alt="포스팅한 이미지"
                     width={100}
                     height={100}
-                    className="border border-gray-3 rounded-[4px]"
+                    className="bg-gray-5 rounded-[4px]"
                   />
                 )}
               </div>

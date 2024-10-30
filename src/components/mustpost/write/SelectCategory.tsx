@@ -40,10 +40,10 @@ function SelectCategory({
   if (isPending)
     return (
       <div className="flex items-center">
-        <span className="inline-block w-[55px] mr-5 text-base font-semibold text-gray-6">
+        <span className="flex-shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6">
           카테고리
         </span>
-        <span className="inline-block w-full md:w-[114px] h-[38px] pl-[2px] py-2 border-b border-gray-4 text-base"></span>
+        <span className="inline-block w-[114px] h-[31px] md:h-[39px] pl-[2px] py-2 border-b border-gray-4 text-[13px] md:text-base"></span>
       </div>
     );
 
@@ -52,14 +52,13 @@ function SelectCategory({
   return (
     <div className="relative">
       <div>
-        <div className="flex items-center grow-0">
-          {/* <span className="flex w-[70px] md:w-[55px] h-[38px] items-center py-2 md:py-[5px] text-[16px] md:text-lg text-gray-4"> */}
-          <span className="inline-block w-[55px] mr-5 text-base font-semibold text-gray-6">
+        <div className="flex items-center">
+          <span className="inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6">
             카테고리
           </span>
           <div className="relative grow">
             <button
-              className="flex items-center justify-between relative w-full md:w-[114px] pl-[10px] py-[7px] border-b border-gray-4 text-[16px] md:text-base text-left text-gray-6"
+              className="flex items-center justify-between relative w-[114px] pl-[10px] py-[7px] border-b border-gray-4 text-xs md:text-[16px] md:text-base text-left text-gray-6"
               onClick={handleIsOpen}
             >
               {initialCategoryName}
@@ -71,11 +70,11 @@ function SelectCategory({
               />
             </button>
             {isOpen && (
-              <ul className="z-50 flex flex-col items-start justify-center absolute translate-y-[9px] w-full md:w-[114px]  py-[5px] border border-gray-4 bg-white">
+              <ul className="z-50 flex flex-col items-start justify-center absolute translate-y-[9px] w-[116px] py-[4px] border border-gray-4 bg-white">
                 {mustCategories?.map((category) => (
                   <li
                     key={category.id}
-                    className="w-full text-gray-6 text-[16px]"
+                    className="w-full text-gray-6 text-xs md:text-[16px]"
                   >
                     <button
                       onClick={() => handleSelectCategory(category)}
