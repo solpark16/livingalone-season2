@@ -1,10 +1,10 @@
 import ShareButton from "@/components/common/share/ShareButton";
+import { WishButton } from "@/components/common/wish/WishButton";
 import Contents from "./readpost/Contents";
 import ItemInfo from "./readpost/ItemInfo";
 import PostImage from "./readpost/PostImage";
 import Title from "./readpost/Title";
 import UserInfo from "./readpost/UserInfo";
-import Wish from "@/components/common/wish/Wish";
 interface ReadPostProps {
   created_at: string;
   title: string;
@@ -36,25 +36,16 @@ function ReadPost({
   return (
     <div className="mt-6 md:mt-0">
       <Title title={title} postId={postId} />
-      <UserInfo
-        profile_image_url={profile_image_url}
-        nickname={nickname}
-        created_at={created_at}
-        postId={postId}
-      />
+      <UserInfo profile_image_url={profile_image_url} nickname={nickname} created_at={created_at} postId={postId} />
       <PostImage img_url={img_url} link={link} />
       <div className="flex flex-row md:flex-col justify-between border-b border-gray-2 pb-5">
         <ItemInfo item={item} location={location} price={price} name={name} />
       </div>
       <Contents content={content} />
       <div className="flex justify-end mt-[10px] items-center">
-        <Wish postId={postId} /> ・
-        <ShareButton
-          postId={postId}
-          title={title}
-          content={item}
-          imgUrl={img_url}
-        />
+        <WishButton postId={postId} />
+        <span className="text-gray-4"> ・ </span>
+        <ShareButton postId={postId} title={title} content={item} imgUrl={img_url} />
       </div>
     </div>
   );
