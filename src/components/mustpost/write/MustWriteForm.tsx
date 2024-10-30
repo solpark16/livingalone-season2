@@ -22,10 +22,15 @@ import { useRouter } from "next/navigation";
 import { mustValidation } from "../common/MustValidation";
 
 import imageCompression from "browser-image-compression";
+import Input from "@/components/common/input/Input";
+import Button from "@/components/common/button/Button";
 
-const EditorModule = dynamic(() => import("@/components/common/editor/EditorModule"), {
-  ssr: false,
-});
+const EditorModule = dynamic(
+  () => import("@/components/common/editor/EditorModule"),
+  {
+    ssr: false,
+  }
+);
 
 function MustWriteForm() {
   const router = useRouter();
@@ -39,7 +44,8 @@ function MustWriteForm() {
   const editorRef = useRef<EditorProps>(null);
   const throttleRef = useRef(false);
 
-  const [selectedCategoryName, setSelectedCategoryName] = useState<string>("선택");
+  const [selectedCategoryName, setSelectedCategoryName] =
+    useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
   const [error, setError] = useState({
@@ -85,7 +91,9 @@ function MustWriteForm() {
 
       setLoading(true);
       const response = await insertMustImage(formData);
-      setImgUrl(`https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`);
+      setImgUrl(
+        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`
+      );
       setLoading(false);
     },
   });
@@ -125,7 +133,15 @@ function MustWriteForm() {
 
   const addMustPostBtn = async () => {
     if (throttleRef.current) return;
-    const isValid = mustValidation(setError, title, selectedCategoryId, itemName, company, price, imgUrl);
+    const isValid = mustValidation(
+      setError,
+      title,
+      selectedCategoryId,
+      itemName,
+      company,
+      price,
+      imgUrl
+    );
     if (!isValid) {
       return;
     }
@@ -163,120 +179,108 @@ function MustWriteForm() {
     <InnerLayout>
       <div className="pb-[76px] md:pb-0">
         <form className="flex flex-col gap-3 md:gap-5 mt-[43px] md:mt-0">
-          <InputField
-            labelName="제목"
-            name="title"
-            type="text"
-            value={title}
-            placeHolder="제목을 입력해주세요"
-            onchangeValue={onChangeInput}
-            error={error.titleError}
-          />
-
           <div className="flex flex-col gap-3 md:flex-row md:justify-between md:gap-2 md:w-auto">
             <SelectCategory
               selectCategory={selectCategory}
               initialCategoryName={selectedCategoryName}
               error={error.categoryError}
             />
-            <div className="md:pl-[72px] min-w-[163px] flex-grow content-end">
-              <InputField
-                labelName="작성일자"
-                name="date"
-                type="text"
-                value={startDate}
-                onchangeValue={onChangeInput}
-              />
-            </div>
           </div>
-
-          <InputField
-            labelName="상품이름"
-            name="itemName"
+          <Input
+            name="title"
+            labelName="제목"
+            value={title}
             type="text"
+            placeholder="제목을 입력해주세요."
+            onChange={onChangeInput}
+            error={error.titleError}
+          />
+          <Input
+            name="itemName"
+            labelName="상품이름"
             value={itemName}
-            placeHolder="상품 이름을 입력해주세요."
-            onchangeValue={onChangeInput}
+            type="text"
+            placeholder="상품명을 입력해주세요."
+            onChange={onChangeInput}
             error={error.itemNameError}
           />
 
-          <InputField
-            labelName="제작업체"
+          <Input
             name="company"
-            type="text"
+            labelName="제작업체"
             value={company}
-            placeHolder="구매처를 입력해주세요."
-            onchangeValue={onChangeInput}
+            type="text"
+            placeholder="제작업체 또는 브랜드를 입력해주세요."
+            onChange={onChangeInput}
             error={error.companyError}
           />
 
-          <InputField
-            labelName="판매가격"
+          <Input
             name="price"
-            type="number"
+            labelName="판매가격"
             value={price || ""}
-            placeHolder="0"
-            onchangeValue={onChangeInput}
+            type="number"
+            placeholder="0"
+            onChange={onChangeInput}
             error={error.priceError}
           />
 
-          <InputField
-            labelName="상품링크"
+          <Input
             name="link"
-            type="text"
+            labelName="상품링크"
             value={link || ""}
-            placeHolder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
-            onchangeValue={onChangeInput}
+            type="text"
+            placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
+            onChange={onChangeInput}
           />
-          <div className="flex flex-col md:flex-row gap-2 md:gap-4 items-start">
+          <div className="flex flex-col md:flex-row gap-2 md:gap-[10px] items-start">
             <div className="flex items-center gap-4 w-full md:w-auto">
-              <input className="hidden" id="image-file" type="file" accept="image/*" onChange={addImageHandler} />
+              <input
+                className="hidden"
+                id="image-file"
+                type="file"
+                accept="image/*"
+                onChange={addImageHandler}
+              />
               <label
-                className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] px-7 py-[7px] border border-gray-4 bg-gray-1 font-bold text-[12px] text-gray-4 rounded-full cursor-pointer leading-[normal]"
+                className="flex justify-center items-center shrink-0 ml-[72px] md:ml-[78px] w-[100px] aspect-square text-center font-bold text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
                 htmlFor="image-file"
               >
-                {imgUrl ? "이미지 수정" : "이미지 업로드"}
+                {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
               </label>
-
-              {loading && !imgUrl && (
-                <div className="w-full md:w-[200px] md:ml-0 mr-[10px] md:mr-0 py-1 bg-gray-6 rounded-full overflow-hidden">
-                  <div className="w-[60px] md:w-[90px] h-2 bg-main-7 rounded-full animate-progressBar"></div>
-                </div>
-              )}
             </div>
 
-            {error.imageUrlError && <p className={`text-red-3 text-[12px] mt-2`}>{error.imageUrlError}</p>}
+            {error.imageUrlError && (
+              <p className={`text-red-3 text-[12px] mt-2`}>
+                {error.imageUrlError}
+              </p>
+            )}
             <div className="w-[44px] md:w-auto aspect-square ml-[72px] md:ml-0 rounded-[4px]">
               <div className="relative">
-                {loading && imgUrl && (
-                  <div className="absolute inset-0 m-auto top flex justify-center items-center">
-                    <Image src="/img/loading-spinner-transparent.svg" alt="로딩중" width={150} height={150} />
-                  </div>
-                )}
-
                 {imgUrl && (
                   <Image
                     src={imgUrl}
                     alt="포스팅한 이미지"
-                    width={200}
-                    height={200}
-                    className="border border-gray-3 rounded-[4px]"
+                    width={100}
+                    height={100}
+                    className="bg-gray-5 rounded-[4px]"
                   />
                 )}
               </div>
             </div>
           </div>
-          <div className="mb-[22px] md:mb-[58px]">
+          <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />
           </div>
         </form>
         <div className="flex justify-center pb-[123px] md:pb-0 mt-[18px] md:mt-[6px]">
-          <button
+          <Button
+            size="lg"
+            bgColor="bg-main-7"
+            textColor="text-white"
+            content="등록하기"
             onClick={addMustPostBtn}
-            className="px-[106px] py-[8px] text-xl text-white font-bold focus:outline-none bg-main-8 rounded-full"
-          >
-            등록하기
-          </button>
+          />
         </div>
       </div>
     </InnerLayout>
