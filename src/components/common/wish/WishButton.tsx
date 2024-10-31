@@ -16,14 +16,25 @@ export function WishButton({ postId }: WishButtonProps) {
       const wishData = { post_id: postId, user_id: user.id };
       isWish ? removeWish(wishData) : addWish(wishData);
     } else {
-      Confirm.show("로그인 후 이용 가능", "로그인하러 가시겠습니까?", "로그인 하기", "취소", () => {
-        router.push("/login");
-      });
+      Confirm.show(
+        "로그인 후 이용 가능",
+        "로그인하러 가시겠습니까?",
+        "로그인 하기",
+        "취소",
+        () => {
+          router.push("/login");
+        }
+      );
     }
   };
 
   return (
-    <button className={`text-[14px] ${isWish ? "text-main-7" : "text-gray-4"}`} onClick={handleToggleWish}>
+    <button
+      className={`text-[13px] md:text-[14px] ${
+        isWish ? "text-main-7" : "text-gray-4"
+      }`}
+      onClick={handleToggleWish}
+    >
       <span>찜하기</span>
     </button>
   );

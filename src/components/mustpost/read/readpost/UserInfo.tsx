@@ -13,7 +13,7 @@ function UserInfo({
   postId,
 }: UserInfoProps) {
   return (
-    <div className="flex flex-row justify-between items-center gap-2 px-1 md:ml-[2px] mb-[20px] border-t border-b py-[10px]">
+    <div className="flex flex-row justify-between items-center gap-2 px-1 md:ml-[2px] mb-[10px] md:mb-[20px] border-t border-b py-[10px]">
       <div className="flex items-center gap-[10px]">
         <div className="relative w-10 h-10">
           <Image
@@ -31,10 +31,9 @@ function UserInfo({
           작성일. {created_at.split("T").join(" ").substring(0, 10)}
         </span>
       </div>
-      {/* <div>흠?</div> */}
-      <div className="shrink-0 w-[32px] aspect-square ml-auto md:hidden">
+      {/* <div className="shrink-0 w-[32px] aspect-square ml-auto md:hidden">
         <Wish postId={postId} />
-      </div>
+      </div> */}
     </div>
   );
 }
