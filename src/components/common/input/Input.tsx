@@ -23,12 +23,13 @@ function Input({
   ...props
 }: inputProps) {
   const defaultInputProps =
-    "w-full border-b border-gray-4 py-[7px] text-base text-gray-6 outline-none";
+    "w-full border-b border-gray-4 py-[7px] text-xs md:text-base text-gray-6 outline-none";
   const smInputProps = "";
+  //
 
   const defaultLabelProps =
-    "shrink-0 inline-block w-[55px] mr-5 text-base font-semibold text-gray-6";
-  const smLabelProps = "inline-block w-[45px]";
+    "shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6";
+  const smLabelProps = "";
 
   return (
     <div>
@@ -36,7 +37,7 @@ function Input({
         <label
           htmlFor={name}
           className={`
-        ${viewSize === "mobile" ? smLabelProps : defaultLabelProps}
+        ${viewSize === "sm" ? smLabelProps : defaultLabelProps}
         `}
         >
           {labelName}
@@ -48,7 +49,7 @@ function Input({
           value={value}
           placeholder={placeholder}
           className={`
-        ${viewSize === "mobile" ? smInputProps : defaultInputProps}
+        ${viewSize === "sm" ? smInputProps : defaultInputProps}
         ${inputWidth}
         `}
           {...props}

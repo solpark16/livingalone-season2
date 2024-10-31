@@ -35,10 +35,7 @@ function MustDeleteBtn({ id }: { id: string }) {
     );
   };
   return (
-    <button
-      className="flex-grow-0 w-[120px] py-[6px] px-[40px] border border-gray-4 rounded-full font-bold text-xl text-gray-4"
-      onClick={handlePostDelete}
-    >
+    <button className="" onClick={handlePostDelete}>
       삭제
     </button>
   );

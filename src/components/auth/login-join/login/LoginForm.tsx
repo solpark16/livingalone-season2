@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { Notify, Report } from "notiflix";
 import { useState } from "react";
 import Input from "../../common/Input";
+// import Input from "../../common/Input";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -43,7 +44,11 @@ const LoginForm = () => {
     const { data, error } = await login(loginData);
 
     if (error) {
-      return Report.failure("로그인에 실패했습니다.", "아이디와 비밀번호를 정확히 입력해 주세요.", "확인");
+      return Report.failure(
+        "로그인에 실패했습니다.",
+        "아이디와 비밀번호를 정확히 입력해 주세요.",
+        "확인"
+      );
     }
 
     saveUser(data.user);
@@ -58,12 +63,16 @@ const LoginForm = () => {
 
   const handleKakaoLogin = async () => {
     const { error } = await kakaoLogin();
-    if (error) return Report.failure("카카오 로그인에 실패했습니다.", "", "확인");
+    if (error)
+      return Report.failure("카카오 로그인에 실패했습니다.", "", "확인");
   };
 
   return (
     <div className="flex flex-col justify-start items-center min-h-screen px-4 sm:px-6 mt-8 lg:px-8 sm:mb-8">
-      <form onSubmit={handleLoginSubmit} className="flex flex-col justify-center w-full max-w-md space-y-7">
+      <form
+        onSubmit={handleLoginSubmit}
+        className="flex flex-col justify-center w-full max-w-md space-y-7"
+      >
         <div className="flex flex-col mb-5 sm:mb-3">
           <Input
             label="이메일"
@@ -101,14 +110,26 @@ const LoginForm = () => {
           className="flex items-center justify-center sm:py-2 sm:text-base w-full py-2 text-lg border border-gray-2 rounded-3xl font-medium md:text-md"
           onClick={handleGoogleLogin}
         >
-          <Image src="/img/icon-google.png" alt="구글 로그인 아이콘" width={24} height={24} className="mr-2" />
+          <Image
+            src="/img/icon-google.png"
+            alt="구글 로그인 아이콘"
+            width={24}
+            height={24}
+            className="mr-2"
+          />
           구글 간편로그인
         </button>
         <button
           className="flex items-center justify-center w-full py-2 text-lg border border-gray-2 rounded-3xl font-medium sm:py-2 sm:text-base  md:text-md"
           onClick={handleKakaoLogin}
         >
-          <Image src="/img/kakaotalk-icon.png" alt="카카오 로그인 아이콘" width={24} height={24} className="mr-2" />
+          <Image
+            src="/img/kakaotalk-icon.png"
+            alt="카카오 로그인 아이콘"
+            width={24}
+            height={24}
+            className="mr-2"
+          />
           카카오 간편로그인
         </button>
       </div>

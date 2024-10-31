@@ -70,13 +70,14 @@ async function Read({ params }: Props) {
             name={name}
             postId={id}
             link={link}
+            userId={user_id}
+            id={id}
           />
           <Comments postId={id} userId={user_id} />
-          <MustPostAction id={id} userId={user_id} />
         </div>
       </InnerLayout>
       <MorePost category_id={category_id} category_name={name} id={id} />
-      <div className="flex flex-col justify-center items-center mt-10 md:mt-[100px]">
+      <div className="flex flex-col justify-center items-center mt-[70px] md:mt-[100px]">
         <Button
           href="/mustpost"
           textColor="text-main-7"
