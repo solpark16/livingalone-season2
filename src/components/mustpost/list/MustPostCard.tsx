@@ -1,4 +1,4 @@
-import Wish from "@/components/common/wish/Wish";
+import { WishCount } from "@/components/common/wish/WishCount";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +28,7 @@ function MustPostCard({ postId, title, item, imgUrl }: MustPostCardProps) {
           <span className="block mt-[10px] text-[14px] text-gray-6 truncate">{item}</span>
           <h4 className="mt-[6px] font-bold text-[20px] text-gray-6 truncate">{title}</h4>
           <div className="sub mt-[16px] border-t border-gray-4 pt-[10px] flex justify-between">
-            <Wish postId={postId} />
+            <WishCount postId={postId} />
             <span className="text-[14px] text-gray-4">댓글 999+</span>
           </div>
         </div>

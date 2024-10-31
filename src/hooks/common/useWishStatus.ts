@@ -3,10 +3,13 @@ import { deleteWish, getMyWish, insertWish } from "@/apis/mustpost";
 import { MustWish, TMustWishData } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { Confirm } from "notiflix";
 import { useEffect, useState } from "react";
 
 export default function useWishStatus(postId: string) {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const [isWish, setIsWish] = useState<boolean>(false);
   const user = useAuthStore((state) => state.user);
   const userId = user?.id as string;
@@ -43,5 +46,16 @@ export default function useWishStatus(postId: string) {
     },
   });
 
-  return { isWish, addWish, removeWish, user };
+  const handleToggleWish = () => {
+    if (user) {
+      const wishData = { post_id: postId, user_id: user.id };
+      isWish ? removeWish(wishData) : addWish(wishData);
+    } else {
+      Confirm.show("로그인 후 이용 가능", "로그인하러 가시겠습니까?", "로그인 하기", "취소", () => {
+        router.push("/login");
+      });
+    }
+  };
+
+  return { handleToggleWish, isWish, addWish, removeWish, user };
 }

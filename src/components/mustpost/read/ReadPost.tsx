@@ -1,10 +1,10 @@
 import ShareButton from "@/components/common/share/ShareButton";
+import { WishButton } from "@/components/common/wish/WishButton";
 import Contents from "./readpost/Contents";
 import ItemInfo from "./readpost/ItemInfo";
 import PostImage from "./readpost/PostImage";
 import Title from "./readpost/Title";
 import UserInfo from "./readpost/UserInfo";
-import Wish from "@/components/common/wish/Wish";
 import MustPostAction from "./MustPostAction";
 interface ReadPostProps {
   created_at: string;
@@ -53,7 +53,7 @@ function ReadPost({
       </div>
       <Contents content={content} />
       <div className="flex justify-end text-gray-5 mt-[10px] items-center">
-        <Wish postId={postId} /> ・
+        <WishButton postId={postId} /> ・
         <ShareButton
           postId={postId}
           title={title}

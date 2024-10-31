@@ -1,4 +1,3 @@
-import Wish from "@/components/common/wish/Wish";
 import Image from "next/image";
 interface UserInfoProps {
   profile_image_url: string;
@@ -31,9 +30,6 @@ function UserInfo({
           작성일. {created_at.split("T").join(" ").substring(0, 10)}
         </span>
       </div>
-      {/* <div className="shrink-0 w-[32px] aspect-square ml-auto md:hidden">
-        <Wish postId={postId} />
-      </div> */}
     </div>
   );
 }

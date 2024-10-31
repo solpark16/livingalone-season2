@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import ShareModal from "./ShareModal";
-import Image from "next/image";
 
 function ShareButton({
   postId,
