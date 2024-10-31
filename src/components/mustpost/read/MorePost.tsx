@@ -7,7 +7,11 @@ interface MorePostProps {
   id: string;
 }
 
-async function MorePost({ category_id: postCategoryId, category_name, id: postId }: MorePostProps) {
+async function MorePost({
+  category_id: postCategoryId,
+  category_name,
+  id: postId,
+}: MorePostProps) {
   const latestPosts = await NewMustCategoryPost(postCategoryId, postId);
 
   if (!latestPosts?.length) {
@@ -27,14 +31,15 @@ async function MorePost({ category_id: postCategoryId, category_name, id: postId
         <span className="text-main-7">{category_name}</span> 관련 추천템
       </h3>
       <div className="overflow-x-scroll scrollbar-hide">
-<<<<<<< HEAD
-        <ul className="w-[430px] sm:w-[700px] md:w-auto grid grid-cols-4 gap-[32px]">
-=======
         <ul className="w-auto grid grid-cols-2 md:grid-cols-4 gap-[6px] md:gap-[12px]">
->>>>>>> 09ee61166373cf9321c08ed9609483e1f3f4891b
           {latestPosts.map((post) => (
             <li key={post.id} className="">
-              <MustPostCard postId={post.id} title={post.title} item={post.item} imgUrl={post.img_url} />
+              <MustPostCard
+                postId={post.id}
+                title={post.title}
+                item={post.item}
+                imgUrl={post.img_url}
+              />
             </li>
           ))}
         </ul>
