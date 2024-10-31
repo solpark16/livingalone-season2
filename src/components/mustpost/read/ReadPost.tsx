@@ -5,6 +5,7 @@ import ItemInfo from "./readpost/ItemInfo";
 import PostImage from "./readpost/PostImage";
 import Title from "./readpost/Title";
 import UserInfo from "./readpost/UserInfo";
+import MustPostAction from "./MustPostAction";
 interface ReadPostProps {
   created_at: string;
   title: string;
@@ -18,6 +19,8 @@ interface ReadPostProps {
   name: string;
   postId: string;
   link: string | null;
+  userId: string;
+  id: string;
 }
 function ReadPost({
   created_at,
@@ -32,20 +35,32 @@ function ReadPost({
   name,
   postId,
   link,
+  userId,
+  id,
 }: ReadPostProps) {
   return (
     <div className="mt-6 md:mt-0">
       <Title title={title} postId={postId} />
-      <UserInfo profile_image_url={profile_image_url} nickname={nickname} created_at={created_at} postId={postId} />
+      <UserInfo
+        profile_image_url={profile_image_url}
+        nickname={nickname}
+        created_at={created_at}
+        postId={postId}
+      />
       <PostImage img_url={img_url} link={link} />
       <div className="flex flex-row md:flex-col justify-between border-b border-gray-2 pb-5">
         <ItemInfo item={item} location={location} price={price} name={name} />
       </div>
       <Contents content={content} />
-      <div className="flex justify-end mt-[10px] items-center">
-        <WishButton postId={postId} />
-        <span className="text-gray-4"> ・ </span>
-        <ShareButton postId={postId} title={title} content={item} imgUrl={img_url} />
+      <div className="flex justify-end text-gray-5 mt-[10px] items-center">
+        <WishButton postId={postId} /> ・
+        <ShareButton
+          postId={postId}
+          title={title}
+          content={item}
+          imgUrl={img_url}
+        />
+        <MustPostAction id={id} userId={userId} />
       </div>
     </div>
   );

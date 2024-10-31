@@ -8,7 +8,7 @@ interface ContentsProps {
 
 function Contents({ content }: ContentsProps) {
   return (
-    <div className="py-10 border-b">
+    <div className="py-5 md:py-10 border-b">
       <Viewer initialValue={content} />
     </div>
   );
