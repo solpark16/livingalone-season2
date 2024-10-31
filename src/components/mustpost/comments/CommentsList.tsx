@@ -132,20 +132,7 @@ function CommentsList({ postId }: { postId: string }) {
                         ></textarea>
                       </div>
 
-                      <div className="flex flex-row justify-center items-center gap-1 w-[72px] mt-[9px] md:ml-auto flex-grow-0">
-                        {/* <button
-                          type="button"
-                          onClick={handleCancelEdit}
-                          className="w-[34px] py-[3px] border text-[12px] text-gray-3 bg-gray-6 rounded-[4px]"
-                        >
-                          취소
-                        </button>
-                        <button
-                          type="submit"
-                          className="w-[34px] py-[3px] text-[12px] text-gray-1 rounded-[4px] bg-main-8"
-                        >
-                          완료
-                        </button> */}
+                      <div className="flex flex-row justify-center items-center gap-1 w-[72px] mt-[9px] ml-auto flex-grow-0">
                         <Button
                           onClick={handleCancelEdit}
                           bgColor="bg-main-7"
@@ -170,7 +157,7 @@ function CommentsList({ postId }: { postId: string }) {
                       nickname={comment.profiles.nickname}
                       content={comment.content}
                     />
-                    <div className="flex flex-row text-xs gap-1 mt-1 md:mt-0 mb-3 md:mb-0 ml-9 md:ml-0 text-gray-4">
+                    <div className="flex flex-row text-xs gap-1 text-gray-4">
                       <span className="text-gray-4 text-xs">
                         {comment.created_at
                           .split("T")
@@ -210,7 +197,7 @@ function CommentsList({ postId }: { postId: string }) {
             )}
           </div>
         ))}
-      <div className="flex justify-center pt-[50px] gap-2">
+      <div className="flex justify-center pt-[10px] md:pt-[50px] gap-2">
         {[...Array(totalPages)].map((_, index) => {
           return (
             <button

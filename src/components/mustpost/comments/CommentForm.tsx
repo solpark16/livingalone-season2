@@ -19,7 +19,6 @@ export type TComment = {
 
 function CommentForm({ postId, userId }: { postId: string; userId: string }) {
   const user = useAuthStore((state) => state.user);
-  console.log(user);
   const queryClient = useQueryClient();
   const [content, setContent] = useState("");
   const [countComment, setCountComment] = useState(0);
@@ -30,7 +29,6 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
     queryFn: () => (user ? getMyProfile(user.id) : undefined),
     enabled: !!user,
   });
-  console.log(profile);
 
   const setContentHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -99,7 +97,7 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
   };
 
   return (
-    <div className="flex flex-col border border-gray-2 rounded-lg p-3 mb-[25px]">
+    <div className="flex flex-col border border-gray-2 rounded-lg p-[10px] md:p-3 mb-[25px]">
       {profile && (
         <div className="flex items-center gap-[5px]">
           <Image
@@ -115,10 +113,10 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
         </div>
       )}
 
-      <div className=" mt-6 ">
+      <div className="mt-[10px] md:mt-[5px]">
         <form
           onSubmit={submitHandler}
-          className="items-center flex flex-col relative gap-[9px]"
+          className="items-center flex flex-col relative gap-[5px] md:gap-[9px]"
         >
           {loading && (
             <div className="absolute inset-0 flex justify-center items-center z-50">
@@ -140,7 +138,7 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
             onChange={(e) => {
               setContentHandler(e);
             }}
-            className="w-full flex-grow text-[14px] resize-none outline-none h-[45px]"
+            className="w-full flex-grow text-[14px] resize-none outline-none h-[52px] md:h-[45px]"
           ></textarea>
           <div className="ml-auto">
             <Button
