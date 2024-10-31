@@ -26,13 +26,13 @@ function MustSection() {
   if (isError) return <div className="flex justify-center items-center">에러...</div>;
 
   return (
-    <div className="container mx-auto w-full max-w-[1200px] mb-[100px]">
+    <div className="container mx-auto max-w-full xl:max-w-[1200px] mb-[100px] px-[12px] xl:px-0">
       <MainSectionTitle
         title="자랑해 자취템"
         content="자취에 필요한 다양한 아이템을 자랑하고 추천해보세요"
         link="/mustpost"
       />
-      <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[12px] gap-y-[40px]">
+      <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-[12px] gap-y-[40px]">
         {mustPosts.map((post) => (
           <li key={post.id}>
             <MustPostCard title={post.title} item={post.item} imgUrl={post.img_url} postId={post.id} />

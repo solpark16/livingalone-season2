@@ -21,8 +21,8 @@ function MustCategory() {
   if (isError) return <Error />;
 
   return (
-    <div className="my-[50px]">
-      <ul className="flex flex-row gap-[10px] flex-wrap justify-between">
+    <div className="my-[30px] md:my-[50px]">
+      <ul className="flex gap-[5px] md:gap-[10px] flex-wrap justify-center">
         <li>
           <Button {...activeStyle("ALL")} content="All" onClick={() => handClickCategory("ALL")} />
         </li>

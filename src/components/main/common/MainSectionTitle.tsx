@@ -9,7 +9,7 @@ function MainSectionTitle({ title, content, link }: MainSectionTitleProps) {
   return (
     <div className="flex justify-between items-end py-[40px]">
       <div>
-        <h3 className="font-bold text-[26px] text-gray-6">{title}</h3>
+        <h3 className="font-bold md:text-[26px] text-gray-6">{title}</h3>
         <p className="text-[16px] text-gray-5 mt-[10px]">{content}</p>
       </div>
       <div>
