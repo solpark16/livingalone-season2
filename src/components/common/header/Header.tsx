@@ -13,7 +13,7 @@ function Header() {
   return (
     <header className="border-b border-b-gray-3">
       <AuthHeader />
-      <div className="container mx-auto w-full max-w-[1200px] flex items-center py-4 px-10 lg:px-0">
+      <div className="container mx-auto w-full max-w-[1200px] flex items-center py-4 px-[12px] lg:px-0">
         <h1 className="text-[30px] font-extrabold">
           <Link href="/">
             <Image src="/img/logo.svg" alt="혼자살때" width={146} height={28} />
