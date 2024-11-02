@@ -1,4 +1,3 @@
-import FrontBanner from "@/components/common/banner/FrontBanner";
 import TopButton from "@/components/common/button/TopButton";
 import MobileHeader from "@/components/common/header/MobileHeader";
 import MobileNav from "@/components/common/header/MobileNav";
@@ -10,7 +9,7 @@ import IsOpenProvider from "@/providers/IsOpenProvider";
 function HomePage() {
   return (
     <>
-      <FrontBanner />
+      {/* <FrontBanner /> */}
       <MobileHeader />
       <IsOpenProvider>
         <main className="bg-main-1 pb-[240px]">
