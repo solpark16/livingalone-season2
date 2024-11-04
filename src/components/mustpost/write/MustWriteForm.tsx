@@ -18,6 +18,7 @@ import { mustValidation } from "../common/MustValidation";
 import imageCompression from "browser-image-compression";
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
+import IsLoading from "@/components/common/loading/IsLoading";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -241,6 +242,11 @@ function MustWriteForm() {
             )}
             <div className="w-[70px] md:w-auto aspect-square rounded-[4px]">
               <div className="relative">
+                {loading && (
+                  <div className="absolute inset-0 m-auto top flex justify-center items-center">
+                    <IsLoading />
+                  </div>
+                )}
                 {imgUrl && (
                   <Image
                     src={imgUrl}
