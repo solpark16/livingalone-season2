@@ -4,6 +4,7 @@ import { useIsOpen } from "@/zustand/isOpenStore";
 import Image from "next/image";
 import Link from "next/link";
 import Alarm from "../alarm/Alarm";
+import SearchBar from "./SearchBar";
 
 interface MobileHeaderProps {
   title?: string;
@@ -22,7 +23,7 @@ function MobileHeader({
   };
 
   return (
-    <div className="relative z-[999] md:hidden flex justify-center py-[18px]">
+    <div className="relative z-[999] md:hidden flex items-center justify-between px-3 py-[12px] bg-main-6">
       <div className="absolute left-[16px] top-[18px]">
         {hamburger && (
           <button onClick={handleOpenSideBar}>
@@ -35,14 +36,8 @@ function MobileHeader({
           </button>
         )}
       </div>
-      {title ? (
-        <h1 className="font-bold text-[18px]">{title}</h1>
-      ) : (
-        <Link href="/">
-          <Image src="/img/logo.svg" alt="혼자살때" width={50} height={0} />
-        </Link>
-      )}
-      <div className="absolute right-[16px] top-[18px]">
+      <SearchBar />
+      <div className="text-[13px] font-medium text-white">
         {user && alarm && <Alarm />}
       </div>
     </div>
