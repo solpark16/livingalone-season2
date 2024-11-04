@@ -7,7 +7,11 @@ interface MorePostProps {
   id: string;
 }
 
-async function MorePost({ category_id: postCategoryId, category_name, id: postId }: MorePostProps) {
+async function MorePost({
+  category_id: postCategoryId,
+  category_name,
+  id: postId,
+}: MorePostProps) {
   const latestPosts = await NewMustCategoryPost(postCategoryId, postId);
 
   if (!latestPosts?.length) {
@@ -30,7 +34,12 @@ async function MorePost({ category_id: postCategoryId, category_name, id: postId
         <ul className="w-auto grid grid-cols-2 md:grid-cols-4 gap-[6px] md:gap-[12px]">
           {latestPosts.map((post) => (
             <li key={post.id} className="">
-              <MustPostCard postId={post.id} title={post.title} item={post.item} imgUrl={post.img_url} />
+              <MustPostCard
+                postId={post.id}
+                title={post.title}
+                item={post.item}
+                imgUrl={post.img_url}
+              />
             </li>
           ))}
         </ul>

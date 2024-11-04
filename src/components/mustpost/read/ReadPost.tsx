@@ -52,7 +52,7 @@ function ReadPost({
         <ItemInfo item={item} location={location} price={price} name={name} />
       </div>
       <Contents content={content} />
-      <div className="flex justify-end text-gray-5 mt-[10px] items-center">
+      <div className="flex justify-end text-gray-4 mt-[10px] items-center">
         <WishButton postId={postId} /> ・
         <ShareButton
           postId={postId}
