@@ -140,12 +140,6 @@ function MustEditForm({ params }: { params: { id: string } }) {
     },
   });
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  const startDate = `${year}-${month}-${day}` as string;
-
   const addMustPostBtn = () => {
     if (throttleRef.current) return;
     const isValid = mustValidation(
@@ -297,11 +291,11 @@ function MustEditForm({ params }: { params: { id: string } }) {
               </div>
             </div>
           </div>
-          <div>
+          <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />
           </div>
         </form>
-        <div className="flex justify-center pb-[123px] md:pb-0 mt-[40px] md:mt-[64px]">
+        <div className="flex justify-center pb-[123px] md:pb-0 mt-[18px] md:mt-[6px]">
           <Button
             size="lg"
             bgColor="bg-main-7"
