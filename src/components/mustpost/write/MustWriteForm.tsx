@@ -15,10 +15,21 @@ import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { mustValidation } from "../common/MustValidation";
-import imageCompression from "browser-image-compression";
+
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
+import AddMustImage from "../common/AddMustImage";
+
+export type ErrorType = Record<
+  | "titleError"
+  | "categoryError"
+  | "itemNameError"
+  | "companyError"
+  | "priceError"
+  | "imageUrlError",
+  string
+>;
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -34,7 +45,6 @@ function MustWriteForm() {
   const selectedCategory = useCategoryStore((state) => state.selectedCategory);
 
   const [imgUrl, setImgUrl] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
 
   const editorRef = useRef<EditorProps>(null);
   const throttleRef = useRef(false);
@@ -43,7 +53,7 @@ function MustWriteForm() {
     useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
-  const [error, setError] = useState({
+  const [error, setError] = useState<ErrorType>({
     titleError: "",
     categoryError: "",
     itemNameError: "",
@@ -78,47 +88,6 @@ function MustWriteForm() {
       Notify.success("게시물이 등록되었습니다.");
     },
   });
-
-  const { mutate: addImage } = useMutation({
-    mutationFn: async (newMustPostImage: File) => {
-      const formData = new FormData();
-      formData.append("file", newMustPostImage);
-
-      setLoading(true);
-      const response = await insertMustImage(formData);
-      setImgUrl(
-        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`
-      );
-      setLoading(false);
-    },
-  });
-
-  const addImageHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    setError((prev) => ({
-      ...prev,
-      imageUrlError: "",
-    }));
-    if (e.target.files) {
-      const newMustPostImage = e.target.files[0];
-      const fileType = newMustPostImage.type;
-
-      if (newMustPostImage && !fileType.includes("image")) {
-        Notify.failure("이미지 파일만 업로드 해주세요");
-        return;
-      }
-
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1000,
-        useWebWorker: true,
-      };
-
-      const compressedFile = await imageCompression(newMustPostImage, options);
-
-      addImage(compressedFile);
-    }
-  };
 
   const addMustPostBtn = async () => {
     if (throttleRef.current) return;
@@ -220,45 +189,12 @@ function MustWriteForm() {
             placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
             onChange={onChangeInput}
           />
-          <div className="flex flex-row gap-2 md:gap-[10px] items-start">
-            <input
-              className="hidden"
-              id="image-file"
-              type="file"
-              accept="image/*"
-              onChange={addImageHandler}
-            />
-            <label
-              className="flex justify-center items-center shrink-0 w-[70px] md:w-[100px] aspect-square text-center font-bold text-sm md:text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
-              htmlFor="image-file"
-            >
-              {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
-            </label>
-
-            {error.imageUrlError && (
-              <p className={`text-red-3 text-[12px] mt-2`}>
-                {error.imageUrlError}
-              </p>
-            )}
-            <div className="w-[70px] md:w-auto aspect-square rounded-[4px]">
-              <div className="relative">
-                {loading && (
-                  <div className="absolute inset-0 m-auto top flex justify-center items-center">
-                    <IsLoading />
-                  </div>
-                )}
-                {imgUrl && (
-                  <Image
-                    src={imgUrl}
-                    alt="포스팅한 이미지"
-                    width={100}
-                    height={100}
-                    className="bg-gray-5 rounded-[4px]"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
+          <AddMustImage
+            imgUrl={imgUrl}
+            setImgUrl={setImgUrl}
+            error={error}
+            setError={setError}
+          />
           <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />
           </div>
