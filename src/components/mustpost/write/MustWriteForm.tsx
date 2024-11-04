@@ -1,9 +1,8 @@
 "use client";
-import { insertMustImage, insertMustPost } from "@/apis/mustpost";
+import { insertMustPost } from "@/apis/mustpost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
 import { MustCategory, TNewMustPost } from "@/types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
 import { Notify } from "notiflix";
 import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -18,7 +17,6 @@ import { mustValidation } from "../common/MustValidation";
 
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
-import IsLoading from "@/components/common/loading/IsLoading";
 import AddMustImage from "../common/AddMustImage";
 
 export type ErrorType = Record<
