@@ -7,13 +7,22 @@ type MainSectionTitleProps = {
 };
 function MainSectionTitle({ title, content, link }: MainSectionTitleProps) {
   return (
-    <div className="flex justify-between items-end py-[40px]">
+    <div className="flex justify-between items-end pt-[40px] pb-[12px] md:pb-[40px]">
       <div>
-        <h3 className="font-bold md:text-[26px] text-gray-6">{title}</h3>
-        <p className="text-[16px] text-gray-5 mt-[10px]">{content}</p>
+        <h3 className="font-bold text-[18px] md:text-[26px] text-gray-6">
+          {title}
+        </h3>
+        <p className="text-[12px] md:text-[16px] text-gray-5 mt-[3px] md:mt-[10px]">
+          {content}
+        </p>
       </div>
-      <div>
-        <Button bgColor="bg-main-2" textColor="text-main-7" href={link} content="더 많은 게시물 보기" />
+      <div className="hidden md:block">
+        <Button
+          bgColor="bg-main-2"
+          textColor="text-main-7"
+          href={link}
+          content="더 많은 게시물 보기"
+        />
       </div>
     </div>
   );

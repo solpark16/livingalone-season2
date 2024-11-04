@@ -4,7 +4,7 @@ import Link from "next/link";
 function Banner() {
   return (
     <div className="bg-gradient-to-r from-[#DDFFCD] to-[#FFFCB0] border-b border-b-gray-3">
-      <div className="relative w-full xl:max-w-[1200px] mx-auto">
+      <div className="relative w-full xl:max-w-[1200px] mx-auto hidden md:block">
         <Link href="/payment">
           <Image
             src="/img/lucky_banner.svg"

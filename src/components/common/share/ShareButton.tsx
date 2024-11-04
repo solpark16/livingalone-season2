@@ -21,7 +21,7 @@ function ShareButton({
         onClick={() => {
           setIsModalOpen(true);
         }}
-        className="text-gray-5 cursor-pointer text-[13px] md:text-[14px]"
+        className="text-gray-4 cursor-pointer text-[13px] md:text-[14px]"
       >
         공유
       </p>
