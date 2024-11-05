@@ -1,7 +1,7 @@
 "use client";
 
 import { myItemsPost } from "@/apis/mypage";
-import MustPostCard from "@/components/mustpost/list/MustPostCard";
+import MustPostCard from "@/components/mustpost/list/Card/MustPostCard";
 import { TMainMustPost } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useQuery } from "@tanstack/react-query";
