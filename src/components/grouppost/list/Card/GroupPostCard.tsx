@@ -1,4 +1,4 @@
-import LabelInfo from "../common/LabelInfo";
+import LabelInfo from "../../common/LabelInfo";
 import GroupPostWrapper from "./GroupPostWrapper";
 import ImageThumb from "./ImageThumb";
 import ItemInfo from "./ItemInfo";
@@ -16,6 +16,9 @@ interface GroupPostCardProps {
   startDate: string;
   endDate: string;
   postId: string;
+  item: string;
+  isFree: boolean;
+  regularPrice: number;
 }
 
 function GroupPostCard({
@@ -28,16 +31,19 @@ function GroupPostCard({
   startDate,
   endDate,
   postId,
+  item,
+  isFree,
+  regularPrice,
 }: GroupPostCardProps) {
   return (
     <GroupPostWrapper postId={postId}>
       <ImageThumb imgUrl={imgUrl} title={title} />
       <div className="px-[8px] py-[8px] md:py-[20px] md:pl-[26px] md:pr-[20px] w-full bg-white shrink-0">
         <ProgressInfo isFinished={isFinished} startDate={startDate} endDate={endDate} />
-        <ItemInfo />
+        <ItemInfo item={item} />
         <PostTitle title={title} />
-        <PriceInfo peopleNum={peopleNum} price={price} />
-        <LabelInfo peopleNum={peopleNum} application={application} />
+        <PriceInfo regularPrice={regularPrice} price={price} />
+        <LabelInfo peopleNum={peopleNum} application={application} isFree={isFree} />
       </div>
     </GroupPostWrapper>
   );

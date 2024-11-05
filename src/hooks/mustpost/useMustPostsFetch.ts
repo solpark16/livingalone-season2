@@ -4,7 +4,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
-export function useMustFetch() {
+export function useMustPostsFetch() {
   const selectedCategory = useCategoryStore((state) => state.selectedCategory);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
     queryKey: ["mustPosts", selectedCategory],

@@ -1,11 +1,11 @@
 "use client";
 
 import { wishItem } from "@/apis/mypage";
-import MustPostCard from "@/components/mustpost/list/MustPostCard";
+import MustPostCard from "@/components/mustpost/list/Card/MustPostCard";
 import { useAuthStore } from "@/zustand/authStore";
 import { useQuery } from "@tanstack/react-query";
-import SkeletonMust from "./SkeletonMust";
 import EmptyState from "../EmptyState/EmptyState";
+import SkeletonMust from "./SkeletonMust";
 
 function WishMust() {
   const user = useAuthStore((state) => state.user);

@@ -14,9 +14,12 @@ export async function GET(request: NextRequest) {
     const supabase = createClient();
     const { data, count } = await supabase
       .from("group_posts")
-      .select("id, title, is_finished, price, people_num , img_url, start_date, end_date, group_applications(id)", {
-        count: "exact",
-      })
+      .select(
+        "id, title, is_finished, price, people_num , img_url, start_date, item, is_free, end_date, regular_price, group_applications(id)",
+        {
+          count: "exact",
+        }
+      )
       .eq("is_finished", isFinished)
       .order("created_at", { ascending: false })
       .range(offset, offset + GROUP_ITEM_PER_PAGE - 1);

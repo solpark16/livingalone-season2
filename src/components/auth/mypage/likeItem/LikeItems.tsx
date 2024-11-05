@@ -1,7 +1,7 @@
 "use client";
 
 import { likeItemPage } from "@/apis/mypage";
-import GroupPostCard from "@/components/grouppost/list/GroupPostCard";
+import GroupPostCard from "@/components/grouppost/list/Card/GroupPostCard";
 import { TLikePosts } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useQuery } from "@tanstack/react-query";
