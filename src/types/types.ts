@@ -91,6 +91,16 @@ export type TLikePosts = Tables<"group_likes"> & {
   group_posts: TGroupLikeAndApplications;
 };
 
+export type TGroupError = Record<
+  | "titleError"
+  | "endDateError"
+  | "peopleNumError"
+  | "itemError"
+  | "priceError"
+  | "imageUrlError",
+  string
+>;
+
 export type Chat = Tables<"chat">;
 
 export type Payment = Tables<"payments">;

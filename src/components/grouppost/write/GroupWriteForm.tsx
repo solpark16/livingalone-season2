@@ -202,14 +202,12 @@ function GroupWriteForm() {
           placeholder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
           onChange={onChangeInput}
         />
-
         <AddGroupImage
           imgUrl={imgUrl}
           setImgUrl={setImgUrl}
           error={error}
           setError={setError}
         />
-
         <div className="mb-[22px] md:mb-[45px]">
           <EditorModule editorRef={editorRef} />
         </div>
