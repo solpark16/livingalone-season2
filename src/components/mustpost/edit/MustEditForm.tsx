@@ -1,5 +1,5 @@
 "use client";
-import { getMustPost, insertMustImage, updateMustPost } from "@/apis/mustpost";
+import { getMustPost, updateMustPost } from "@/apis/mustpost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
 import EditorModule from "@/components/common/editor/EditorModule";
 import { useInputChange } from "@/hooks/common/useInput";
@@ -8,21 +8,30 @@ import { postRevalidate } from "@/utils/revalidate";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { EditorProps } from "@toast-ui/react-editor";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { mustValidation } from "../common/MustValidation";
 import SelectCategory from "../write/SelectCategory";
 
-import imageCompression from "browser-image-compression";
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
+import AddMustImage from "../common/AddMustImage";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
 };
+
+export type ErrorType = Record<
+  | "titleError"
+  | "categoryError"
+  | "itemNameError"
+  | "companyError"
+  | "priceError"
+  | "imageUrlError",
+  string
+>;
 
 function MustEditForm({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -40,7 +49,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
     useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
-  const [error, setError] = useState({
+  const [error, setError] = useState<ErrorType>({
     titleError: "",
     categoryError: "",
     itemNameError: "",
@@ -93,43 +102,6 @@ function MustEditForm({ params }: { params: { id: string } }) {
     setSelectedCategoryId(category.id);
   }, []);
 
-  const { mutate: addImage } = useMutation({
-    mutationFn: async (newMustPostImage: File) => {
-      const formData = new FormData();
-      formData.append("file", newMustPostImage);
-
-      setLoading(true);
-      const response = await insertMustImage(formData);
-      setImgUrl(
-        `https://nqqsefrllkqytkwxfshk.supabase.co/storage/v1/object/public/mustposts/${response.path}`
-      );
-      setLoading(false);
-    },
-  });
-
-  const addImageHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (e.target.files) {
-      const newMustPostImage = e.target.files[0];
-      const fileType = newMustPostImage.type;
-
-      if (!fileType.includes("image")) {
-        Notify.failure("이미지 파일만 업로드 해주세요");
-        return;
-      }
-
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1000,
-        useWebWorker: true,
-      };
-
-      const compressedFile = await imageCompression(newMustPostImage, options);
-
-      addImage(compressedFile);
-    }
-  };
-
   const { mutate: updateMutation } = useMutation({
     mutationFn: (newMustPost: TNewMustPost) => updateMustPost(newMustPost),
     onSuccess: () => {
@@ -140,13 +112,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
     },
   });
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  const startDate = `${year}-${month}-${day}` as string;
-
-  const addMustPostBtn = () => {
+  const addMustPostHandler = () => {
     if (throttleRef.current) return;
     const isValid = mustValidation(
       setError,
@@ -258,56 +224,23 @@ function MustEditForm({ params }: { params: { id: string } }) {
             onChange={onChangeInput}
           />
 
-          <div className="flex flex-row gap-2 md:gap-[10px] items-start">
-            <input
-              className="hidden"
-              id="image-file"
-              type="file"
-              accept="image/*"
-              onChange={addImageHandler}
-            />
-            <label
-              className="flex justify-center items-center shrink-0 w-[70px] md:w-[100px] aspect-square text-center font-bold text-sm md:text-base text-gray-4 bg-gray-1 cursor-pointer whitespace-pre-line rounded-lg"
-              htmlFor="image-file"
-            >
-              {imgUrl ? `이미지\n수정` : `이미지\n업로드`}
-            </label>
-
-            {error.imageUrlError && (
-              <p className={`text-red-3 text-[12px] mt-2`}>
-                {error.imageUrlError}
-              </p>
-            )}
-            <div className="w-[70px] md:w-auto aspect-square rounded-[4px]">
-              <div className="relative">
-                {loading && (
-                  <div className="absolute inset-0 m-auto top flex justify-center items-center">
-                    <IsLoading />
-                  </div>
-                )}
-                {imgUrl && (
-                  <Image
-                    src={imgUrl}
-                    alt="포스팅한 이미지"
-                    width={100}
-                    height={100}
-                    className="bg-gray-5 rounded-[4px]"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-          <div>
+          <AddMustImage
+            imgUrl={imgUrl}
+            setImgUrl={setImgUrl}
+            error={error}
+            setError={setError}
+          />
+          <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />
           </div>
         </form>
-        <div className="flex justify-center pb-[123px] md:pb-0 mt-[40px] md:mt-[64px]">
+        <div className="flex justify-center pb-[123px] md:pb-0 mt-[18px] md:mt-[6px]">
           <Button
             size="lg"
             bgColor="bg-main-7"
             textColor="text-white"
             content="등록하기"
-            onClick={addMustPostBtn}
+            onClick={addMustPostHandler}
           />
         </div>
       </div>
