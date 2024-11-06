@@ -5,6 +5,7 @@ type inputProps = {
   name: string;
   inputWidth?: string;
   labelWidth?: string;
+  labelMr?: string;
   labelName: string;
   value?: string | number;
   type: string;
@@ -24,12 +25,13 @@ function Input({
 }: inputProps) {
   const defaultInputProps =
     "w-full border-b border-gray-4 py-[7px] text-xs md:text-base text-gray-6 outline-none";
-  const smInputProps = "";
+  // const smInputProps = "";
   //
 
   const defaultLabelProps =
     "shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6";
-  const smLabelProps = "";
+  const smLabelProps =
+    "shrink-0 inline-block mr-2 text-sm font-semibold text-gray-6";
 
   return (
     <div>
@@ -49,11 +51,11 @@ function Input({
           value={value}
           placeholder={placeholder}
           className={`
-        ${viewSize === "sm" ? smInputProps : defaultInputProps}
-        ${inputWidth}
+            ${defaultInputProps} ${inputWidth || ""}
         `}
           {...props}
         />
+        {/* ${viewSize === "sm" ? smInputProps : defaultInputProps} */}
       </div>
       {error && <p className={`text-red-3 text-[12px] mt-2`}>{error}</p>}
     </div>
