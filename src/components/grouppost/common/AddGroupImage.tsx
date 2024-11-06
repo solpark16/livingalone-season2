@@ -1,36 +1,36 @@
 import { Notify } from "notiflix";
 import imageCompression from "browser-image-compression";
 import { useMutation } from "@tanstack/react-query";
-import { insertMustImage } from "@/apis/mustpost";
 import { useState } from "react";
 import Image from "next/image";
-import { TMustError } from "@/types/types";
+import { TGroupError } from "@/types/types";
 import IsLoading from "@/components/common/loading/IsLoading";
+import { insertGroupImage } from "@/apis/grouppost";
 
-interface AddMustImageProps {
+interface AddGroupImageProps {
   imgUrl: string;
   setImgUrl: React.Dispatch<React.SetStateAction<string>>;
-  error: TMustError;
-  setError: React.Dispatch<React.SetStateAction<TMustError>>;
+  error: TGroupError;
+  setError: React.Dispatch<React.SetStateAction<TGroupError>>;
 }
 
-function AddMustImage({
+function AddGroupImage({
   imgUrl,
   setImgUrl,
   error,
   setError,
-}: AddMustImageProps) {
+}: AddGroupImageProps) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { mutate: addImage } = useMutation({
-    mutationFn: async (newMustPostImage: File) => {
+    mutationFn: async (newGroupPostImage: File) => {
       const formData = new FormData();
-      formData.append("file", newMustPostImage);
+      formData.append("file", newGroupPostImage);
 
       setLoading(true);
-      const response = await insertMustImage(formData);
+      const response = await insertGroupImage(formData);
       setImgUrl(
-        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`
+        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/groupposts/${response.path}`
       );
       setLoading(false);
     },
@@ -43,10 +43,10 @@ function AddMustImage({
       imageUrlError: "",
     }));
     if (e.target.files) {
-      const newMustPostImage = e.target.files[0];
-      const fileType = newMustPostImage.type;
+      const newGroupPostImage = e.target.files[0];
+      const fileType = newGroupPostImage.type;
 
-      if (newMustPostImage && !fileType.includes("image")) {
+      if (newGroupPostImage && !fileType.includes("image")) {
         Notify.failure("이미지 파일만 업로드 해주세요");
         return;
       }
@@ -57,7 +57,7 @@ function AddMustImage({
         useWebWorker: true,
       };
 
-      const compressedFile = await imageCompression(newMustPostImage, options);
+      const compressedFile = await imageCompression(newGroupPostImage, options);
 
       addImage(compressedFile);
     }
@@ -103,4 +103,4 @@ function AddMustImage({
   );
 }
 
-export default AddMustImage;
+export default AddGroupImage;

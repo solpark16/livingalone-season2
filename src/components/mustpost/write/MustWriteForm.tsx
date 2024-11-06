@@ -1,7 +1,7 @@
 "use client";
 import { insertMustPost } from "@/apis/mustpost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
-import { MustCategory, TNewMustPost } from "@/types/types";
+import { MustCategory, TMustError, TNewMustPost } from "@/types/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Notify } from "notiflix";
 import React, { useRef, useState } from "react";
@@ -18,16 +18,6 @@ import { mustValidation } from "../common/MustValidation";
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import AddMustImage from "../common/AddMustImage";
-
-export type ErrorType = Record<
-  | "titleError"
-  | "categoryError"
-  | "itemNameError"
-  | "companyError"
-  | "priceError"
-  | "imageUrlError",
-  string
->;
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -51,7 +41,7 @@ function MustWriteForm() {
     useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
-  const [error, setError] = useState<ErrorType>({
+  const [error, setError] = useState<TMustError>({
     titleError: "",
     categoryError: "",
     itemNameError: "",
@@ -87,7 +77,7 @@ function MustWriteForm() {
     },
   });
 
-  const submitMustPost = async () => {
+  const addMustPostHandler = async () => {
     if (throttleRef.current) return;
     const isValid = mustValidation(
       setError,
@@ -203,7 +193,7 @@ function MustWriteForm() {
             bgColor="bg-main-7"
             textColor="text-white"
             content="등록하기"
-            onClick={submitMustPost}
+            onClick={addMustPostHandler}
           />
         </div>
       </div>

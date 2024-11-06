@@ -112,7 +112,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
     },
   });
 
-  const submitMustPost = () => {
+  const addMustPostHandler = () => {
     if (throttleRef.current) return;
     const isValid = mustValidation(
       setError,
@@ -240,7 +240,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
             bgColor="bg-main-7"
             textColor="text-white"
             content="등록하기"
-            onClick={submitMustPost}
+            onClick={addMustPostHandler}
           />
         </div>
       </div>
