@@ -39,7 +39,11 @@ function ReadPost({
   id,
 }: ReadPostProps) {
   return (
+<<<<<<< HEAD
     <div className="w-full mt-6 md:mt-0">
+=======
+    <div className="mt-6 md:mt-0 w-full">
+>>>>>>> ae2e8ebc4beaba187c9450a7025b33db49311e52
       <Title title={title} postId={postId} />
       <UserInfo
         profile_image_url={profile_image_url}
