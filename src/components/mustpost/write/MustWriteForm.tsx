@@ -87,7 +87,7 @@ function MustWriteForm() {
     },
   });
 
-  const addMustPostBtn = async () => {
+  const submitMustPost = async () => {
     if (throttleRef.current) return;
     const isValid = mustValidation(
       setError,
@@ -203,7 +203,7 @@ function MustWriteForm() {
             bgColor="bg-main-7"
             textColor="text-white"
             content="등록하기"
-            onClick={addMustPostBtn}
+            onClick={submitMustPost}
           />
         </div>
       </div>

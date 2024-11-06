@@ -106,7 +106,7 @@ export function usePostSubmit() {
     }
   };
 
-  const addMustPostBtn = async () => {
+  const submitMustPost = async () => {
     if (throttleRef.current) return;
     const isValid = mustValidation(
       setError,
@@ -151,7 +151,7 @@ export function usePostSubmit() {
   };
 
   return {
-    addMustPostBtn,
+    submitMustPost: submitMustPost,
     error,
     title,
     itemName,
