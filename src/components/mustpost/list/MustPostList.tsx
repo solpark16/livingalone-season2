@@ -1,11 +1,12 @@
+"use client";
 import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
-import { useMustFetch } from "@/hooks/mustpost/useMustFetch";
-import MustPostCard from "./MustPostCard";
+import { useMustPostsFetch } from "@/hooks/mustpost/useMustPostsFetch";
+import MustPostCard from "./Card/MustPostCard";
 
 function MustPostList() {
-  const { mustPosts, isPending, isError, observerRef, isFetchingNextPage } = useMustFetch();
+  const { mustPosts, isPending, isError, observerRef, isFetchingNextPage } = useMustPostsFetch();
 
   if (isPending) return <IsLoading />;
 
@@ -29,7 +30,7 @@ function MustPostList() {
           {isFetchingNextPage && <IsLoading />}
         </>
       ) : (
-        <Empty />
+        <Empty content="해당 카테고리에 맞는 게시글이 없습니다." />
       )}
     </>
   );

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "genTypes": "supabase gen types typescript --project-id wtgehzvyirdsifnqqfzn --schema public > src/types/supabase.ts"
+    "genTypes": "supabase gen types --lang=typescript --project-id wtgehzvyirdsifnqqfzn --schema public > src/types/supabase.ts"
   },
   "dependencies": {
     "@portone/browser-sdk": "^0.0.8",

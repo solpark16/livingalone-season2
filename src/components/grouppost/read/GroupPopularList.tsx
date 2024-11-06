@@ -4,7 +4,7 @@ import { getGroupPostsOnDetail } from "@/apis/grouppost";
 import { TPopularGroupPost } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
-import GroupPostCard from "../list/GroupPostCard";
+import GroupPostCard from "../list/Card/GroupPostCard";
 
 function GroupPopularList({ id }: { id: string }) {
   const {
@@ -18,17 +18,11 @@ function GroupPopularList({ id }: { id: string }) {
   if (isPending)
     return (
       <div className="flex justify-center items-center">
-        <Image
-          src="/img/loading-spinner.svg"
-          alt="로딩중"
-          width={200}
-          height={200}
-        />
+        <Image src="/img/loading-spinner.svg" alt="로딩중" width={200} height={200} />
       </div>
     );
 
-  if (isError)
-    return <div className="flex justify-center items-center">에러...</div>;
+  if (isError) return <div className="flex justify-center items-center">에러...</div>;
 
   // a,b 타입 설정
   const sortedGroupPosts = groupPosts
@@ -42,9 +36,7 @@ function GroupPopularList({ id }: { id: string }) {
 
   return (
     <>
-      <h6 className="text-[18px] md:text-[26px] font-bold mb-6 mt-[64px] md:mt-[128px]">
-        인기 공구템
-      </h6>
+      <h6 className="text-[18px] md:text-[26px] font-bold mb-6 mt-[64px] md:mt-[128px]">인기 공구템</h6>
       <div className="overflow-x-scroll scrollbar-hide">
         <ul className="min-w-[548px] md:w-auto grid grid-cols-2 gap-8 px-[16px] lg:px-0 z-[10]">
           {sortedGroupPosts.map((post) => {

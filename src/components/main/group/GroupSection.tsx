@@ -1,12 +1,12 @@
 "use client";
 
 import { getGroupPostOnMain } from "@/apis/grouppost";
-import GroupPostCard from "@/components/grouppost/list/GroupPostCard";
+import Button from "@/components/common/button/Button";
+import GroupPostCard from "@/components/grouppost/list/Card/GroupPostCard";
 import { TMainGroupPost } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import MainSectionTitle from "../common/MainSectionTitle";
-import Button from "@/components/common/button/Button";
 
 function GroupSection() {
   const {
@@ -21,17 +21,11 @@ function GroupSection() {
   if (isPending)
     return (
       <div className="flex justify-center items-center">
-        <Image
-          src="/img/loading-spinner.svg"
-          alt="로딩중"
-          width={200}
-          height={200}
-        />
+        <Image src="/img/loading-spinner.svg" alt="로딩중" width={200} height={200} />
       </div>
     );
 
-  if (isError)
-    return <div className="flex justify-center items-center">에러...</div>;
+  if (isError) return <div className="flex justify-center items-center">에러...</div>;
 
   return (
     <div className="container mx-auto w-full max-w-[1200px] px-[12px] xl:px-0">
@@ -45,7 +39,6 @@ function GroupSection() {
           return (
             <li key={post.id}>
               <GroupPostCard
-                postId={post.id}
                 application={post.group_applications}
                 title={post.title}
                 price={post.price}
@@ -54,18 +47,17 @@ function GroupSection() {
                 imgUrl={post.img_url}
                 startDate={post.start_date}
                 endDate={post.end_date}
+                postId={post.id}
+                item={post.item}
+                isFree={post.is_free}
+                regularPrice={post.regular_price}
               />
             </li>
           );
         })}
       </ul>
       <div className="mt-[30px] text-center md:hidden">
-        <Button
-          bgColor="bg-main-2"
-          textColor="text-main-7"
-          href="/grouppost"
-          content="더 많은 게시물 보기"
-        />
+        <Button bgColor="bg-main-2" textColor="text-main-7" href="/grouppost" content="더 많은 게시물 보기" />
       </div>
     </div>
   );

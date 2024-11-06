@@ -5,8 +5,8 @@ import { TMustPostList } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { Suspense } from "react";
-import MustPostCard from "../list/MustPostCard";
-import Title from "../list/Title";
+import Title from "../../common/Page/PageTitle";
+import MustPostCard from "../list/Card/MustPostCard";
 import ResetButton from "./ResetButton";
 import SearchBar from "./SearchBar";
 
