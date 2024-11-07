@@ -11,7 +11,7 @@ async function MainLayout({ children }: PropsWithChildren) {
           <Header />
         </div>
         <div className="relative">
-          <div className="pb-[5%]">{children}</div>
+          <div>{children}</div>
           <Footer />
         </div>
       </GetUserProvider>
