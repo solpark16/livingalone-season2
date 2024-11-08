@@ -1,37 +1,50 @@
 import { Notify } from "notiflix";
 import imageCompression from "browser-image-compression";
 import { useMutation } from "@tanstack/react-query";
-import { insertGroupImage } from "@/apis/grouppost";
+import { insertMustImage } from "@/apis/mustpost";
 import { useState } from "react";
 import Image from "next/image";
-import { TGroupError } from "@/types/types";
-import IsLoading from "@/components/common/loading/IsLoading";
 
-interface AddGroupImageProps {
+import IsLoading from "@/components/common/loading/IsLoading";
+import { insertGroupImage } from "@/apis/grouppost";
+import { TError, TGroupError, TImageError, TMustError } from "@/types/types";
+
+interface AddImageProps<T> {
   imgUrl: string;
   setImgUrl: React.Dispatch<React.SetStateAction<string>>;
-  error: { imageUrlError: string };
-  setError: React.Dispatch<React.SetStateAction<TGroupError>>;
+  error: T;
+  setError: React.Dispatch<React.SetStateAction<T>>;
+  postType: "must" | "group";
 }
 
-function AddGroupImage({
+function AddImage<T extends { imageUrlError: string }>({
   imgUrl,
   setImgUrl,
   error,
   setError,
-}: AddGroupImageProps) {
+  postType,
+}: AddImageProps<T>) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { mutate: addImage } = useMutation({
-    mutationFn: async (newGroupPostImage: File) => {
+    mutationFn: async (newPostImage: File) => {
       const formData = new FormData();
-      formData.append("file", newGroupPostImage);
+      formData.append("file", newPostImage);
 
       setLoading(true);
-      const response = await insertGroupImage(formData);
-      setImgUrl(
-        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/groupposts/${response.path}`
-      );
+
+      const response =
+        postType === "must"
+          ? await insertMustImage(formData)
+          : await insertGroupImage(formData);
+
+      postType === "must"
+        ? setImgUrl(
+            `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`
+          )
+        : setImgUrl(
+            `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/groupposts/${response.path}`
+          );
       setLoading(false);
     },
   });
@@ -43,10 +56,10 @@ function AddGroupImage({
       imageUrlError: "",
     }));
     if (e.target.files) {
-      const newGroupPostImage = e.target.files[0];
-      const fileType = newGroupPostImage.type;
+      const newPostImage = e.target.files[0];
+      const fileType = newPostImage.type;
 
-      if (newGroupPostImage && !fileType.includes("image")) {
+      if (newPostImage && !fileType.includes("image")) {
         Notify.failure("이미지 파일만 업로드 해주세요");
         return;
       }
@@ -57,7 +70,7 @@ function AddGroupImage({
         useWebWorker: true,
       };
 
-      const compressedFile = await imageCompression(newGroupPostImage, options);
+      const compressedFile = await imageCompression(newPostImage, options);
 
       addImage(compressedFile);
     }
@@ -103,4 +116,4 @@ function AddGroupImage({
   );
 }
 
-export default AddGroupImage;
+export default AddImage;

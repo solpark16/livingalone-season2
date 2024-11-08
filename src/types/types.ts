@@ -101,6 +101,18 @@ export type TGroupError = Record<
   string
 >;
 
+export type TError = {
+  titleError: string;
+  priceError: string;
+  imageUrlError: string;
+  categoryError?: string;
+  itemNameError?: string;
+  companyError?: string;
+  endDateError?: string;
+  peopleNumError?: string;
+  itemError?: string;
+};
+
 export type Chat = Tables<"chat">;
 
 export type Payment = Tables<"payments">;
