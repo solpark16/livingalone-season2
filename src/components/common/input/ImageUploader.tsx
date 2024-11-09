@@ -4,34 +4,46 @@ import { useMutation } from "@tanstack/react-query";
 import { insertMustImage } from "@/apis/mustpost";
 import { useState } from "react";
 import Image from "next/image";
-import { TMustError } from "@/types/types";
-import IsLoading from "@/components/common/loading/IsLoading";
 
-interface AddMustImageProps {
+import IsLoading from "@/components/common/loading/IsLoading";
+import { insertGroupImage } from "@/apis/grouppost";
+
+interface ImageUploaderProps<T> {
   imgUrl: string;
   setImgUrl: React.Dispatch<React.SetStateAction<string>>;
-  error: TMustError;
-  setError: React.Dispatch<React.SetStateAction<TMustError>>;
+  error: T;
+  setError: React.Dispatch<React.SetStateAction<T>>;
+  postType: "must" | "group";
 }
 
-function AddMustImage({
+function ImageUploader<T extends { imageUrlError: string }>({
   imgUrl,
   setImgUrl,
   error,
   setError,
-}: AddMustImageProps) {
+  postType,
+}: ImageUploaderProps<T>) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { mutate: addImage } = useMutation({
-    mutationFn: async (newMustPostImage: File) => {
+    mutationFn: async (newPostImage: File) => {
       const formData = new FormData();
-      formData.append("file", newMustPostImage);
+      formData.append("file", newPostImage);
 
       setLoading(true);
-      const response = await insertMustImage(formData);
-      setImgUrl(
-        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`
-      );
+
+      const response =
+        postType === "must"
+          ? await insertMustImage(formData)
+          : await insertGroupImage(formData);
+
+      postType === "must"
+        ? setImgUrl(
+            `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`
+          )
+        : setImgUrl(
+            `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/groupposts/${response.path}`
+          );
       setLoading(false);
     },
   });
@@ -43,10 +55,10 @@ function AddMustImage({
       imageUrlError: "",
     }));
     if (e.target.files) {
-      const newMustPostImage = e.target.files[0];
-      const fileType = newMustPostImage.type;
+      const newPostImage = e.target.files[0];
+      const fileType = newPostImage.type;
 
-      if (newMustPostImage && !fileType.includes("image")) {
+      if (newPostImage && !fileType.includes("image")) {
         Notify.failure("이미지 파일만 업로드 해주세요");
         return;
       }
@@ -57,7 +69,7 @@ function AddMustImage({
         useWebWorker: true,
       };
 
-      const compressedFile = await imageCompression(newMustPostImage, options);
+      const compressedFile = await imageCompression(newPostImage, options);
 
       addImage(compressedFile);
     }
@@ -103,4 +115,4 @@ function AddMustImage({
   );
 }
 
-export default AddMustImage;
+export default ImageUploader;

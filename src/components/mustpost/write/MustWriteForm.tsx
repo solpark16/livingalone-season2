@@ -17,7 +17,7 @@ import { mustValidation } from "../common/MustValidation";
 
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
-import AddMustImage from "../common/AddMustImage";
+import ImageUploader from "@/components/common/input/ImageUploader";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -177,11 +177,12 @@ function MustWriteForm() {
             placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
             onChange={onChangeInput}
           />
-          <AddMustImage
+          <ImageUploader
             imgUrl={imgUrl}
             setImgUrl={setImgUrl}
             error={error}
             setError={setError}
+            postType="must"
           />
           <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />
