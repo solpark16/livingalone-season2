@@ -25,7 +25,7 @@ import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
 import Error from "@/components/common/error/Error";
 import Input from "@/components/common/input/Input";
-import AddImage from "@/components/common/input/AddImage";
+import ImageUploader from "@/components/common/input/ImageUploader";
 
 function GroupEditForm({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -275,7 +275,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
           placeholder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
           onChange={onChangeInput}
         />
-        <AddImage
+        <ImageUploader
           imgUrl={imgUrl}
           setImgUrl={setImgUrl}
           error={error}

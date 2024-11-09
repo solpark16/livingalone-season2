@@ -22,7 +22,7 @@ import SelectCategory from "../write/SelectCategory";
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
-import AddImage from "@/components/common/input/AddImage";
+import ImageUploader from "@/components/common/input/ImageUploader";
 import Error from "@/components/common/error/Error";
 
 type TMustPost = MustPost & {
@@ -214,7 +214,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
             onChange={onChangeInput}
           />
 
-          <AddImage
+          <ImageUploader
             imgUrl={imgUrl}
             setImgUrl={setImgUrl}
             error={error}

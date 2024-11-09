@@ -8,7 +8,7 @@ import Image from "next/image";
 import IsLoading from "@/components/common/loading/IsLoading";
 import { insertGroupImage } from "@/apis/grouppost";
 
-interface AddImageProps<T> {
+interface ImageUploaderProps<T> {
   imgUrl: string;
   setImgUrl: React.Dispatch<React.SetStateAction<string>>;
   error: T;
@@ -16,13 +16,13 @@ interface AddImageProps<T> {
   postType: "must" | "group";
 }
 
-function AddImage<T extends { imageUrlError: string }>({
+function ImageUploader<T extends { imageUrlError: string }>({
   imgUrl,
   setImgUrl,
   error,
   setError,
   postType,
-}: AddImageProps<T>) {
+}: ImageUploaderProps<T>) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { mutate: addImage } = useMutation({
@@ -115,4 +115,4 @@ function AddImage<T extends { imageUrlError: string }>({
   );
 }
 
-export default AddImage;
+export default ImageUploader;
