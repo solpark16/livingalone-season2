@@ -7,7 +7,6 @@ import Image from "next/image";
 
 import IsLoading from "@/components/common/loading/IsLoading";
 import { insertGroupImage } from "@/apis/grouppost";
-import { TError, TGroupError, TImageError, TMustError } from "@/types/types";
 
 interface AddImageProps<T> {
   imgUrl: string;

@@ -15,8 +15,8 @@ import { v4 as uuidv4 } from "uuid";
 import GroupPostNotice from "../common/GroupPostNotice";
 import { groupValidation } from "../common/GroupValidation";
 import Input from "@/components/common/input/Input";
-import AddGroupImage from "../common/AddGroupImage";
 import Button from "@/components/common/button/Button";
+import AddImage from "@/components/common/input/AddImage";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -129,7 +129,7 @@ function GroupWriteForm() {
     <InnerLayout>
       <GroupPostNotice checkBox={checkBox} setCheckBox={setCheckBox} />
 
-      <form className="flex flex-col gap-3 md:gap-5 mt-[43px] md:mt-0">
+      <form className="flex flex-col gap-3 md:gap-5 mt-[30px] md:mt-[32px]">
         <Input
           name="title"
           labelName="제목"
@@ -191,7 +191,7 @@ function GroupWriteForm() {
           labelName="판매가격"
           value={regularPrice || ""}
           type="number"
-          placeholder="원 단위로 입력해주세요"
+          placeholder="사이트에서 판매되고 있는 가격을 입력해주세요."
           onChange={onChangeInput}
         />
         <Input
@@ -202,17 +202,18 @@ function GroupWriteForm() {
           placeholder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
           onChange={onChangeInput}
         />
-        <AddGroupImage
+        <AddImage
           imgUrl={imgUrl}
           setImgUrl={setImgUrl}
           error={error}
           setError={setError}
+          postType="group"
         />
         <div className="mb-[22px] md:mb-[45px]">
           <EditorModule editorRef={editorRef} />
         </div>
       </form>
-      <div className="flex justify-center pb-[123px] md:pb-0 lg:pb-0 mt-[18px] md:mt-[6px]">
+      <div className="flex justify-center pb-[123px] md:pb-0 mt-[18px] md:mt-[6px]">
         <Button
           size="lg"
           bgColor="bg-main-7"
