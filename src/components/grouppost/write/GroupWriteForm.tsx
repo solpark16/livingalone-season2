@@ -43,6 +43,7 @@ function GroupWriteForm() {
     peopleNumError: "",
     itemError: "",
     priceError: "",
+    regularPriceError: "",
     imageUrlError: "",
   });
 
@@ -80,7 +81,8 @@ function GroupWriteForm() {
       peopleNum,
       item,
       price,
-      imgUrl
+      imgUrl,
+      regularPrice
     );
     if (!isValid) {
       return;
@@ -183,6 +185,7 @@ function GroupWriteForm() {
           type="number"
           placeholder="원 단위로 입력해주세요"
           onChange={onChangeInput}
+          error={error.priceError}
         />
         <Input
           name="regularPrice"
@@ -191,6 +194,7 @@ function GroupWriteForm() {
           type="number"
           placeholder="사이트에서 판매되고 있는 가격을 입력해주세요."
           onChange={onChangeInput}
+          error={error.regularPriceError}
         />
         <Input
           name="link"
