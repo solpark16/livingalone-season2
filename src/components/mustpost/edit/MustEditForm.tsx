@@ -97,8 +97,10 @@ function MustEditForm({ params }: { params: { id: string } }) {
     setSelectedCategoryId(category.id);
   }, []);
 
-  const { mutate: updateMutation } = useMutation({
-    mutationFn: (newMustPost: TNewMustPost) => updateMustPost(newMustPost),
+  const updateMutation = useMutation({
+    mutationFn: async (newMustPost: TNewMustPost) => {
+      await updateMustPost(newMustPost);
+    },
     onSuccess: () => {
       postRevalidate(`/mustpost/read/${id}`);
       router.push(`/mustpost/read/${id}`);
@@ -145,7 +147,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
         price,
         link,
       };
-      updateMutation(newMustPost);
+      updateMutation.mutate(newMustPost);
     }
     setTimeout(() => {
       throttleRef.current = false;
