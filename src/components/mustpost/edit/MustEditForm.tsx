@@ -3,7 +3,12 @@ import { getMustPost, updateMustPost } from "@/apis/mustpost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
 import EditorModule from "@/components/common/editor/EditorModule";
 import { useInputChange } from "@/hooks/common/useInput";
-import { MustCategory, MustPost, TNewMustPost } from "@/types/types";
+import {
+  MustCategory,
+  MustPost,
+  TMustError,
+  TNewMustPost,
+} from "@/types/types";
 import { postRevalidate } from "@/utils/revalidate";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -17,21 +22,12 @@ import SelectCategory from "../write/SelectCategory";
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
-import AddMustImage from "../common/AddMustImage";
+import ImageUploader from "@/components/common/input/ImageUploader";
+import Error from "@/components/common/error/Error";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
 };
-
-export type ErrorType = Record<
-  | "titleError"
-  | "categoryError"
-  | "itemNameError"
-  | "companyError"
-  | "priceError"
-  | "imageUrlError",
-  string
->;
 
 function MustEditForm({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -43,13 +39,12 @@ function MustEditForm({ params }: { params: { id: string } }) {
   const throttleRef = useRef(false);
 
   const [imgUrl, setImgUrl] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
 
   const [selectedCategoryName, setSelectedCategoryName] =
     useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
 
-  const [error, setError] = useState<ErrorType>({
+  const [error, setError] = useState<TMustError>({
     titleError: "",
     categoryError: "",
     itemNameError: "",
@@ -159,12 +154,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
 
   if (isPending) return <IsLoading />;
 
-  if (isError)
-    return (
-      <div className="flex justify-center items-center">
-        오류가 발생하였습니다!...
-      </div>
-    );
+  if (isError) return <Error />;
 
   return (
     <InnerLayout>
@@ -224,11 +214,12 @@ function MustEditForm({ params }: { params: { id: string } }) {
             onChange={onChangeInput}
           />
 
-          <AddMustImage
+          <ImageUploader
             imgUrl={imgUrl}
             setImgUrl={setImgUrl}
             error={error}
             setError={setError}
+            postType="must"
           />
           <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />

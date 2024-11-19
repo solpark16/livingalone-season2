@@ -2,6 +2,10 @@
 
 import { insertGroupPost } from "@/apis/grouppost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
+import Button from "@/components/common/button/Button";
+import ImageUploader from "@/components/common/input/ImageUploader";
+import Input from "@/components/common/input/Input";
+import { START_DATE } from "@/constants/date";
 import { useInputChange } from "@/hooks/common/useInput";
 import { TGroupError, TNewGroupPost } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
@@ -10,20 +14,14 @@ import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import GroupPostNotice from "../common/GroupPostNotice";
 import { groupValidation } from "../common/GroupValidation";
-import Input from "@/components/common/input/Input";
-import AddGroupImage from "../common/AddGroupImage";
-import Button from "@/components/common/button/Button";
 
-const EditorModule = dynamic(
-  () => import("@/components/common/editor/EditorModule"),
-  {
-    ssr: false,
-  }
-);
+const EditorModule = dynamic(() => import("@/components/common/editor/EditorModule"), {
+  ssr: false,
+});
 
 function GroupWriteForm() {
   const router = useRouter();
@@ -69,15 +67,7 @@ function GroupWriteForm() {
   const addGroupPostHandler = async () => {
     if (throttleRef.current) return;
 
-    const isValid = groupValidation(
-      setError,
-      title,
-      endDate,
-      peopleNum,
-      item,
-      price,
-      imgUrl
-    );
+    const isValid = groupValidation(setError, title, endDate, peopleNum, item, price, imgUrl);
     if (!isValid) {
       return;
     }
@@ -90,12 +80,6 @@ function GroupWriteForm() {
       return;
     }
 
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    const startDate = `${year}-${month}-${day}`;
-
     if (editorRef.current) {
       const editorContent = editorRef.current.getInstance().getMarkdown();
 
@@ -105,7 +89,7 @@ function GroupWriteForm() {
         id: uuidv4(),
         user_id: user.id,
         title,
-        start_date: startDate,
+        start_date: START_DATE,
         end_date: endDate,
         people_num: +peopleNum,
         price,
@@ -129,7 +113,7 @@ function GroupWriteForm() {
     <InnerLayout>
       <GroupPostNotice checkBox={checkBox} setCheckBox={setCheckBox} />
 
-      <form className="flex flex-col gap-3 md:gap-5 mt-[43px] md:mt-0">
+      <form className="flex flex-col gap-3 md:gap-5 mt-[30px] md:mt-[32px]">
         <Input
           name="title"
           labelName="제목"
@@ -191,7 +175,7 @@ function GroupWriteForm() {
           labelName="판매가격"
           value={regularPrice || ""}
           type="number"
-          placeholder="원 단위로 입력해주세요"
+          placeholder="사이트에서 판매되고 있는 가격을 입력해주세요."
           onChange={onChangeInput}
         />
         <Input
@@ -202,24 +186,13 @@ function GroupWriteForm() {
           placeholder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
           onChange={onChangeInput}
         />
-        <AddGroupImage
-          imgUrl={imgUrl}
-          setImgUrl={setImgUrl}
-          error={error}
-          setError={setError}
-        />
+        <ImageUploader imgUrl={imgUrl} setImgUrl={setImgUrl} error={error} setError={setError} postType="group" />
         <div className="mb-[22px] md:mb-[45px]">
           <EditorModule editorRef={editorRef} />
         </div>
       </form>
-      <div className="flex justify-center pb-[123px] md:pb-0 lg:pb-0 mt-[18px] md:mt-[6px]">
-        <Button
-          size="lg"
-          bgColor="bg-main-7"
-          textColor="text-white"
-          content="등록하기"
-          onClick={addGroupPostHandler}
-        />
+      <div className="flex justify-center pb-[123px] md:pb-0 mt-[18px] md:mt-[6px]">
+        <Button size="lg" bgColor="bg-main-7" textColor="text-white" content="등록하기" onClick={addGroupPostHandler} />
       </div>
     </InnerLayout>
   );
