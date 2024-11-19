@@ -9,6 +9,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { Notify } from "notiflix";
 import React, { useState } from "react";
+import CommentProfile from "./CommentProfile";
 
 export type TComment = {
   post_id: string;
@@ -99,18 +100,10 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
   return (
     <div className="flex flex-col border border-gray-2 rounded-lg p-[10px] md:p-3 mb-[25px]">
       {profile && (
-        <div className="flex items-center gap-[5px]">
-          <Image
-            src={profile?.profile_image_url}
-            alt="프로필 사진"
-            width={24}
-            height={24}
-            className="rounded-full"
-          />
-          <p className="text-[13px] font-semibold text-gray-6">
-            {profile?.nickname}
-          </p>
-        </div>
+        <CommentProfile
+          profileImg={profile?.profile_image_url}
+          nickname={profile?.nickname}
+        />
       )}
 
       <div className="mt-[10px] md:mt-[5px]">
@@ -150,9 +143,6 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
           </div>
         </form>
       </div>
-      {/* <span className="text-gray-3 text-[12px] ml-auto mr-1 mt-1">
-        {countComment} / 500자
-      </span> */}
     </div>
   );
 }

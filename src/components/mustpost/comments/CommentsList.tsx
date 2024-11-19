@@ -105,9 +105,8 @@ function CommentsList({ postId }: { postId: string }) {
                     createdAt={comment.created_at}
                     commentId={comment.id}
                     postId={postId}
-                    handleEditComment={(e) =>
-                      handleEditComment(comment.id, comment.content)
-                    }
+                    setEditCommentId={setEditCommentId}
+                    setEditComment={setEditComment}
                   />
                 )}
               </div>
