@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  getGroupPost,
-  insertGroupImage,
-  updateGroupPost,
-} from "@/apis/grouppost";
+import { getGroupPost, updateGroupPost } from "@/apis/grouppost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
 import EditorModule from "@/components/common/editor/EditorModule";
-import InputField from "@/components/common/input/InputField";
 import { useInputChange } from "@/hooks/common/useInput";
 import { GroupPost, TNewGroupPost } from "@/types/types";
 import { postRevalidate } from "@/utils/revalidate";
@@ -20,7 +15,6 @@ import React, { useEffect, useRef, useState } from "react";
 import GroupPostNotice from "../common/GroupPostNotice";
 import { groupValidation } from "../common/GroupValidation";
 
-import imageCompression from "browser-image-compression";
 import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
 import Error from "@/components/common/error/Error";
@@ -30,7 +24,10 @@ import ImageUploader from "@/components/common/input/ImageUploader";
 function GroupEditForm({ params }: { params: { id: string } }) {
   const { id } = params;
   const router = useRouter();
+
   const [checkBox, setCheckBox] = useState(false);
+  const [imgUrl, setImgUrl] = useState<string>("");
+
   const editorRef = useRef<EditorProps>(null);
   const throttleRef = useRef(false);
 
@@ -40,6 +37,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
     peopleNumError: "",
     itemError: "",
     priceError: "",
+    regularPriceError: "",
     imageUrlError: "",
   });
 
@@ -51,7 +49,6 @@ function GroupEditForm({ params }: { params: { id: string } }) {
     queryKey: ["editGroupPost", id],
     queryFn: () => getGroupPost(id),
   });
-  const [imgUrl, setImgUrl] = useState<string>("");
 
   const {
     values: input,
@@ -66,6 +63,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
     link: "",
     peopleNum: 0,
     price: 0,
+    isFree: false,
     userId: "",
     isFinished: false,
     regularPrice: 0,
@@ -79,6 +77,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
     link,
     peopleNum,
     price,
+    isFree,
     userId,
     isFinished,
     regularPrice,
@@ -94,6 +93,8 @@ function GroupEditForm({ params }: { params: { id: string } }) {
         link: groupPost.link ? groupPost.link : "",
         peopleNum: groupPost.people_num,
         price: groupPost.price,
+        regularPrice: groupPost.regular_price,
+        isFree: groupPost.is_free,
         userId: groupPost.user_id,
         isFinished: groupPost.is_finished,
       });
@@ -104,40 +105,6 @@ function GroupEditForm({ params }: { params: { id: string } }) {
       }
     }
   }, [groupPost, editorRef.current]);
-
-  const addImageMutation = useMutation({
-    mutationFn: async (newGroupImage: File) => {
-      const formData = new FormData();
-      formData.append("file", newGroupImage);
-      const response = await insertGroupImage(formData);
-      setImgUrl(
-        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/groupposts/${response.path}`
-      );
-    },
-  });
-
-  const addImageHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (e.target.files) {
-      const newGroupImage = e.target.files[0];
-      const fileType = newGroupImage.type;
-
-      if (newGroupImage && !fileType.includes("image")) {
-        Notify.failure("이미지 파일만 업로드 해주세요");
-        return;
-      }
-
-      const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1000,
-        useWebWorker: true,
-      };
-
-      const compressedFile = await imageCompression(newGroupImage, options);
-
-      addImageMutation.mutate(compressedFile);
-    }
-  };
 
   const updateMutation = useMutation({
     mutationFn: async (newGroupPost: TNewGroupPost) => {
@@ -160,7 +127,8 @@ function GroupEditForm({ params }: { params: { id: string } }) {
       peopleNum,
       item,
       price,
-      imgUrl
+      imgUrl,
+      regularPrice
     );
     if (!isValid) {
       return;
@@ -258,6 +226,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
           type="number"
           placeholder="원 단위로 입력해주세요"
           onChange={onChangeInput}
+          error={error.priceError}
         />
         <Input
           name="regularPrice"
@@ -266,6 +235,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
           type="number"
           placeholder="사이트에서 판매되고 있는 가격을 입력해주세요."
           onChange={onChangeInput}
+          error={error.regularPriceError}
         />
         <Input
           name="link"
@@ -275,6 +245,40 @@ function GroupEditForm({ params }: { params: { id: string } }) {
           placeholder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
           onChange={onChangeInput}
         />
+
+        <div className="flex">
+          <label className="shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6">
+            배송비
+          </label>
+          <label htmlFor="isFree">
+            <input
+              id="isFree"
+              type="checkbox"
+              name="isFree"
+              checked={isFree}
+              onChange={onChangeInput}
+              className="hidden"
+            />
+            {isFree ? (
+              <Image
+                src={"/img/icon-isFree-fill.svg"}
+                alt="배송비 포함"
+                width={48}
+                height={24}
+                className="cursor-pointer"
+              />
+            ) : (
+              <Image
+                src={"/img/icon-isFree-stroke.svg"}
+                alt="배송비 미포함"
+                width={48}
+                height={24}
+                className="cursor-pointer"
+              />
+            )}
+          </label>
+        </div>
+
         <ImageUploader
           imgUrl={imgUrl}
           setImgUrl={setImgUrl}
