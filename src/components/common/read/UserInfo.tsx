@@ -3,14 +3,8 @@ interface UserInfoProps {
   profile_image_url: string;
   nickname: string;
   created_at: string;
-  postId: string;
 }
-function UserInfo({
-  profile_image_url,
-  nickname,
-  created_at,
-  postId,
-}: UserInfoProps) {
+function UserInfo({ profile_image_url, nickname, created_at }: UserInfoProps) {
   return (
     <div className="flex flex-row justify-between items-center gap-2 px-1 md:ml-[2px] mb-[10px] md:mb-[20px] border-t border-b py-[10px]">
       <div className="flex items-center gap-[10px]">
