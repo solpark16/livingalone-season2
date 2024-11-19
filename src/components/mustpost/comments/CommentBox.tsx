@@ -2,6 +2,7 @@ import Image from "next/image";
 import { comment } from "postcss";
 import React from "react";
 import CommentDeleteBtn from "./CommentDeleteBtn";
+import CommentProfile from "./CommentProfile";
 
 interface CommentBoxProps {
   profileImg: string;
@@ -10,7 +11,8 @@ interface CommentBoxProps {
   createdAt: string;
   commentId?: string;
   postId?: string;
-  handleEditComment?: (commentId: string, content: string) => void;
+  setEditCommentId?: React.Dispatch<React.SetStateAction<string | null>>;
+  setEditComment?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function CommentBox({
@@ -20,24 +22,19 @@ function CommentBox({
   createdAt,
   commentId,
   postId,
-  handleEditComment,
+  setEditCommentId,
+  setEditComment,
 }: CommentBoxProps) {
-  console.log("ddd" + postId);
+  const handleEditComment = (commentId: string, content: string) => {
+    if (setEditCommentId && setEditComment) {
+      setEditCommentId(commentId);
+      setEditComment(content);
+    }
+  };
   return (
     <div className="gap-1 w-full text-gray-4 mb-5">
-      <div className="flex items-center gap-[5px] mb-[10px]">
-        <div className="relative flex-shrink-0 w-6 h-6">
-          <Image
-            src={profileImg}
-            alt="프로필 이미지"
-            fill
-            className="rounded-full"
-          />
-        </div>
-        <div className="flex flex-col text-[13px] text-gray-6 font-semibold">
-          <span>{nickname}</span>
-        </div>
-      </div>
+      <CommentProfile profileImg={profileImg} nickname={nickname} />
+
       <p className="text-[14px] text-gray-6 whitespace-pre-wrap break-words text-justify leading-5 mb-[10px]">
         {content}
       </p>
