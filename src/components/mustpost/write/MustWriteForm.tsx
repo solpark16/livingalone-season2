@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
-import { usePostSubmit } from "@/hooks/mustpost/usePostSubmit";
+import { usePostSubmit } from "@/hooks/common/usePostSubmit";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),

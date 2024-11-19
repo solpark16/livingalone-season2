@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import GroupPostNotice from "../common/GroupPostNotice";
 import Image from "next/image";
-import { usePostSubmit } from "@/hooks/mustpost/usePostSubmit";
+import { usePostSubmit } from "@/hooks/common/usePostSubmit";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),

@@ -3,6 +3,7 @@ import { insertMustPost } from "@/apis/mustpost";
 import { groupValidation } from "@/components/grouppost/common/GroupValidation";
 import { mustValidation } from "@/components/mustpost/common/MustValidation";
 import { START_DATE } from "@/constants/date";
+import { TGroupError, TMustError } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { EditorProps } from "@toast-ui/react-editor";
@@ -11,7 +12,7 @@ import { Notify } from "notiflix";
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-interface BasePostData {
+interface BasePostData<ErrorType> {
   title: string;
   imgUrl: string;
   editorRef: EditorProps;
@@ -21,13 +22,13 @@ interface BasePostData {
   item: string;
 }
 
-interface MustPostData extends BasePostData {
+interface MustPostData extends BasePostData<TMustError> {
   selectedCategoryId: string;
   company: string;
   itemName: string;
 }
 
-interface GroupPostData extends BasePostData {
+interface GroupPostData extends BasePostData<TGroupError> {
   endDate: string;
   peopleNum: number;
   regularPrice: number;
@@ -73,8 +74,13 @@ type PostResponseType<T extends PostType> = T extends "must"
   ? MustPostResponse
   : GroupPostResponse;
 
-export function usePostSubmit<T extends PostType>(
-  postData: PostDataType<T>,
+export function usePostSubmit<
+  T extends PostType,
+  ErrorType = T extends "must" ? TMustError : TGroupError
+>(
+  postData: PostDataType<T> & {
+    setError: React.Dispatch<React.SetStateAction<ErrorType>>;
+  },
   postType: T
 ) {
   const router = useRouter();
