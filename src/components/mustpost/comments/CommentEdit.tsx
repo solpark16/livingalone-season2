@@ -1,6 +1,7 @@
 import Button from "@/components/common/button/Button";
 import Image from "next/image";
 import React from "react";
+import CommentProfile from "./CommentProfile";
 
 interface CommentEditProps {
   profileImg: string;
@@ -21,21 +22,7 @@ function CommentEdit({
 }: CommentEditProps) {
   return (
     <div className=" w-full p-3 border border-gray-2 rounded-lg mb-5">
-      <div className="flex">
-        <div className="flex-shrink-0 relative mr-1 w-6 h-6">
-          <Image
-            src={profileImg}
-            alt="유저 프로필 사진"
-            fill
-            className="rounded-full"
-          />
-        </div>
-        <div className="flex-grow-1">
-          <span className="inline-block font-semibold mb-1 text-gray-6 h-4 text-[13px]">
-            {nickname}
-          </span>
-        </div>
-      </div>
+      <CommentProfile profileImg={profileImg} nickname={nickname} />
       <form onSubmit={handleUpdateComment} className="mt-[5px]">
         <div className="flex flex-col">
           <textarea
