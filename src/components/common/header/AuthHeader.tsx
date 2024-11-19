@@ -3,7 +3,7 @@ import { useAuthStore } from "@/zustand/authStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
-import Alarm from "../alarm/Alarm";
+import Alarm from "../../alarm/IsAlarm";
 
 function AuthHeader() {
   const router = useRouter();

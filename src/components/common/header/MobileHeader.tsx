@@ -2,8 +2,7 @@
 import { useAuthStore } from "@/zustand/authStore";
 import { useIsOpen } from "@/zustand/isOpenStore";
 import Image from "next/image";
-import Link from "next/link";
-import Alarm from "../alarm/Alarm";
+import Alarm from "../../alarm/IsAlarm";
 import SearchBar from "./SearchBar";
 
 interface MobileHeaderProps {
