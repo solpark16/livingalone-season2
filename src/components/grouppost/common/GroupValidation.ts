@@ -7,6 +7,7 @@ export function groupValidation(
       itemError: string;
       priceError: string;
       imageUrlError: string;
+      regularPriceError: string;
     }>
   >,
   title: string,
@@ -14,7 +15,8 @@ export function groupValidation(
   peopleNum: number,
   item: string,
   price: number,
-  imgUrl: string
+  imgUrl: string,
+  regularPrice: number
 ): boolean {
   setError({
     titleError: "",
@@ -23,6 +25,7 @@ export function groupValidation(
     itemError: "",
     priceError: "",
     imageUrlError: "",
+    regularPriceError: "",
   });
   if (!title.trim()) {
     setError((prev) => ({
@@ -90,6 +93,20 @@ export function groupValidation(
     setError((prev) => ({
       ...prev,
       imageUrlError: "이미지 업로드는 필수입니다.",
+    }));
+    return false;
+  }
+  if (regularPrice <= 0) {
+    setError((prev) => ({
+      ...prev,
+      regularPriceError: "판매 가격을 정확히 입력해주세요.",
+    }));
+    return false;
+  }
+  if (regularPrice > 10000000) {
+    setError((prev) => ({
+      ...prev,
+      regularPriceError: "판매 가격은 최대 999만원까지 입력 가능합니다.",
     }));
     return false;
   }

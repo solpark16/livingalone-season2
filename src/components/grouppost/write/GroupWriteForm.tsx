@@ -18,10 +18,14 @@ import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import GroupPostNotice from "../common/GroupPostNotice";
 import { groupValidation } from "../common/GroupValidation";
+import Image from "next/image";
 
-const EditorModule = dynamic(() => import("@/components/common/editor/EditorModule"), {
-  ssr: false,
-});
+const EditorModule = dynamic(
+  () => import("@/components/common/editor/EditorModule"),
+  {
+    ssr: false,
+  }
+);
 
 function GroupWriteForm() {
   const router = useRouter();
@@ -39,6 +43,7 @@ function GroupWriteForm() {
     peopleNumError: "",
     itemError: "",
     priceError: "",
+    regularPriceError: "",
     imageUrlError: "",
   });
 
@@ -50,9 +55,11 @@ function GroupWriteForm() {
     link: "",
     peopleNum: 0,
     price: 0,
+    isFree: false,
     regularPrice: 0,
   });
-  const { title, endDate, item, link, peopleNum, price, regularPrice } = input;
+  const { title, endDate, item, link, peopleNum, price, isFree, regularPrice } =
+    input;
 
   const addMutation = useMutation({
     mutationFn: async (newGroupPost: TNewGroupPost) => {
@@ -67,7 +74,16 @@ function GroupWriteForm() {
   const addGroupPostHandler = async () => {
     if (throttleRef.current) return;
 
-    const isValid = groupValidation(setError, title, endDate, peopleNum, item, price, imgUrl);
+    const isValid = groupValidation(
+      setError,
+      title,
+      endDate,
+      peopleNum,
+      item,
+      price,
+      imgUrl,
+      regularPrice
+    );
     if (!isValid) {
       return;
     }
@@ -98,7 +114,7 @@ function GroupWriteForm() {
         link,
         img_url: imgUrl,
         is_finished: false,
-        is_free: false,
+        is_free: isFree,
         regular_price: regularPrice,
       };
 
@@ -169,6 +185,7 @@ function GroupWriteForm() {
           type="number"
           placeholder="원 단위로 입력해주세요"
           onChange={onChangeInput}
+          error={error.priceError}
         />
         <Input
           name="regularPrice"
@@ -177,6 +194,7 @@ function GroupWriteForm() {
           type="number"
           placeholder="사이트에서 판매되고 있는 가격을 입력해주세요."
           onChange={onChangeInput}
+          error={error.regularPriceError}
         />
         <Input
           name="link"
@@ -186,13 +204,58 @@ function GroupWriteForm() {
           placeholder="(선택사항) 상품소개 페이지 링크를 넣어주세요."
           onChange={onChangeInput}
         />
-        <ImageUploader imgUrl={imgUrl} setImgUrl={setImgUrl} error={error} setError={setError} postType="group" />
+        <div className="flex">
+          <label className="shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6">
+            배송비
+          </label>
+          <label htmlFor="isFree">
+            <input
+              id="isFree"
+              type="checkbox"
+              name="isFree"
+              checked={isFree}
+              onChange={onChangeInput}
+              className="hidden"
+            />
+            {isFree ? (
+              <Image
+                src={"/img/icon-isFree-fill.svg"}
+                alt="배송비 포함"
+                width={48}
+                height={24}
+                className="cursor-pointer"
+              />
+            ) : (
+              <Image
+                src={"/img/icon-isFree-stroke.svg"}
+                alt="배송비 미포함"
+                width={48}
+                height={24}
+                className="cursor-pointer"
+              />
+            )}
+          </label>
+        </div>
+
+        <ImageUploader
+          imgUrl={imgUrl}
+          setImgUrl={setImgUrl}
+          error={error}
+          setError={setError}
+          postType="group"
+        />
         <div className="mb-[22px] md:mb-[45px]">
           <EditorModule editorRef={editorRef} />
         </div>
       </form>
       <div className="flex justify-center pb-[123px] md:pb-0 mt-[18px] md:mt-[6px]">
-        <Button size="lg" bgColor="bg-main-7" textColor="text-white" content="등록하기" onClick={addGroupPostHandler} />
+        <Button
+          size="lg"
+          bgColor="bg-main-7"
+          textColor="text-white"
+          content="등록하기"
+          onClick={addGroupPostHandler}
+        />
       </div>
     </InnerLayout>
   );

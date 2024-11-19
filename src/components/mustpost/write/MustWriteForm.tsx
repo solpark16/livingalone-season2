@@ -29,7 +29,7 @@ const EditorModule = dynamic(
 function MustWriteForm() {
   const router = useRouter();
   const user = useAuthStore((state) => state.user);
-  const queryClient = useQueryClient();
+
   const selectedCategory = useCategoryStore((state) => state.selectedCategory);
 
   const [imgUrl, setImgUrl] = useState<string>("");
@@ -66,14 +66,13 @@ function MustWriteForm() {
     setSelectedCategoryId(category.id);
   };
 
-  const { mutate: addMustPost } = useMutation({
-    mutationFn: (newMustPost: TNewMustPost) => insertMustPost(newMustPost),
+  const addMutation = useMutation({
+    mutationFn: async (newMustPost: TNewMustPost) => {
+      await insertMustPost(newMustPost);
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["mustPosts", selectedCategory],
-      });
+      Notify.success("게시물이 등록이 완료되었습니다!");
       router.push("/mustpost");
-      Notify.success("게시물이 등록되었습니다.");
     },
   });
 
@@ -114,7 +113,7 @@ function MustWriteForm() {
         price,
         link,
       };
-      addMustPost(newMustPost);
+      addMutation.mutate(newMustPost);
     }
     setTimeout(() => {
       throttleRef.current = false;
