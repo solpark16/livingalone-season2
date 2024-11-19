@@ -4,8 +4,6 @@ type inputProps = {
   viewSize?: string;
   name: string;
   inputWidth?: string;
-  labelWidth?: string;
-  labelMr?: string;
   labelName: string;
   value?: string | number;
   type: string;

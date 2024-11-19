@@ -8,11 +8,12 @@ export const useInputChange = <T extends Record<string, any>>(
   const handler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
 
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 

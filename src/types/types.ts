@@ -97,6 +97,7 @@ export type TGroupError = Record<
   | "peopleNumError"
   | "itemError"
   | "priceError"
+  | "regularPriceError"
   | "imageUrlError",
   string
 >;
