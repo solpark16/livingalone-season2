@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
 interface alarmState {
-  isAlarm: boolean;
-  setIsAlarm: (isConfirm: boolean) => void;
+  isUnread: boolean;
+  setIsUnread: (isConfirm: boolean) => void;
 }
 
-export const useIsAlarm = create<alarmState>((set) => ({
-  isAlarm: false,
-  setIsAlarm: (isConfirm) => set({ isAlarm: isConfirm }),
+export const useIsUnread = create<alarmState>((set) => ({
+  isUnread: false,
+  setIsUnread: (isConfirm) => set({ isUnread: isConfirm }),
 }));
