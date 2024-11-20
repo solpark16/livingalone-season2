@@ -31,8 +31,7 @@ type TMustPost = MustPost & {
 
 function MustEditForm({ params }: { params: { id: string } }) {
   const { id } = params;
-  const user = useAuthStore((state) => state.user);
-  const userId = user?.id;
+  // const user = useAuthStore((state) => state.user);
   const router = useRouter();
 
   const editorRef = useRef<EditorProps>(null);
@@ -63,8 +62,9 @@ function MustEditForm({ params }: { params: { id: string } }) {
     company: "",
     price: 0,
     link: "",
+    userId: "",
   });
-  const { title, itemName, company, price, link } = input;
+  const { title, itemName, company, price, link, userId } = input;
 
   const {
     data: mustPost,
@@ -83,6 +83,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
         company: mustPost.location,
         price: mustPost.price,
         link: mustPost.link || "",
+        userId: mustPost.user_id,
       });
       setSelectedCategoryName(mustPost.must_categories.name);
       setSelectedCategoryId(mustPost.must_categories.id);
@@ -102,14 +103,14 @@ function MustEditForm({ params }: { params: { id: string } }) {
       await updateMustPost(newMustPost);
     },
     onSuccess: () => {
+      Notify.success("게시물 수정이 완료되었습니다.");
       postRevalidate(`/mustpost/read/${id}`);
       router.push(`/mustpost/read/${id}`);
       router.refresh();
-      Notify.success("게시물 수정이 완료되었습니다.");
     },
   });
 
-  const addMustPostHandler = () => {
+  const editMustPostHandler = () => {
     if (throttleRef.current) return;
     const isValid = mustValidation(
       setError,
@@ -121,12 +122,6 @@ function MustEditForm({ params }: { params: { id: string } }) {
       imgUrl
     );
     if (!isValid) {
-      return;
-    }
-
-    if (!userId) {
-      router.push("/login");
-      Notify.failure("로그인을 먼저 진행해주세요.");
       return;
     }
 
@@ -233,7 +228,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
             bgColor="bg-main-7"
             textColor="text-white"
             content="등록하기"
-            onClick={addMustPostHandler}
+            onClick={editMustPostHandler}
           />
         </div>
       </div>
