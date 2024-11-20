@@ -1,9 +1,9 @@
 "use client";
-import { insertAlarm } from "@/apis/alarm";
 import { insertComment } from "@/apis/mustpost";
 import { getMyProfile } from "@/apis/mypage";
 import Button from "@/components/common/button/Button";
-import { Profile, TAddAlarm } from "@/types/types";
+import useAddAlarm from "@/hooks/alarm/useAddAlarm";
+import { Profile } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
@@ -49,10 +49,6 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
     },
   });
 
-  const { mutate: addAlarm } = useMutation({
-    mutationFn: (chatAlarmData: TAddAlarm) => insertAlarm(chatAlarmData),
-  });
-
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) {
@@ -86,15 +82,17 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
     addComment(newComment);
     setContent("");
 
+    //알람 추가
     const chatAlarmData = {
       type: "comment",
       user_id: userId,
-      group_post_id: null,
+      group_post_id: "",
       must_post_id: postId,
       link: `/mustpost/read/${postId}`,
       is_read: false,
     };
-    //addAlarm(chatAlarmData);
+
+    useAddAlarm(chatAlarmData);
   };
 
   return (
