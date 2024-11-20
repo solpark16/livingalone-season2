@@ -12,7 +12,7 @@ function IsReadFilter() {
   });
 
   return (
-    <div className="flex gap-[10px] pt-[20px] pb-[15px]">
+    <div className="flex gap-[10px] pt-[40px] pb-[20px]">
       <Button
         {...activeStyle(isUnread)}
         content="전체"
