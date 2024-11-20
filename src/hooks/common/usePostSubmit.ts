@@ -16,7 +16,7 @@ interface BasePostData<ErrorType> {
   title: string;
   imgUrl: string;
   editorRef: EditorProps;
-  setError: React.Dispatch<React.SetStateAction<any>>;
+  setError: React.Dispatch<React.SetStateAction<ErrorType>>;
   link: string;
   price: number;
   item: string;
@@ -74,13 +74,14 @@ type PostResponseType<T extends PostType> = T extends "must"
   ? MustPostResponse
   : GroupPostResponse;
 
-export function usePostSubmit<
-  T extends PostType,
-  ErrorType = T extends "must" ? TMustError : TGroupError
->(
-  postData: PostDataType<T> & {
-    setError: React.Dispatch<React.SetStateAction<ErrorType>>;
-  },
+export function usePostSubmit<T extends PostType>(
+  postData: T extends "must"
+    ? MustPostData & {
+        setError: React.Dispatch<React.SetStateAction<TMustError>>;
+      }
+    : GroupPostData & {
+        setError: React.Dispatch<React.SetStateAction<TGroupError>>;
+      },
   postType: T
 ) {
   const router = useRouter();
@@ -106,7 +107,7 @@ export function usePostSubmit<
     const isValid =
       postType === "must"
         ? mustValidation(
-            postData.setError,
+            (postData as MustPostData).setError,
             postData.title,
             (postData as MustPostData).selectedCategoryId,
             (postData as MustPostData).itemName,
@@ -115,7 +116,7 @@ export function usePostSubmit<
             postData.imgUrl
           )
         : groupValidation(
-            postData.setError,
+            (postData as GroupPostData).setError,
             postData.title,
             (postData as GroupPostData).endDate,
             (postData as GroupPostData).peopleNum,
