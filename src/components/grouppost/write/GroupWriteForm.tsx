@@ -65,6 +65,7 @@ function GroupWriteForm() {
       setError,
       item,
       checkBox,
+      isFree,
     },
     "group"
   );

@@ -33,6 +33,7 @@ interface GroupPostData extends BasePostData<TGroupError> {
   peopleNum: number;
   regularPrice: number;
   checkBox: boolean;
+  isFree: boolean;
 }
 
 // API 응답 타입
@@ -67,9 +68,6 @@ interface GroupPostResponse {
 }
 
 type PostType = "must" | "group";
-type PostDataType<T extends PostType> = T extends "must"
-  ? MustPostData
-  : GroupPostData;
 type PostResponseType<T extends PostType> = T extends "must"
   ? MustPostResponse
   : GroupPostResponse;
@@ -174,7 +172,7 @@ export function usePostSubmit<T extends PostType>(
               item: postData.item,
               link: postData.link,
               img_url: postData.imgUrl,
-              is_free: false,
+              is_free: (postData as GroupPostData).isFree,
               is_finished: false,
               start_date: START_DATE,
             } as PostResponseType<T>);
