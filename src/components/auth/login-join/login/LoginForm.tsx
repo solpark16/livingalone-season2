@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { Notify, Report } from "notiflix";
 import { useState } from "react";
 import Input from "../../common/Input";
-// import Input from "../../common/Input";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -68,7 +67,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-start items-center min-h-screen px-4 sm:px-6 mt-8 lg:px-8 sm:mb-8">
+    <div className="flex flex-col justify-start items-center px-4 sm:px-6 mt-8 lg:px-8 sm:mb-8">
       <form
         onSubmit={handleLoginSubmit}
         className="flex flex-col justify-center w-full max-w-md space-y-7"
