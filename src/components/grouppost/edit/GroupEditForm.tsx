@@ -4,7 +4,7 @@ import { getGroupPost, updateGroupPost } from "@/apis/grouppost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
 import EditorModule from "@/components/common/editor/EditorModule";
 import { useInputChange } from "@/hooks/common/useInput";
-import { GroupPost, TNewGroupPost } from "@/types/types";
+import { GroupPost, TGroupError, TNewGroupPost } from "@/types/types";
 import { postRevalidate } from "@/utils/revalidate";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { EditorProps } from "@toast-ui/react-editor";
@@ -31,7 +31,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
   const editorRef = useRef<EditorProps>(null);
   const throttleRef = useRef(false);
 
-  const [error, setError] = useState({
+  const [error, setError] = useState<TGroupError>({
     titleError: "",
     endDateError: "",
     peopleNumError: "",
@@ -39,15 +39,6 @@ function GroupEditForm({ params }: { params: { id: string } }) {
     priceError: "",
     regularPriceError: "",
     imageUrlError: "",
-  });
-
-  const {
-    data: groupPost,
-    isPending,
-    isError,
-  } = useQuery<GroupPost>({
-    queryKey: ["editGroupPost", id],
-    queryFn: () => getGroupPost(id),
   });
 
   const {
@@ -82,6 +73,16 @@ function GroupEditForm({ params }: { params: { id: string } }) {
     isFinished,
     regularPrice,
   } = input;
+
+  const {
+    data: groupPost,
+    isPending,
+    isError,
+  } = useQuery<GroupPost>({
+    queryKey: ["editGroupPost", id],
+    queryFn: () => getGroupPost(id),
+  });
+
   useEffect(() => {
     if (groupPost) {
       setValueInit({

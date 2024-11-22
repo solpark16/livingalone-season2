@@ -1,24 +1,19 @@
 "use client";
 
-import { insertGroupPost } from "@/apis/grouppost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import Input from "@/components/common/input/Input";
-import { START_DATE } from "@/constants/date";
 import { useInputChange } from "@/hooks/common/useInput";
-import { TGroupError, TNewGroupPost } from "@/types/types";
-import { useAuthStore } from "@/zustand/authStore";
-import { useMutation } from "@tanstack/react-query";
+import { TGroupError } from "@/types/types";
+
 import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
-import { Notify } from "notiflix";
+
 import { useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import GroupPostNotice from "../common/GroupPostNotice";
-import { groupValidation } from "../common/GroupValidation";
 import Image from "next/image";
+import { usePostSubmit } from "@/hooks/common/usePostSubmit";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -28,14 +23,10 @@ const EditorModule = dynamic(
 );
 
 function GroupWriteForm() {
-  const router = useRouter();
-  const user = useAuthStore((state) => state.user);
-
   const [checkBox, setCheckBox] = useState(false);
   const [imgUrl, setImgUrl] = useState<string>("");
 
   const editorRef = useRef<EditorProps>(null);
-  const throttleRef = useRef(false);
 
   const [error, setError] = useState<TGroupError>({
     titleError: "",
@@ -61,69 +52,23 @@ function GroupWriteForm() {
   const { title, endDate, item, link, peopleNum, price, isFree, regularPrice } =
     input;
 
-  const addMutation = useMutation({
-    mutationFn: async (newGroupPost: TNewGroupPost) => {
-      await insertGroupPost(newGroupPost);
-    },
-    onSuccess: () => {
-      Notify.success("공구템 등록이 완료되었습니다!");
-      router.push("/grouppost");
-    },
-  });
-
-  const addGroupPostHandler = async () => {
-    if (throttleRef.current) return;
-
-    const isValid = groupValidation(
-      setError,
+  const { addPostHandler } = usePostSubmit(
+    {
       title,
       endDate,
       peopleNum,
-      item,
       price,
+      regularPrice,
+      link,
       imgUrl,
-      regularPrice
-    );
-    if (!isValid) {
-      return;
-    }
-    if (!user) {
-      return;
-    }
-
-    if (!checkBox) {
-      Notify.failure("체크박스를 체크해주세요.");
-      return;
-    }
-
-    if (editorRef.current) {
-      const editorContent = editorRef.current.getInstance().getMarkdown();
-
-      if (!editorContent) return Notify.failure("모든 항목을 입력해주세요");
-      throttleRef.current = true;
-      const newGroupPost: TNewGroupPost = {
-        id: uuidv4(),
-        user_id: user.id,
-        title,
-        start_date: START_DATE,
-        end_date: endDate,
-        people_num: +peopleNum,
-        price,
-        content: editorContent,
-        item,
-        link,
-        img_url: imgUrl,
-        is_finished: false,
-        is_free: isFree,
-        regular_price: regularPrice,
-      };
-
-      addMutation.mutate(newGroupPost);
-    }
-    setTimeout(() => {
-      throttleRef.current = false;
-    }, 5000);
-  };
+      editorRef,
+      setError,
+      item,
+      checkBox,
+      isFree,
+    },
+    "group"
+  );
 
   return (
     <InnerLayout>
@@ -254,7 +199,7 @@ function GroupWriteForm() {
           bgColor="bg-main-7"
           textColor="text-white"
           content="등록하기"
-          onClick={addGroupPostHandler}
+          onClick={addPostHandler}
         />
       </div>
     </InnerLayout>

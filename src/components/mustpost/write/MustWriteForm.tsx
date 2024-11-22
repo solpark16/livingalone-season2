@@ -1,23 +1,16 @@
 "use client";
-import { insertMustPost } from "@/apis/mustpost";
 import InnerLayout from "@/components/common/Page/InnerLayout";
-import { MustCategory, TMustError, TNewMustPost } from "@/types/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Notify } from "notiflix";
+import { MustCategory, TMustError } from "@/types/types";
 import React, { useRef, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import SelectCategory from "./SelectCategory";
 import { useInputChange } from "@/hooks/common/useInput";
-import { useAuthStore } from "@/zustand/authStore";
-import { useCategoryStore } from "@/zustand/mustStore";
 import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
-import { mustValidation } from "../common/MustValidation";
 
 import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
+import { usePostSubmit } from "@/hooks/common/usePostSubmit";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -27,16 +20,9 @@ const EditorModule = dynamic(
 );
 
 function MustWriteForm() {
-  const router = useRouter();
-  const user = useAuthStore((state) => state.user);
-
-  const selectedCategory = useCategoryStore((state) => state.selectedCategory);
-
   const [imgUrl, setImgUrl] = useState<string>("");
 
   const editorRef = useRef<EditorProps>(null);
-  const throttleRef = useRef(false);
-
   const [selectedCategoryName, setSelectedCategoryName] =
     useState<string>("선택");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("");
@@ -66,59 +52,21 @@ function MustWriteForm() {
     setSelectedCategoryId(category.id);
   };
 
-  const addMutation = useMutation({
-    mutationFn: async (newMustPost: TNewMustPost) => {
-      await insertMustPost(newMustPost);
-    },
-    onSuccess: () => {
-      Notify.success("게시물이 등록이 완료되었습니다!");
-      router.push("/mustpost");
-    },
-  });
-
-  const addMustPostHandler = async () => {
-    if (throttleRef.current) return;
-    const isValid = mustValidation(
-      setError,
+  const { addPostHandler } = usePostSubmit(
+    {
       title,
-      selectedCategoryId,
       itemName,
       company,
       price,
-      imgUrl
-    );
-    if (!isValid) {
-      return;
-    }
-    if (!user) {
-      router.push("/login");
-      Notify.failure("로그인을 먼저 진행해주세요.");
-      return;
-    }
-
-    if (editorRef.current) {
-      const editorContent = editorRef.current.getInstance().getMarkdown();
-
-      if (!editorContent) return Notify.failure("모든 항목을 입력해주세요");
-      throttleRef.current = true;
-      const newMustPost: TNewMustPost = {
-        id: uuidv4(),
-        user_id: user.id,
-        title,
-        category_id: selectedCategoryId,
-        content: editorContent,
-        img_url: imgUrl,
-        item: itemName,
-        location: company,
-        price,
-        link,
-      };
-      addMutation.mutate(newMustPost);
-    }
-    setTimeout(() => {
-      throttleRef.current = false;
-    }, 5000);
-  };
+      link,
+      imgUrl,
+      editorRef,
+      selectedCategoryId,
+      setError,
+      item: itemName,
+    },
+    "must"
+  );
 
   return (
     <InnerLayout>
@@ -193,7 +141,7 @@ function MustWriteForm() {
             bgColor="bg-main-7"
             textColor="text-white"
             content="등록하기"
-            onClick={addMustPostHandler}
+            onClick={addPostHandler}
           />
         </div>
       </div>
