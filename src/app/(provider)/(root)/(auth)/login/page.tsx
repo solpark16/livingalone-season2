@@ -11,7 +11,7 @@ function LoginPage() {
     <>
       <MobileHeader title="로그인" alarm={false} />
       <IsOpenProvider>
-        <main>
+        <main className="bg-main-1">
           <Page>
             <AuthTitle title="로그인" />
             <LoginForm />
