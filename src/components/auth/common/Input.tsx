@@ -17,7 +17,7 @@ interface InputProps {
 
 const variantStyles = {
   default:
-    "w-full px-[15px] py-[11px] rounded-lg bg-gray-1 text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none transition",
+    "w-full px-[15px] py-[11px] rounded-lg bg-gray-1 text-xs md:text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none transition",
   underline:
     "border-b w-full px-1 py-2 md:text-[20px] text-[16px] placeholder-gray-2 focus:outline-none focus:border-black transition rounded-none",
 };
@@ -52,7 +52,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <div className="flex flex-col">
       {label && (
         <label
-          className="mb-2 md:mb-[7px] font-semibold text-[14px] text-gray-5"
+          className="mb-2 md:mb-[7px] font-semibold text-xs md:text-[14px] text-gray-5"
           htmlFor={inputId}
         >
           {label}

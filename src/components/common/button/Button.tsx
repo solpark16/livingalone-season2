@@ -34,7 +34,7 @@ function Button({
   const outlineProps = outline ? `border bg-white ${outline}` : "";
 
   const buttonContents = imgUrl ? (
-    <div className="flex flex-row justify-center gap-[5px]">
+    <div className="flex flex-row justify-center items-center gap-[5px]">
       <Image src={imgUrl} alt={imgAlt} width={20} height={20} />
       {content}
     </div>
