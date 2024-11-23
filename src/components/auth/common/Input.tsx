@@ -17,7 +17,7 @@ interface InputProps {
 
 const variantStyles = {
   default:
-    "w-full px-[15px] py-[11px] md:py-3 rounded-lg bg-gray-1 text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none transition",
+    "w-full px-[15px] py-[11px] rounded-lg bg-gray-1 text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none transition",
   underline:
     "border-b w-full px-1 py-2 md:text-[20px] text-[16px] placeholder-gray-2 focus:outline-none focus:border-black transition rounded-none",
 };
@@ -60,7 +60,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       )}
       {/* 입력창       */}
       {(type === "text" || type === "password") && (
-        <div className="relative">
+        <div className="relative flex items-center">
           <input
             className={`${variantStyles[variant]} ${
               error ? "border-red-3" : "border-gray-2"
@@ -78,7 +78,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             <button
               onClick={onToggleHide}
               type="button"
-              className="absolute right-4 top-[14px]"
+              className="absolute right-4"
             >
               {type === "text" ? (
                 <Image

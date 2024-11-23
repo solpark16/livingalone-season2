@@ -117,24 +117,10 @@ const LoginForm = () => {
           textColor="text-gray-6"
           content="구글 간편로그인"
           imgUrl="/img/icon-google.png"
-          imgAlt="구글 로고"
+          imgAlt="구글 로그인 로고"
           onClick={handleGoogleLogin}
         />
         {/* <button
-          className="flex items-center justify-center sm:py-2 sm:text-base w-full py-2 text-lg border border-gray-2 rounded-3xl font-medium md:text-md"
-          onClick={handleGoogleLogin}
-        >
-          <Image
-            src="/img/icon-google.png"
-            alt="구글 로그인 아이콘"
-            width={24}
-            height={24}
-            className="mr-2"
-          />
-          구글 간편로그인
-        </button> */}
-
-        <button
           className="flex items-center justify-center w-full py-2 text-lg border border-gray-2 rounded-3xl font-medium sm:py-2 sm:text-base  md:text-md"
           onClick={handleKakaoLogin}
         >
@@ -146,7 +132,16 @@ const LoginForm = () => {
             className="mr-2"
           />
           카카오 간편로그인
-        </button>
+        </button> */}
+        <Button
+          size="lg"
+          outline="border border-gray-4"
+          textColor="text-gray-6"
+          content="카카오 간편로그인"
+          imgUrl="/img/kakaotalk-icon.png"
+          imgAlt="카카오 로그인 로고"
+          onClick={handleGoogleLogin}
+        />
       </div>
     </div>
   );
