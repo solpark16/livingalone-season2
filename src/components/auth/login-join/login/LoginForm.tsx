@@ -4,8 +4,6 @@ import { googleLogin, kakaoLogin, login } from "@/apis/auth";
 import { emailRegex } from "@/constants/regex";
 import { useInputChange } from "@/hooks/common/useInput";
 import { useAuthStore } from "@/zustand/authStore";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Notify, Report } from "notiflix";
 import { useState } from "react";
@@ -120,19 +118,6 @@ const LoginForm = () => {
           imgAlt="구글 로그인 로고"
           onClick={handleGoogleLogin}
         />
-        {/* <button
-          className="flex items-center justify-center w-full py-2 text-lg border border-gray-2 rounded-3xl font-medium sm:py-2 sm:text-base  md:text-md"
-          onClick={handleKakaoLogin}
-        >
-          <Image
-            src="/img/kakaotalk-icon.png"
-            alt="카카오 로그인 아이콘"
-            width={24}
-            height={24}
-            className="mr-2"
-          />
-          카카오 간편로그인
-        </button> */}
         <Button
           size="lg"
           outline="border border-gray-4"
@@ -140,7 +125,7 @@ const LoginForm = () => {
           content="카카오 간편로그인"
           imgUrl="/img/kakaotalk-icon.png"
           imgAlt="카카오 로그인 로고"
-          onClick={handleGoogleLogin}
+          onClick={handleKakaoLogin}
         />
       </div>
     </div>
