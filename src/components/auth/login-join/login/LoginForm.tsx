@@ -1,7 +1,6 @@
 "use client";
 
 import { googleLogin, kakaoLogin, login } from "@/apis/auth";
-import { emailRegex } from "@/constants/regex";
 import { useInputChange } from "@/hooks/common/useInput";
 import { useAuthStore } from "@/zustand/authStore";
 import { useRouter } from "next/navigation";
@@ -9,15 +8,11 @@ import { Notify, Report } from "notiflix";
 import { useState } from "react";
 import Input from "../../common/Input";
 import Button from "@/components/common/button/Button";
+import { LoginValidation } from "../../common/LoginValidation";
 
 const LoginForm = () => {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
-
-  const { values: input, handler: onChangeInput } = useInputChange({
-    email: "",
-    password: "",
-  });
 
   const [passwordType, setPasswordType] = useState(true);
   const [error, setError] = useState({
@@ -25,19 +20,18 @@ const LoginForm = () => {
     passwordError: "",
   });
 
+  const { values: input, handler: onChangeInput } = useInputChange({
+    email: "",
+    password: "",
+  });
+
   const { email, password } = input;
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const loginData = { email, password };
-
-    if (!emailRegex.test(email)) {
-      setError((prev) => ({
-        ...prev,
-        emailError: "이메일 형식으로 입력해주세요. ex) example@example.com",
-      }));
-      return;
-    }
+    const isValid = LoginValidation(setError, email, password);
+    if (!isValid) return;
 
     const { data, error } = await login(loginData);
 

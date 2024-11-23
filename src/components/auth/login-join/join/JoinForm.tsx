@@ -6,6 +6,7 @@ import { Notify } from "notiflix";
 import React, { useState } from "react";
 import Input from "../../common/Input";
 import Button from "@/components/common/button/Button";
+import { JoinValidation } from "../../common/JoinValidation";
 
 const JoinForm = () => {
   const router = useRouter();
@@ -33,43 +34,14 @@ const JoinForm = () => {
 
   const handleSubmitJoin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError({
-      emailError: "",
-      passwordError: "",
-      passwordConfirmError: "",
-      nicknameError: "",
-    });
-
-    // joinValidation 만들기
-    if (nickname.length < 2 || nickname.length > 8) {
-      return setError((prev) => ({
-        ...prev,
-        nicknameError: "닉네임은 2~8글자 사이로 입력해주세요",
-      }));
-    }
-
-    if (!emailRegex.test(email)) {
-      return setError((prev) => ({
-        ...prev,
-        emailError: "이메일 형식으로 입력해주세요. ex) example@example.com",
-      }));
-    }
-
-    if (!passwordRegex.test(password) || password.length < 6) {
-      return setError((prev) => ({
-        ...prev,
-        passwordError:
-          "비밀번호는 숫자와 영문자, 특수문자 조합으로 6자리 이상 15자리 이하여야 합니다.",
-      }));
-    }
-
-    if (password !== passwordConfirm) {
-      return setError((prev) => ({
-        ...prev,
-        passwordConfirmError: "비밀번호가 일치하지 않습니다.",
-      }));
-    }
-    // 여까지
+    const isValid = JoinValidation(
+      setError,
+      email,
+      password,
+      passwordConfirm,
+      nickname
+    );
+    if (!isValid) return;
 
     const response = await fetch("/api/auth/join", {
       method: "POST",
