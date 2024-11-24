@@ -17,7 +17,7 @@ interface InputProps {
 
 const variantStyles = {
   default:
-    "w-full px-[15px] py-[11px] rounded-lg bg-gray-1 text-xs md:text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none transition",
+    "w-full px-[15px] py-[11px] border border-gray-1 bg-gray-1 text-xs md:text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none rounded-lg transition",
   underline:
     "border-b w-full px-1 py-2 md:text-[20px] text-[16px] placeholder-gray-2 focus:outline-none focus:border-black transition rounded-none",
 };
@@ -63,7 +63,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         <div className="relative flex items-center">
           <input
             className={`${variantStyles[variant]} ${
-              error ? "border-red-3" : "border-gray-2"
+              error ? "border-red-6" : "border-gray-1"
             }`}
             type={type}
             value={value}
@@ -109,7 +109,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           onChange={onChange}
         />
       )}
-      {error && <p className={`text-red-3 text-[12px] mt-2`}>{error}</p>}
+      {error && <p className={`text-red-6 text-[12px] mt-2`}>{error}</p>}
     </div>
   );
 });

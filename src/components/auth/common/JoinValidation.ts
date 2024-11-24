@@ -21,15 +21,7 @@ export function JoinValidation(
     nicknameError: "",
   });
 
-  // if (!nickname.trim()) {
-  //   setError((prev) => ({
-  //     ...prev,
-  //     nicknameError: "",
-  //   }));
-  //   return false;
-  // }
-
-  if (nickname.length <= 2 || nickname.length > 8) {
+  if (nickname.length < 2 || nickname.length > 8) {
     setError((prev) => ({
       ...prev,
       nicknameError: "닉네임은 2~8글자 사이로 입력해주세요",
