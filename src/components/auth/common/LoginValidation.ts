@@ -23,7 +23,7 @@ export function LoginValidation(
     return false;
   }
 
-  if (!passwordRegex.test(password)) {
+  if (!password.length) {
     setError((prev) => ({
       ...prev,
       passwordError: "비밀번호를 입력해주세요.",

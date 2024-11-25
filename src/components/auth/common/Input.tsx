@@ -2,10 +2,12 @@ import Image from "next/image";
 import { forwardRef, useId } from "react";
 
 interface InputProps {
-  variant?: "default" | "underline";
+  variantInput?: "default" | "underline";
+  variantLabel?: "default" | "row" | "smRow";
+  variantForm?: "col" | "row";
   label?: string;
   type?: string;
-  value?: string;
+  value?: string | number;
   name?: string;
   placeholder?: string;
   readOnly?: boolean;
@@ -15,11 +17,24 @@ interface InputProps {
   setPasswordType?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const variantStyles = {
+const variantInputStyles = {
   default:
     "w-full px-[15px] py-[11px] border border-gray-1 bg-gray-1 text-xs md:text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none rounded-lg transition",
+  // underline:
+  //   "border-b w-full px-1 py-2 md:text-[20px] text-[16px] placeholder-gray-2 focus:outline-none focus:border-black transition rounded-none", -> 기존 마이페이지에서 사용하던 언더라인 input
   underline:
-    "border-b w-full px-1 py-2 md:text-[20px] text-[16px] placeholder-gray-2 focus:outline-none focus:border-black transition rounded-none",
+    "w-full border-b border-gray-4 py-[7px] text-xs md:text-base text-gray-6 outline-none",
+};
+
+const variantLabelStyles = {
+  default: "mb-2 md:mb-[7px] font-semibold text-xs md:text-[14px] text-gray-5",
+  row: "shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6",
+  smRow: "shrink-0 inline-block mr-2 text-sm font-semibold text-gray-6",
+};
+
+const variantFormStyles = {
+  col: "flex flex-col",
+  row: "flex items-center",
 };
 
 // 3. forwardRef로 전달 받음
@@ -27,7 +42,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   {
     name,
     label,
-    variant = "default",
+    variantInput = "default",
+    variantLabel = "default",
+    variantForm = "col",
     type = "text",
     value,
     placeholder,
@@ -49,67 +66,71 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
   return (
     //하나의 인풋-라벨
-    <div className="flex flex-col">
-      {label && (
-        <label
-          className="mb-2 md:mb-[7px] font-semibold text-xs md:text-[14px] text-gray-5"
-          htmlFor={inputId}
-        >
-          {label}
-        </label>
-      )}
-      {/* 입력창       */}
-      {(type === "text" || type === "password") && (
-        <div className="relative flex items-center">
+    <div>
+      <div className={`${variantFormStyles[variantForm]}`}>
+        {label && (
+          <label
+            // htmlFor={inputId} -> 기존 라벨 css
+            className={`${variantLabelStyles[variantLabel]}`}
+            htmlFor={inputId}
+          >
+            {label}
+          </label>
+        )}
+        {(type === "text" || type === "password" || type === "number") && (
+          <div className="relative w-full">
+            <input
+              className={`${variantInputStyles[variantInput]} ${
+                error ? "border-red-6" : "border-gray-1"
+              }`}
+              type={type}
+              value={value}
+              name={name}
+              placeholder={placeholder}
+              onChange={onChange}
+              readOnly={readOnly}
+              id={inputId}
+              defaultValue={defaultValue}
+            />
+            {setPasswordType && (
+              <button
+                onClick={onToggleHide}
+                type="button"
+                className="absolute top-[10px] right-4"
+              >
+                {type === "text" ? (
+                  <Image
+                    src="/img/icon-eye.png"
+                    alt="눈 아이콘"
+                    width={20}
+                    height={20}
+                  />
+                ) : (
+                  <Image
+                    src="/img/icon-eye-see.png"
+                    alt="눈 아이콘"
+                    width={20}
+                    height={20}
+                  />
+                )}
+              </button>
+            )}
+            {error && (
+              <p className={`text-red-6 text-[11px] mt-[3px]`}>{error}</p>
+            )}
+          </div>
+        )}
+        {type === "file" && (
           <input
-            className={`${variantStyles[variant]} ${
-              error ? "border-red-6" : "border-gray-1"
-            }`}
-            type={type}
-            value={value}
-            name={name}
+            // 4. ref 담기
+            ref={ref}
+            type="file"
+            className={`${variantInputStyles[variantInput]} text-[10px] py-[10px]`}
             placeholder={placeholder}
             onChange={onChange}
-            readOnly={readOnly}
-            id={inputId}
-            defaultValue={defaultValue}
           />
-          {setPasswordType && (
-            <button
-              onClick={onToggleHide}
-              type="button"
-              className="absolute right-4"
-            >
-              {type === "text" ? (
-                <Image
-                  src="/img/icon-eye.png"
-                  alt="눈 아이콘"
-                  width={20}
-                  height={20}
-                />
-              ) : (
-                <Image
-                  src="/img/icon-eye-see.png"
-                  alt="눈 아이콘"
-                  width={20}
-                  height={20}
-                />
-              )}
-            </button>
-          )}
-        </div>
-      )}
-      {type === "file" && (
-        <input
-          // 4. ref 담기
-          ref={ref}
-          type="file"
-          className={`${variantStyles[variant]} text-[10px] py-[10px]`}
-          placeholder={placeholder}
-          onChange={onChange}
-        />
-      )}
-      {error && <p className={`text-red-6 text-[12px] mt-2`}>{error}</p>}
+        )}
+      </div>
     </div>
   );
 });
