@@ -66,71 +66,69 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
   return (
     //하나의 인풋-라벨
-    <div>
-      <div className={`${variantFormStyles[variantForm]}`}>
-        {label && (
-          <label
-            // htmlFor={inputId} -> 기존 라벨 css
-            className={`${variantLabelStyles[variantLabel]}`}
-            htmlFor={inputId}
-          >
-            {label}
-          </label>
-        )}
-        {(type === "text" || type === "password" || type === "number") && (
-          <div className="relative w-full">
-            <input
-              className={`${variantInputStyles[variantInput]} ${
-                error ? "border-red-6" : "border-gray-1"
-              }`}
-              type={type}
-              value={value}
-              name={name}
-              placeholder={placeholder}
-              onChange={onChange}
-              readOnly={readOnly}
-              id={inputId}
-              defaultValue={defaultValue}
-            />
-            {setPasswordType && (
-              <button
-                onClick={onToggleHide}
-                type="button"
-                className="absolute top-[10px] right-4"
-              >
-                {type === "text" ? (
-                  <Image
-                    src="/img/icon-eye.png"
-                    alt="눈 아이콘"
-                    width={20}
-                    height={20}
-                  />
-                ) : (
-                  <Image
-                    src="/img/icon-eye-see.png"
-                    alt="눈 아이콘"
-                    width={20}
-                    height={20}
-                  />
-                )}
-              </button>
-            )}
-            {error && (
-              <p className={`text-red-6 text-[11px] mt-[3px]`}>{error}</p>
-            )}
-          </div>
-        )}
-        {type === "file" && (
+    <div className={`${variantFormStyles[variantForm]}`}>
+      {label && (
+        <label
+          // htmlFor={inputId} -> 기존 라벨 css
+          className={`${variantLabelStyles[variantLabel]}`}
+          htmlFor={inputId}
+        >
+          {label}
+        </label>
+      )}
+      {type !== "file" && (
+        <div className="relative w-full">
           <input
-            // 4. ref 담기
-            ref={ref}
-            type="file"
-            className={`${variantInputStyles[variantInput]} text-[10px] py-[10px]`}
+            className={`${variantInputStyles[variantInput]} ${
+              error ? "border-red-6" : "border-gray-1"
+            }`}
+            type={type}
+            value={value}
+            name={name}
             placeholder={placeholder}
             onChange={onChange}
+            readOnly={readOnly}
+            id={inputId}
+            defaultValue={defaultValue}
           />
-        )}
-      </div>
+          {setPasswordType && (
+            <button
+              onClick={onToggleHide}
+              type="button"
+              className="absolute top-[10px] right-4"
+            >
+              {type === "text" ? (
+                <Image
+                  src="/img/icon-eye.png"
+                  alt="눈 아이콘"
+                  width={20}
+                  height={20}
+                />
+              ) : (
+                <Image
+                  src="/img/icon-eye-see.png"
+                  alt="눈 아이콘"
+                  width={20}
+                  height={20}
+                />
+              )}
+            </button>
+          )}
+          {error && (
+            <p className={`text-red-6 text-[11px] mt-[3px]`}>{error}</p>
+          )}
+        </div>
+      )}
+      {type === "file" && (
+        <input
+          // 4. ref 담기
+          ref={ref}
+          type="file"
+          className={`${variantInputStyles[variantInput]} text-[10px] py-[10px]`}
+          placeholder={placeholder}
+          onChange={onChange}
+        />
+      )}
     </div>
   );
 });
