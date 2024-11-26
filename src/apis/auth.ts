@@ -18,6 +18,7 @@ export async function getUser() {
 
     if (noProfile) {
       console.log("야임마");
+      // 👆🏻 이것 뭐예요? ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
       await supabase
         .from("profiles")
         .insert([{ user_id: userId, nickname: "혼살러" }]);
@@ -25,6 +26,22 @@ export async function getUser() {
   }
 
   return { data, error };
+}
+
+export async function join(joinData: {
+  email: string;
+  password: string;
+  nickname: string;
+}) {
+  const response = await fetch("/api/auth/join", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(joinData),
+  });
+  const data = await response.json();
+  return data;
 }
 
 export async function login(loginData: { email: string; password: string }) {

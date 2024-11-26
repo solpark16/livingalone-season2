@@ -1,5 +1,4 @@
 "use client";
-import { emailRegex, passwordRegex } from "@/constants/regex";
 import { useInputChange } from "@/hooks/common/useInput";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
@@ -7,6 +6,7 @@ import React, { useState } from "react";
 import Input from "../../common/Input";
 import Button from "@/components/common/button/Button";
 import { JoinValidation } from "../../common/JoinValidation";
+import { join } from "@/apis/auth";
 
 const JoinForm = () => {
   const router = useRouter();
@@ -30,10 +30,9 @@ const JoinForm = () => {
 
   const { nickname, email, password, passwordConfirm } = input;
 
-  const joinData = { nickname, email, password };
-
   const handleSubmitJoin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const joinData = { nickname, email, password };
     const isValid = JoinValidation(
       setError,
       email,
@@ -42,15 +41,7 @@ const JoinForm = () => {
       nickname
     );
     if (!isValid) return;
-
-    const response = await fetch("/api/auth/join", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(joinData),
-    });
-    const data = await response.json();
+    const data = await join(joinData);
 
     if (data.message === "User already registered") {
       return setError((prev) => ({
