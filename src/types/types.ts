@@ -1,7 +1,23 @@
+import { EditorProps } from "@toast-ui/react-editor";
 import { Tables } from "./supabase";
 
 export type Profile = Tables<"profiles">;
 export type TProfile = Partial<Profile>;
+
+export type PostType = "must" | "group";
+export type PostResponseType<T extends PostType> = T extends "must"
+  ? MustPostResponse
+  : GroupPostResponse;
+
+export type BasePostData<ErrorType> = {
+  title: string;
+  imgUrl: string;
+  editorRef: EditorProps;
+  setError: React.Dispatch<React.SetStateAction<ErrorType>>;
+  link: string;
+  price: number;
+  item: string;
+};
 
 export type MustPost = Tables<"must_posts">;
 export type MustWish = Tables<"must_wishes">;
@@ -33,6 +49,14 @@ export type TMustError = Record<
   | "imageUrlError",
   string
 >;
+
+export type MustPostData = BasePostData<TMustError> & {
+  selectedCategoryId: string;
+  company: string;
+  itemName: string;
+};
+
+export type MustPostResponse = Omit<MustPost, "created_at">;
 
 export type GroupPost = Tables<"group_posts">;
 export type GroupLike = Tables<"group_likes">;
@@ -101,6 +125,16 @@ export type TGroupError = Record<
   | "imageUrlError",
   string
 >;
+
+export type GroupPostData = BasePostData<TGroupError> & {
+  endDate: string;
+  peopleNum: number;
+  regularPrice: number;
+  checkBox: boolean;
+  isFree: boolean;
+};
+
+export type GroupPostResponse = Omit<GroupPost, "created_at">;
 
 export type Chat = Tables<"chat">;
 

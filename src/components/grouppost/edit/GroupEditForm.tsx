@@ -18,7 +18,6 @@ import { groupValidation } from "../common/GroupValidation";
 import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
 import Error from "@/components/common/error/Error";
-// import Input from "@/components/common/input/Input";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import Input from "@/components/auth/common/Input";
 
