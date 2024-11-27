@@ -1,25 +1,18 @@
 "use client";
 
 import { googleLogin, kakaoLogin, login } from "@/apis/auth";
-import { emailRegex } from "@/constants/regex";
 import { useInputChange } from "@/hooks/common/useInput";
 import { useAuthStore } from "@/zustand/authStore";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Notify, Report } from "notiflix";
 import { useState } from "react";
 import Input from "../../common/Input";
-// import Input from "../../common/Input";
+import Button from "@/components/common/button/Button";
+import { LoginValidation } from "../../common/LoginValidation";
 
 const LoginForm = () => {
   const router = useRouter();
   const saveUser = useAuthStore((state) => state.saveUser);
-
-  const { values: input, handler: onChangeInput } = useInputChange({
-    email: "",
-    password: "",
-  });
 
   const [passwordType, setPasswordType] = useState(true);
   const [error, setError] = useState({
@@ -27,19 +20,18 @@ const LoginForm = () => {
     passwordError: "",
   });
 
+  const { values: input, handler: onChangeInput } = useInputChange({
+    email: "",
+    password: "",
+  });
+
   const { email, password } = input;
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const loginData = { email, password };
-
-    if (!emailRegex.test(email)) {
-      setError((prev) => ({
-        ...prev,
-        emailError: "이메일 형식으로 입력해주세요. ex) example@example.com",
-      }));
-      return;
-    }
+    const isValid = LoginValidation(setError, email, password);
+    if (!isValid) return;
 
     const { data, error } = await login(loginData);
 
@@ -68,70 +60,67 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-start items-center min-h-screen px-4 sm:px-6 mt-8 lg:px-8 sm:mb-8">
+    <div className="flex flex-col justify-start items-center">
       <form
         onSubmit={handleLoginSubmit}
-        className="flex flex-col justify-center w-full max-w-md space-y-7"
+        className="flex flex-col w-full gap-[25px]"
       >
-        <div className="flex flex-col mb-5 sm:mb-3">
-          <Input
-            label="이메일"
-            type="text"
-            value={email}
-            name="email"
-            placeholder="이메일 주소를 입력해주세요"
-            onChange={onChangeInput}
-            error={error.emailError}
+        <Input
+          label="이메일"
+          type="text"
+          value={email}
+          name="email"
+          placeholder="이메일 주소를 입력해주세요"
+          onChange={onChangeInput}
+          error={error.emailError}
+        />
+        <Input
+          label="비밀번호"
+          type={passwordType ? "password" : "text"}
+          value={password}
+          name="password"
+          placeholder="비밀번호를 입력해주세요"
+          onChange={onChangeInput}
+          error={error.passwordError}
+          setPasswordType={setPasswordType}
+        />
+        <div className="mt-[5px] mb-[30px]">
+          <Button
+            size="lg"
+            bgColor="bg-main-6"
+            textColor="text-white"
+            content="로그인"
           />
         </div>
-        <div className="flex flex-col mt-4 sm:mb-3">
-          <Input
-            label="비밀번호"
-            type={passwordType ? "password" : "text"}
-            value={password}
-            name="password"
-            placeholder="비밀번호를 입력해주세요"
-            onChange={onChangeInput}
-            error={error.passwordError}
-            setPasswordType={setPasswordType}
-          />
-        </div>
-        <button className="py-2 text-xl bg-main-8 text-white rounded-3xl sm:mt-10 md:mt-8 md:text-lg sm:text-sm">
-          로그인
-        </button>
       </form>
-      <div className="flex flex-col items-center gap-4 w-full max-w-md mt-6 sm:mt-16 sm:text-sm md:mt-5">
-        <Link href="/join" className="w-full">
-          <button className="flex items-center justify-center text-lg border border-gray-2 py-2 rounded-3xl font-medium w-full sm:py-2 sm:text-base md:text-md">
-            회원가입
-          </button>
-        </Link>
-        <button
-          className="flex items-center justify-center sm:py-2 sm:text-base w-full py-2 text-lg border border-gray-2 rounded-3xl font-medium md:text-md"
+      <div className="w-full border-b border-gray-2"></div>
+      <div className="flex flex-col items-center gap-[10px] w-full mt-[30px]">
+        <Button
+          size="lg"
+          height="h-9"
+          bgColor="bg-blue-6"
+          textColor="text-white"
+          content="회원가입"
+          href="/join"
+        />
+        <Button
+          size="lg"
+          outline="border border-gray-4"
+          textColor="text-gray-6"
+          content="구글 간편로그인"
+          imgUrl="/img/icon-google.png"
+          imgAlt="구글 로그인 로고"
           onClick={handleGoogleLogin}
-        >
-          <Image
-            src="/img/icon-google.png"
-            alt="구글 로그인 아이콘"
-            width={24}
-            height={24}
-            className="mr-2"
-          />
-          구글 간편로그인
-        </button>
-        <button
-          className="flex items-center justify-center w-full py-2 text-lg border border-gray-2 rounded-3xl font-medium sm:py-2 sm:text-base  md:text-md"
+        />
+        <Button
+          size="lg"
+          outline="border border-gray-4"
+          textColor="text-gray-6"
+          content="카카오 간편로그인"
+          imgUrl="/img/kakaotalk-icon.png"
+          imgAlt="카카오 로그인 로고"
           onClick={handleKakaoLogin}
-        >
-          <Image
-            src="/img/kakaotalk-icon.png"
-            alt="카카오 로그인 아이콘"
-            width={24}
-            height={24}
-            className="mr-2"
-          />
-          카카오 간편로그인
-        </button>
+        />
       </div>
     </div>
   );

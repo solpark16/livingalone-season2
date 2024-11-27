@@ -19,11 +19,12 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { mustValidation } from "../common/MustValidation";
 import SelectCategory from "../write/SelectCategory";
 
-import Input from "@/components/common/input/Input";
+// import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import IsLoading from "@/components/common/loading/IsLoading";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import Error from "@/components/common/error/Error";
+import Input from "@/components/auth/common/Input";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
@@ -164,9 +165,12 @@ function MustEditForm({ params }: { params: { id: string } }) {
           />
           <Input
             name="title"
-            labelName="제목"
-            value={title}
+            label="제목"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={title}
             placeholder="제목을 입력해주세요."
             onChange={onChangeInput}
             error={error.titleError}
@@ -174,9 +178,12 @@ function MustEditForm({ params }: { params: { id: string } }) {
 
           <Input
             name="itemName"
-            labelName="상품이름"
-            value={itemName}
+            label="상품이름"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={itemName}
             placeholder="상품명을 입력해주세요."
             onChange={onChangeInput}
             error={error.itemNameError}
@@ -184,9 +191,12 @@ function MustEditForm({ params }: { params: { id: string } }) {
 
           <Input
             name="company"
-            labelName="제작업체"
-            value={company}
+            label="제작업체"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={company}
             placeholder="제작업체 또는 브랜드를 입력해주세요."
             onChange={onChangeInput}
             error={error.companyError}
@@ -194,9 +204,12 @@ function MustEditForm({ params }: { params: { id: string } }) {
 
           <Input
             name="price"
-            labelName="판매가격"
-            value={price || ""}
+            label="판매가격"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="number"
+            value={price || ""}
             placeholder="0"
             onChange={onChangeInput}
             error={error.priceError}
@@ -204,9 +217,12 @@ function MustEditForm({ params }: { params: { id: string } }) {
 
           <Input
             name="link"
-            labelName="상품링크"
-            value={link || ""}
+            label="상품링크"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={link || ""}
             placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
             onChange={onChangeInput}
           />
