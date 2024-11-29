@@ -21,8 +21,6 @@ import { Notify } from "notiflix";
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-// API 응답 타입
-
 export function usePostSubmit<T extends PostType>(
   postData: T extends "must"
     ? MustPostData & {
