@@ -1,13 +1,17 @@
+import AuthBox from "@/components/auth/common/AuthBox";
+import ProfileForm from "@/components/auth/mypage/MyInfo/ProfileForm";
 import MyPageMenu from "@/components/auth/mypage/MyPageMenu";
 import PageTitle from "@/components/common/Page/PageTitle";
 
 function MyInfoPage() {
   return (
-    <div>
+    <>
       <PageTitle title="나의 정보" />
       <MyPageMenu />
-      page
-    </div>
+      <AuthBox>
+        <ProfileForm />
+      </AuthBox>
+    </>
   );
 }
 

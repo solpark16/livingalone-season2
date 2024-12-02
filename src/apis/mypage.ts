@@ -15,7 +15,7 @@ export async function editMyProfile(id: string, newProfile: TProfile) {
   return data;
 }
 
-export async function uploadImage(formData: any) {
+export async function uploadImage(formData: FormData) {
   const response = await fetch("/api/auth/profile/image", {
     method: "POST",
     body: formData,
@@ -32,7 +32,10 @@ export async function getMyGroupPosts(userId: string) {
   return data;
 }
 
-export async function editMyGroupApply(id: string, newGroupApply: GroupApplication) {
+export async function editMyGroupApply(
+  id: string,
+  newGroupApply: GroupApplication
+) {
   const response = await fetch(`/api/applygroup/${id}`, {
     method: "PUT",
     body: JSON.stringify(newGroupApply),
