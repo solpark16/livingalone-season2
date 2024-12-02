@@ -1,10 +1,12 @@
 "use client";
-import { emailRegex, passwordRegex } from "@/constants/regex";
 import { useInputChange } from "@/hooks/common/useInput";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
 import React, { useState } from "react";
 import Input from "../../common/Input";
+import Button from "@/components/common/button/Button";
+import { JoinValidation } from "../../common/JoinValidation";
+import { join } from "@/apis/auth";
 
 const JoinForm = () => {
   const router = useRouter();
@@ -28,53 +30,18 @@ const JoinForm = () => {
 
   const { nickname, email, password, passwordConfirm } = input;
 
-  const joinData = { nickname, email, password };
-
   const handleSubmitJoin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError({
-      emailError: "",
-      passwordError: "",
-      passwordConfirmError: "",
-      nicknameError: "",
-    });
-
-    if (nickname.length < 2 || nickname.length > 8) {
-      return setError((prev) => ({
-        ...prev,
-        nicknameError: "닉네임은 2~8글자 사이로 입력해주세요",
-      }));
-    }
-
-    if (!emailRegex.test(email)) {
-      return setError((prev) => ({
-        ...prev,
-        emailError: "이메일 형식으로 입력해주세요. ex) example@example.com",
-      }));
-    }
-
-    if (!passwordRegex.test(password) || password.length < 6) {
-      return setError((prev) => ({
-        ...prev,
-        passwordError: "비밀번호는 숫자와 영문자, 특수문자 조합으로 6자리 이상 15자리 이하여야 합니다.",
-      }));
-    }
-
-    if (password !== passwordConfirm) {
-      return setError((prev) => ({
-        ...prev,
-        passwordConfirmError: "비밀번호가 일치하지 않습니다.",
-      }));
-    }
-
-    const response = await fetch("/api/auth/join", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(joinData),
-    });
-    const data = await response.json();
+    const joinData = { nickname, email, password };
+    const isValid = JoinValidation(
+      setError,
+      email,
+      password,
+      passwordConfirm,
+      nickname
+    );
+    if (!isValid) return;
+    const data = await join(joinData);
 
     if (data.message === "User already registered") {
       return setError((prev) => ({
@@ -88,8 +55,11 @@ const JoinForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-normal items-center min-h-screen px-4 sm:px-6 mt-10 lg:px-8">
-      <form onSubmit={handleSubmitJoin} className="flex flex-col justify-center gap-6 w-full mb-6 max-w-lg">
+    <div className="flex flex-col justify-start items-center">
+      <form
+        onSubmit={handleSubmitJoin}
+        className="flex flex-col w-full gap-[25px]"
+      >
         <Input
           label="닉네임"
           type="text"
@@ -129,9 +99,14 @@ const JoinForm = () => {
           error={error.passwordConfirmError}
           setPasswordType={setPasswordConfirmType}
         />
-        <button type="submit" className="w-full mt-1 py-3 text-xl bg-main-8 text-white rounded-full">
-          가입하기
-        </button>
+        <div className="mt-[5px]">
+          <Button
+            size="lg"
+            bgColor="bg-main-6"
+            textColor="text-white"
+            content="회원가입"
+          />
+        </div>
       </form>
     </div>
   );

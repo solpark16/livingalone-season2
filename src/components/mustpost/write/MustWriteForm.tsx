@@ -7,10 +7,11 @@ import { useInputChange } from "@/hooks/common/useInput";
 import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 
-import Input from "@/components/common/input/Input";
+// import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import { usePostSubmit } from "@/hooks/common/usePostSubmit";
+import Input from "@/components/auth/common/Input";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -79,38 +80,48 @@ function MustWriteForm() {
           />
           <Input
             name="title"
-            labelName="제목"
-            value={title}
+            label="제목"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={title}
             placeholder="제목을 입력해주세요."
             onChange={onChangeInput}
             error={error.titleError}
           />
           <Input
             name="itemName"
-            labelName="상품이름"
-            value={itemName}
+            label="상품이름"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={itemName}
             placeholder="상품명을 입력해주세요."
             onChange={onChangeInput}
             error={error.itemNameError}
           />
-
           <Input
             name="company"
-            labelName="제작업체"
-            value={company}
+            label="제작업체"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={company}
             placeholder="제작업체 또는 브랜드를 입력해주세요."
             onChange={onChangeInput}
             error={error.companyError}
           />
-
           <Input
             name="price"
-            labelName="판매가격"
-            value={price || ""}
+            label="판매가격"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="number"
+            value={price || ""}
             placeholder="0"
             onChange={onChangeInput}
             error={error.priceError}
@@ -118,9 +129,12 @@ function MustWriteForm() {
 
           <Input
             name="link"
-            labelName="상품링크"
-            value={link || ""}
+            label="상품링크"
+            variantLabel="row"
+            variantForm="row"
+            variantInput="underline"
             type="text"
+            value={link || ""}
             placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
             onChange={onChangeInput}
           />

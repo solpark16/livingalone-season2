@@ -55,7 +55,7 @@ function Input({
         />
         {/* ${viewSize === "sm" ? smInputProps : defaultInputProps} */}
       </div>
-      {error && <p className={`text-red-3 text-[12px] mt-2`}>{error}</p>}
+      {error && <p className={`text-red-6 text-[12px] mt-[3px]`}>{error}</p>}
     </div>
   );
 }
