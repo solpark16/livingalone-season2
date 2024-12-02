@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
   try {
     const supabase = createClient();
     const { data } = await supabase.from("group_posts").insert(newGroupPost);
+    console.log(data);
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: "데이터를 등록하는 데 실패했습니다." });
