@@ -75,6 +75,15 @@ function ProfileForm() {
     );
     if (!isValid) return;
 
+    if (
+      imgUrl === prevProfile.profile_image_url &&
+      nickname === prevProfile.nickname &&
+      address === prevProfile.address &&
+      detailAddress === prevProfile.detail_address
+    ) {
+      return Report.info("변경된 내용이 없습니다.", "", "확인");
+    }
+
     updateMyProfile(newProfile);
   };
 
