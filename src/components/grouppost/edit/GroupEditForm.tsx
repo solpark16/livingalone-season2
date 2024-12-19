@@ -11,16 +11,16 @@ import { EditorProps } from "@toast-ui/react-editor";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import GroupPostNotice from "../common/GroupPostNotice";
 import { groupValidation } from "../common/GroupValidation";
 
 import Button from "@/components/common/button/Button";
-import IsLoading from "@/components/common/loading/IsLoading";
 import Error from "@/components/common/error/Error";
+import IsLoading from "@/components/common/loading/IsLoading";
 // import Input from "@/components/common/input/Input";
-import ImageUploader from "@/components/common/input/ImageUploader";
 import Input from "@/components/auth/common/Input";
+import ImageUploader from "@/components/common/input/ImageUploader";
 
 function GroupEditForm({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -306,7 +306,7 @@ function GroupEditForm({ params }: { params: { id: string } }) {
           setImgUrl={setImgUrl}
           error={error}
           setError={setError}
-          postType="group"
+          postType="groupposts"
         />
         <div className="mb-[22px] md:mb-[45px]">
           <EditorModule editorRef={editorRef} />

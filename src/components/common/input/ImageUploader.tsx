@@ -8,7 +8,7 @@ interface ImageUploaderProps<T> {
   setImgUrl: React.Dispatch<React.SetStateAction<string>>;
   error: T;
   setError: React.Dispatch<React.SetStateAction<T>>;
-  postType: "must" | "group";
+  postType: "mustposts" | "groupposts" | "profile";
 }
 
 function ImageUploader<T extends { imageUrlError: string }>({

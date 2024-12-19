@@ -1,7 +1,7 @@
 import { Tables } from "./supabase";
 
 export type Profile = Tables<"profiles">;
-export type TProfile = Partial<Profile>;
+export type TProfile = Omit<Profile, "created_at" | "user_id">;
 
 export type MustPost = Tables<"must_posts">;
 export type MustWish = Tables<"must_wishes">;
@@ -31,6 +31,11 @@ export type TMustError = Record<
   | "companyError"
   | "priceError"
   | "imageUrlError",
+  string
+>;
+
+export type TProfileError = Record<
+  "nicknameError" | "detailAddressError" | "imageUrlError",
   string
 >;
 
