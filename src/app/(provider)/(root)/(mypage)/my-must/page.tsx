@@ -1,4 +1,4 @@
-import MyMust from "@/components/auth/mypage/MyMust/MyMust";
+import MyMust from "@/components/auth/mypage/myMust/MyMust";
 import MyPageMenu from "@/components/auth/mypage/MyPageMenu";
 import PageTitle from "@/components/common/page/PageTitle";
 
