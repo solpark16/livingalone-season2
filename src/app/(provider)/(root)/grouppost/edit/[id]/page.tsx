@@ -1,4 +1,4 @@
-import Page from "@/components/common/Page/Page";
+import Page from "@/components/common/page/Page";
 import GroupEditForm from "@/components/grouppost/edit/GroupEditForm";
 
 function GroupEditPage({ params }: { params: { id: string } }) {

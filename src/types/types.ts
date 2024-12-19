@@ -22,7 +22,9 @@ export type TMustPostList = Pick<
   "id" | "title" | "content" | "item" | "img_url"
 >;
 
-export type TMustWishData = Omit<MustWish, "created_at" | "id">;
+export type TMustWishData = Omit<MustWish, "created_at"> & {
+  must_posts: Pick<MustPost, "title" | "item" | "img_url">;
+};
 
 export type TMustError = Record<
   | "titleError"

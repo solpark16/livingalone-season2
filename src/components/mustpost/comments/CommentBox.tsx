@@ -1,5 +1,3 @@
-import Image from "next/image";
-import { comment } from "postcss";
 import React from "react";
 import CommentDeleteBtn from "./CommentDeleteBtn";
 import CommentProfile from "./CommentProfile";

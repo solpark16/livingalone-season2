@@ -1,7 +1,9 @@
 import { getGroupDetail } from "@/apis/grouppost";
 import Chat from "@/components/chat/Chat";
-import InnerLayout from "@/components/common/Page/InnerLayout";
 import Like from "@/components/common/like/Like";
+import InnerLayout from "@/components/common/page/InnerLayout";
+import Title from "@/components/common/read/Title";
+import UserInfo from "@/components/common/read/UserInfo";
 import { GroupPost } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,8 +12,6 @@ import GroupContent from "./GroupContent";
 import GroupDetailBtnList from "./GroupDetailBtnList";
 import GroupEditBtnList from "./GroupEditBtnList";
 import GroupPopularList from "./GroupPopularList";
-import Title from "@/components/common/read/Title";
-import UserInfo from "@/components/common/read/UserInfo";
 
 type Props = {
   params: { id: string };

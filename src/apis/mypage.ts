@@ -44,26 +44,17 @@ export async function editMyGroupApply(
   return data;
 }
 
-export async function wishItem(id: string) {
-  const response = await fetch(`/api/mustpost/wish/${id}`);
+export async function getMyWishMust(userId: string) {
+  const response = await fetch(`/api/mypage/must-post/wish/${userId}`);
   const data = await response.json();
   return data;
 }
 
-export async function myItemsPost(id: string) {
-  const response = await fetch(`/api/mustpost/user/${id}`);
+export async function getMyMustPosts(page = 0, userId: string) {
+  const response = await fetch(`/api/mypage/must-post/${userId}?page=${page}`);
   const data = await response.json();
-  return data;
-}
-
-export async function likeItemPage(id: string) {
-  const response = await fetch(`/api/grouppost/like/user/${id}`);
-  const data = await response.json();
-  return data;
-}
-
-export async function applyItems(id: string) {
-  const response = await fetch(`/api/grouppost/apply/${id}`);
-  const data = await response.json();
-  return data;
+  return {
+    posts: data.data,
+    total: data.count,
+  };
 }

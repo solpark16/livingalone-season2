@@ -1,5 +1,5 @@
 import { NewMustCategoryPost } from "@/apis/mustpost";
-import MustPostCard from "../list/Card/MustPostCard";
+import MustPostCard from "../list/card/MustPostCard";
 
 interface MorePostProps {
   category_id: string;

@@ -1,7 +1,6 @@
 import { getGroupDetail } from "@/apis/grouppost";
-import InnerLayout from "@/components/common/Page/InnerLayout";
-import Page from "@/components/common/Page/Page";
 import TopButton from "@/components/common/button/TopButton";
+import Page from "@/components/common/page/Page";
 import GroupDetail from "@/components/grouppost/read/GroupDetail";
 import type { Metadata } from "next";
 

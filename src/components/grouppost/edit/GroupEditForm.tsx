@@ -1,8 +1,8 @@
 "use client";
 
 import { getGroupPost, updateGroupPost } from "@/apis/grouppost";
-import InnerLayout from "@/components/common/Page/InnerLayout";
 import EditorModule from "@/components/common/editor/EditorModule";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import { GroupPost, TGroupError, TNewGroupPost } from "@/types/types";
 import { postRevalidate } from "@/utils/revalidate";

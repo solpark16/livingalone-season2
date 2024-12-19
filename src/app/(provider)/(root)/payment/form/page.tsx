@@ -1,8 +1,7 @@
-import Page from "@/components/common/Page/Page";
 import MobileHeader from "@/components/common/header/MobileHeader";
 import MobileNav from "@/components/common/header/MobileNav";
+import Page from "@/components/common/page/Page";
 import PaymentForm from "@/components/payment/form/PaymentForm";
-import React from "react";
 
 function PaymentFormPage() {
   return (

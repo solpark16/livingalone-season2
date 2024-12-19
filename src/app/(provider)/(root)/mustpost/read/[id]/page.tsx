@@ -1,7 +1,6 @@
 import { getMustPostDetail } from "@/apis/mustpost";
-import Page from "@/components/common/Page/Page";
 import TopButton from "@/components/common/button/TopButton";
-import CommentsList from "@/components/mustpost/comments/CommentsList";
+import Page from "@/components/common/page/Page";
 
 import Read from "@/components/mustpost/read/Read";
 import { Metadata } from "next";

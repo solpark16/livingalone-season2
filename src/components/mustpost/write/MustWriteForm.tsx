@@ -1,5 +1,5 @@
 "use client";
-import InnerLayout from "@/components/common/Page/InnerLayout";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import { MustCategory, TMustError } from "@/types/types";
 import { EditorProps } from "@toast-ui/react-editor";

@@ -1,7 +1,7 @@
 import AuthBox from "@/components/auth/common/AuthBox";
 import ProfileForm from "@/components/auth/mypage/MyInfo/ProfileForm";
 import MyPageMenu from "@/components/auth/mypage/MyPageMenu";
-import PageTitle from "@/components/common/Page/PageTitle";
+import PageTitle from "@/components/common/page/PageTitle";
 
 function MyInfoPage() {
   return (
