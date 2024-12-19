@@ -1,8 +1,8 @@
 "use client";
 
-import InnerLayout from "@/components/common/Page/InnerLayout";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import { TGroupError } from "@/types/types";
 

@@ -1,8 +1,8 @@
 import AlarmList from "@/components/alarm/AlarmList";
 import IsReadFilter from "@/components/alarm/IsReadFilter";
-import InnerLayout from "@/components/common/Page/InnerLayout";
-import Page from "@/components/common/Page/Page";
-import PageTitle from "@/components/common/Page/PageTitle";
+import InnerLayout from "@/components/common/page/InnerLayout";
+import Page from "@/components/common/page/Page";
+import PageTitle from "@/components/common/page/PageTitle";
 
 function AlarmPage() {
   return (

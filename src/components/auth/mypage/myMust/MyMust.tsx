@@ -2,15 +2,14 @@
 import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
-import { useMustPostsFetch } from "@/hooks/mustpost/useMustPostsFetch";
-import MustPostCard from "./card/MustPostCard";
+import MustPostCard from "@/components/mustpost/list/card/MustPostCard";
+import { useGetMyMust } from "@/hooks/mypage/useGetMyMust";
 
-function MustPostList() {
+function MyMust() {
   const { mustPosts, isPending, isError, observerRef, isFetchingNextPage } =
-    useMustPostsFetch();
+    useGetMyMust();
 
   if (isPending) return <IsLoading />;
-
   if (isError) return <Error />;
 
   return (
@@ -31,15 +30,14 @@ function MustPostList() {
               ))}
             </ul>
           </div>
-
           <div ref={observerRef} />
           {isFetchingNextPage && <IsLoading />}
         </>
       ) : (
-        <Empty content="해당 카테고리에 맞는 게시글이 없습니다." />
+        <Empty content="작성한 게시글이 없습니다." />
       )}
     </>
   );
 }
 
-export default MustPostList;
+export default MyMust;

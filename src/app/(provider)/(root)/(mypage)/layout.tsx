@@ -1,4 +1,4 @@
-import Page from "@/components/common/Page/Page";
+import Page from "@/components/common/page/Page";
 import { PropsWithChildren } from "react";
 
 function MyPagelayout({ children }: PropsWithChildren) {

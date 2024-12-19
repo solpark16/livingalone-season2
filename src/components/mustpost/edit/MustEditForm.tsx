@@ -1,7 +1,7 @@
 "use client";
 import { getMustPost, updateMustPost } from "@/apis/mustpost";
-import InnerLayout from "@/components/common/Page/InnerLayout";
 import EditorModule from "@/components/common/editor/EditorModule";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import {
   MustCategory,

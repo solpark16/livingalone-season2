@@ -1,4 +1,4 @@
-import Page from "@/components/common/Page/Page";
+import Page from "@/components/common/page/Page";
 import GroupWriteForm from "@/components/grouppost/write/GroupWriteForm";
 
 function GroupWritePage() {
