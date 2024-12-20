@@ -151,3 +151,44 @@ export type TEditAlarm = Pick<Alarm, "user_id" | "id" | "is_read">;
 export type TDeleteAlarm = Pick<Alarm, "user_id" | "id">;
 
 export type Comment = Tables<"must_comments">;
+
+export type TPlayList = {
+  id: string;
+  snippet: {
+    title: string;
+    description: string;
+    channelId: string;
+    thumbnails: {
+      default: { url: string; width: number; height: number };
+      medium: { url: string; width: number; height: number };
+      high: { url: string; width: number; height: number };
+    };
+    channelTitle: string;
+  };
+};
+
+export type TVideoList = {
+  snippet: {
+    title: string;
+    description: string;
+    thumbnails: {
+      default: { url: string; width: number; height: number };
+      medium: { url: string; width: number; height: number };
+      high: { url: string; width: number; height: number };
+    };
+    resourceId: {
+      videoId: string;
+    };
+  };
+};
+
+export type TVideo = {
+  playlistId: string;
+  playlistTitle: string;
+  videos: {
+    title: string;
+    thumbnail: string;
+    videoUrl: string;
+    videoId: string;
+  }[];
+};

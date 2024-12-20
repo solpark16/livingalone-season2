@@ -11,7 +11,9 @@ function GlobalNav() {
         <li>
           <Link
             href="/mustpost"
-            className={`hover:text-main-7 ${pathname === "/mustpost" ? "text-main-7" : "text-gray-6"}`}
+            className={`hover:text-main-7 ${
+              pathname === "/mustpost" ? "text-main-7" : "text-gray-6"
+            }`}
           >
             자랑해 자취템
           </Link>
@@ -19,9 +21,21 @@ function GlobalNav() {
         <li>
           <Link
             href="/grouppost"
-            className={`hover:text-main-7 ${pathname === "/grouppost" ? "text-main-7" : "text-gray-6"}`}
+            className={`hover:text-main-7 ${
+              pathname === "/grouppost" ? "text-main-7" : "text-gray-6"
+            }`}
           >
             같이 사 공구템
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/livingtv"
+            className={`hover:text-main-7 ${
+              pathname === "/livingtv" ? "text-main-7" : "text-gray-6"
+            }`}
+          >
+            자취 티비
           </Link>
         </li>
       </ul>

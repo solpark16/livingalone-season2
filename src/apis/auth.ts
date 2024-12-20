@@ -17,8 +17,6 @@ export async function getUser() {
     const noProfile = profileError?.code === "PGRST116";
 
     if (noProfile) {
-      console.log("야임마");
-      // 👆🏻 이것 뭐예요? ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
       await supabase
         .from("profiles")
         .insert([{ user_id: userId, nickname: "혼살러" }]);
