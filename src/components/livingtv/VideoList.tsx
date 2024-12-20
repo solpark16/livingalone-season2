@@ -18,14 +18,14 @@ function VideoList() {
     <div className="flex flex-col gap-[100px] mt-[50px] md:mt-[80px] text-[26px] font-bold text-gray-6">
       {filteredPlayList.map((playlist) => (
         <div key={playlist.playlistId}>
-          <div className="flex flex-row gap-1 mb-5 text-xl md:text-[22px]">
+          <div className="flex flex-wrap flex-row gap-1 mb-5 text-[18px] md:text-[22px]">
             <h3>{playlist.playlistTitle}</h3>
             <span>|</span>
             <span>#어쩌고 #저쩌고</span>
           </div>
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-[10px] md:gap-[13px] justify-center">
             {playlist.videos.map((video) => (
-              <li key={video.videoId} className="w-[290px]">
+              <li key={video.videoId}>
                 <a href={video.videoUrl} target="_blank">
                   <Image
                     src={video.thumbnail}
