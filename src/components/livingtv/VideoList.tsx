@@ -14,7 +14,7 @@ function VideoList() {
   return (
     <div className="flex flex-col items-center text-[26px] font-bold text-gray-6 ">
       <h2>자취 티비</h2>
-      <div className="flex flex-col gap-[100px]">
+      <div className="flex flex-col gap-[100px] mt-[50px] md:mt-[80px]">
         {videoData.map((playlist) => (
           <div key={playlist.playlistId}>
             <div className="flex flex-row gap-1 mb-5 text-[22px]">
