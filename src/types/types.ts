@@ -22,9 +22,7 @@ export type TMustPostList = Pick<
   "id" | "title" | "content" | "item" | "img_url"
 >;
 
-export type TMustWishData = Omit<MustWish, "created_at"> & {
-  must_posts: Pick<MustPost, "title" | "item" | "img_url">;
-};
+export type TMustWishData = { post_id: string; user_id: string };
 
 export type TMustError = Record<
   | "titleError"
@@ -69,6 +67,23 @@ export type TMainGroupPost = Pick<
   | "is_free"
 > &
   TGroupApplications;
+
+export type TGroupApplicationData = Pick<GroupApplication, "id" | "post_id"> & {
+  group_posts: Pick<
+    GroupPost,
+    | "id"
+    | "title"
+    | "price"
+    | "people_num"
+    | "is_finished"
+    | "img_url"
+    | "start_date"
+    | "end_date"
+    | "item"
+    | "regular_price"
+    | "is_free"
+  > & { group_applications: TGroupApplication[] };
+};
 
 export type TGroupLikeData = Omit<GroupLike, "created_at" | "id">;
 export type TGroupLike = Pick<GroupLike, "id">;
