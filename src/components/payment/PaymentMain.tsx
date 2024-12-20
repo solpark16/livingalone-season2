@@ -1,11 +1,14 @@
 "use client";
 
-import { getMyPayment, getPaymentAll } from "@/apis/payment";
+import { getPaymentAll } from "@/apis/payment";
+import { useGetMyPayment } from "@/hooks/payment/useGetMyPayment";
 import { useAuthStore } from "@/zustand/authStore";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
+import Error from "../common/error/Error";
+import IsLoading from "../common/loading/IsLoading";
 
 function PaymentMain() {
   const user = useAuthStore((state) => state.user);
@@ -16,16 +19,7 @@ function PaymentMain() {
     queryKey: ["payment"],
     queryFn: getPaymentAll,
   });
-
-  const {
-    data: payment,
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: ["payment", userId],
-    queryFn: () => getMyPayment(userId),
-  });
-
+  const { payment, isPending, isError } = useGetMyPayment();
   const onClickPaymentBtnHandler = () => {
     if (!user) {
       Notify.failure("로그인된 사용자만 구매 가능합니다.");
@@ -37,14 +31,9 @@ function PaymentMain() {
     }
     router.push("/payment/form");
   };
-  if (isPending)
-    return (
-      <div className="flex min-h-screen justify-center items-center">
-        <Image src="/img/loading-spinner.svg" alt="로딩중" width={200} height={200} />
-      </div>
-    );
+  if (isPending) return <IsLoading />;
 
-  if (isError) return <div className="flex justify-center items-center">에러...</div>;
+  if (isError) return <Error />;
   return (
     <div className="bg-green-1 min-h-screen md:pt-[130px] pb-[200px] sm:pb-[400px] md:pb-[300px] lg:pb-[600px] text-center">
       <div className="bg-green-1 mx-auto max-w-[660px] md:px-[16px] lg:px-0">

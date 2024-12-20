@@ -1,4 +1,5 @@
 import MyPageMenu from "@/components/auth/mypage/MyPageMenu";
+import MyPayment from "@/components/auth/mypage/payment/MyPayment";
 import PageTitle from "@/components/common/page/PageTitle";
 
 function MyPaymentsPage() {
@@ -6,7 +7,7 @@ function MyPaymentsPage() {
     <>
       <PageTitle title="결제 내역" />
       <MyPageMenu />
-      page
+      <MyPayment />
     </>
   );
 }

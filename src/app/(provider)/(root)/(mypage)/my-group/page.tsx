@@ -1,4 +1,5 @@
 import MyPageMenu from "@/components/auth/mypage/MyPageMenu";
+import MyGroup from "@/components/auth/mypage/myGroup/MyGroup";
 import PageTitle from "@/components/common/page/PageTitle";
 
 function MyGroupPage() {
@@ -6,7 +7,7 @@ function MyGroupPage() {
     <>
       <PageTitle title="내가 쓴 공구" />
       <MyPageMenu />
-      page
+      <MyGroup />
     </>
   );
 }
