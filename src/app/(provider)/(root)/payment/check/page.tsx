@@ -1,6 +1,5 @@
-import Page from "@/components/common/Page/Page";
+import Page from "@/components/common/page/Page";
 import PaymentCheck from "@/components/payment/check/PaymentCheck";
-import React from "react";
 
 function PaymentCheckPage({
   searchParams,

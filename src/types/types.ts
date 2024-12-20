@@ -2,7 +2,7 @@ import { EditorProps } from "@toast-ui/react-editor";
 import { Tables } from "./supabase";
 
 export type Profile = Tables<"profiles">;
-export type TProfile = Partial<Profile>;
+export type TProfile = Omit<Profile, "created_at" | "user_id">;
 
 export type PostType = "must" | "group";
 export type PostResponseType<T extends PostType> = T extends "must"
@@ -38,7 +38,9 @@ export type TMustPostList = Pick<
   "id" | "title" | "content" | "item" | "img_url"
 >;
 
-export type TMustWishData = Omit<MustWish, "created_at" | "id">;
+export type TMustWishData = Omit<MustWish, "created_at"> & {
+  must_posts: Pick<MustPost, "title" | "item" | "img_url">;
+};
 
 export type TMustError = Record<
   | "titleError"
@@ -57,6 +59,10 @@ export type MustPostData = BasePostData<TMustError> & {
 };
 
 export type MustPostResponse = Omit<MustPost, "created_at">;
+export type TProfileError = Record<
+  "nicknameError" | "detailAddressError" | "imageUrlError",
+  string
+>;
 
 export type GroupPost = Tables<"group_posts">;
 export type GroupLike = Tables<"group_likes">;

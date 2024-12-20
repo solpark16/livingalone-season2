@@ -37,7 +37,7 @@ function AuthHeader() {
             </li>
             <li>|</li>
             <li>
-              <Link href="/mypage">마이페이지</Link>
+              <Link href="/my-info">마이페이지</Link>
             </li>
             <li>|</li>
             <li>

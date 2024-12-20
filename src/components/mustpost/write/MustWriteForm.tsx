@@ -1,17 +1,17 @@
 "use client";
-import InnerLayout from "@/components/common/Page/InnerLayout";
-import { MustCategory, TMustError } from "@/types/types";
-import React, { useRef, useState } from "react";
-import SelectCategory from "./SelectCategory";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
+import { MustCategory, TMustError } from "@/types/types";
 import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
+import { useRef, useState } from "react";
+import SelectCategory from "./SelectCategory";
 
 // import Input from "@/components/common/input/Input";
+import Input from "@/components/auth/common/Input";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import { usePostSubmit } from "@/hooks/common/usePostSubmit";
-import Input from "@/components/auth/common/Input";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -143,7 +143,7 @@ function MustWriteForm() {
             setImgUrl={setImgUrl}
             error={error}
             setError={setError}
-            postType="must"
+            postType="mustposts"
           />
           <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />

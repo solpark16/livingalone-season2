@@ -1,7 +1,7 @@
 "use client";
 import { getMustPost, updateMustPost } from "@/apis/mustpost";
-import InnerLayout from "@/components/common/Page/InnerLayout";
 import EditorModule from "@/components/common/editor/EditorModule";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import {
   MustCategory,
@@ -15,16 +15,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { EditorProps } from "@toast-ui/react-editor";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { mustValidation } from "../common/MustValidation";
 import SelectCategory from "../write/SelectCategory";
 
 // import Input from "@/components/common/input/Input";
-import Button from "@/components/common/button/Button";
-import IsLoading from "@/components/common/loading/IsLoading";
-import ImageUploader from "@/components/common/input/ImageUploader";
-import Error from "@/components/common/error/Error";
 import Input from "@/components/auth/common/Input";
+import Button from "@/components/common/button/Button";
+import Error from "@/components/common/error/Error";
+import ImageUploader from "@/components/common/input/ImageUploader";
+import IsLoading from "@/components/common/loading/IsLoading";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
@@ -232,7 +232,7 @@ function MustEditForm({ params }: { params: { id: string } }) {
             setImgUrl={setImgUrl}
             error={error}
             setError={setError}
-            postType="must"
+            postType="mustposts"
           />
           <div className="mb-[22px] md:mb-[45px]">
             <EditorModule editorRef={editorRef} />

@@ -1,6 +1,6 @@
-import Page from "@/components/common/Page/Page";
-import PageTitle from "@/components/common/Page/PageTitle";
 import TopButton from "@/components/common/button/TopButton";
+import Page from "@/components/common/page/Page";
+import PageTitle from "@/components/common/page/PageTitle";
 import MustCategory from "@/components/mustpost/list/MustCategory";
 import MustPostList from "@/components/mustpost/list/MustPostList";
 

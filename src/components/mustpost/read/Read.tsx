@@ -1,13 +1,11 @@
 import { getMustPostDetail } from "@/apis/mustpost";
-import InnerLayout from "@/components/common/Page/InnerLayout";
+import Button from "@/components/common/button/Button";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { MustPost } from "@/types/types";
 import Image from "next/image";
-import Link from "next/link";
 import Comments from "../comments/Comments";
 import MorePost from "./MorePost";
-import MustPostAction from "./MustPostAction";
 import ReadPost from "./ReadPost";
-import Button from "@/components/common/button/Button";
 
 type Props = {
   params: { id: string };

@@ -3,10 +3,11 @@ import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
 import { useMustPostsFetch } from "@/hooks/mustpost/useMustPostsFetch";
-import MustPostCard from "./Card/MustPostCard";
+import MustPostCard from "./card/MustPostCard";
 
 function MustPostList() {
-  const { mustPosts, isPending, isError, observerRef, isFetchingNextPage } = useMustPostsFetch();
+  const { mustPosts, isPending, isError, observerRef, isFetchingNextPage } =
+    useMustPostsFetch();
 
   if (isPending) return <IsLoading />;
 
@@ -20,7 +21,12 @@ function MustPostList() {
             <ul className="grid grid-cols-2 md:grid-cols-4 gap-x-3 gap-y-10">
               {mustPosts.map((post) => (
                 <li key={post.id}>
-                  <MustPostCard postId={post.id} title={post.title} item={post.item} imgUrl={post.img_url} />
+                  <MustPostCard
+                    postId={post.id}
+                    title={post.title}
+                    item={post.item}
+                    imgUrl={post.img_url}
+                  />
                 </li>
               ))}
             </ul>

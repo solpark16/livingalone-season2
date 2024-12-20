@@ -1,19 +1,19 @@
 "use client";
 
-import InnerLayout from "@/components/common/Page/InnerLayout";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
+import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import { TGroupError } from "@/types/types";
 
 import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 
+import Input from "@/components/auth/common/Input";
+import { usePostSubmit } from "@/hooks/common/usePostSubmit";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import GroupPostNotice from "../common/GroupPostNotice";
-import Image from "next/image";
-import { usePostSubmit } from "@/hooks/common/usePostSubmit";
-import Input from "@/components/auth/common/Input";
 
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
@@ -208,7 +208,7 @@ function GroupWriteForm() {
           setImgUrl={setImgUrl}
           error={error}
           setError={setError}
-          postType="group"
+          postType="groupposts"
         />
         <div className="mb-[22px] md:mb-[45px]">
           <EditorModule editorRef={editorRef} />

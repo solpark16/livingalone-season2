@@ -1,12 +1,13 @@
 import { insertGroupImage } from "@/apis/grouppost";
 import { insertMustImage } from "@/apis/mustpost";
+import { uploadImage } from "@/apis/mypage";
 import { useMutation } from "@tanstack/react-query";
 import imageCompression from "browser-image-compression";
 import { Notify } from "notiflix";
 import { useState } from "react";
 
 export default function useAddImage<T extends { imageUrlError: string }>(
-  postType: "must" | "group",
+  postType: "mustposts" | "groupposts" | "profile",
   setImgUrl: React.Dispatch<React.SetStateAction<string>>,
   setError: React.Dispatch<React.SetStateAction<T>>
 ) {
@@ -19,11 +20,16 @@ export default function useAddImage<T extends { imageUrlError: string }>(
 
       setLoading(true);
 
-      const response = postType === "must" ? await insertMustImage(formData) : await insertGroupImage(formData);
+      const response =
+        postType === "mustposts"
+          ? await insertMustImage(formData)
+          : postType === "groupposts"
+          ? await insertGroupImage(formData)
+          : await uploadImage(formData);
 
-      postType === "must"
-        ? setImgUrl(`https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/mustposts/${response.path}`)
-        : setImgUrl(`https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/groupposts/${response.path}`);
+      setImgUrl(
+        `https://wtgehzvyirdsifnqqfzn.supabase.co/storage/v1/object/public/${postType}/${response.path}`
+      );
       setLoading(false);
     },
   });

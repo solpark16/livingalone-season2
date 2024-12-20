@@ -1,5 +1,5 @@
-import Page from "@/components/common/Page/Page";
 import TopButton from "@/components/common/button/TopButton";
+import Page from "@/components/common/page/Page";
 import MustEditForm from "@/components/mustpost/edit/MustEditForm";
 
 function MustEditPage({ params }: { params: { id: string } }) {
