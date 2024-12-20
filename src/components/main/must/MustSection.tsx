@@ -3,10 +3,10 @@ import { getMustPostOnMain } from "@/apis/mustpost";
 import Button from "@/components/common/button/Button";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
-import MustPostCard from "@/components/mustpost/list/card/MustPostCard";
 import { TMainMustPost } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import MainSectionTitle from "../common/MainSectionTitle";
+import MustPostCard from "@/components/mustpost/list/Card/MustPostCard";
 
 function MustSection() {
   const {

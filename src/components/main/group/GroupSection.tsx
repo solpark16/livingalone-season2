@@ -2,12 +2,12 @@
 
 import { getGroupPostOnMain } from "@/apis/grouppost";
 import Button from "@/components/common/button/Button";
-import GroupPostCard from "@/components/grouppost/list/Card/GroupPostCard";
 import { TMainGroupPost } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 import MainSectionTitle from "../common/MainSectionTitle";
 import IsLoading from "@/components/common/loading/IsLoading";
 import Error from "@/components/common/error/Error";
+import GroupPostCard from "@/components/grouppost/list/Card/GroupPostCard";
 
 function GroupSection() {
   const {

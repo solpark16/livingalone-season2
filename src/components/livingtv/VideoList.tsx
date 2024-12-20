@@ -6,14 +6,17 @@ import Link from "next/link";
 import Image from "next/image";
 
 function VideoList() {
-  const { videoData, isLoading, isError } = useYoutubeData();
+  const { videoData, isLoading, isError, mainPlayListId } = useYoutubeData();
+  const filteredPlayList = videoData.filter(
+    (playlist) => playlist.playlistId !== mainPlayListId
+  );
 
   if (isLoading) return <IsLoading />;
   if (isError) return <Error />;
 
   return (
     <div className="flex flex-col gap-[100px] mt-[50px] md:mt-[80px] text-[26px] font-bold text-gray-6">
-      {videoData.map((playlist) => (
+      {filteredPlayList.map((playlist) => (
         <div key={playlist.playlistId}>
           <div className="flex flex-row gap-1 mb-5 text-xl md:text-[22px]">
             <h3>{playlist.playlistTitle}</h3>

@@ -2,7 +2,8 @@
 import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
-import MustPostCard from "@/components/mustpost/list/card/MustPostCard";
+import MustPostCard from "@/components/mustpost/list/Card/MustPostCard";
+
 import { useGetMyMust } from "@/hooks/mypage/useGetMyMust";
 
 function MyMust() {
