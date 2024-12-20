@@ -3,74 +3,23 @@ import { insertMustPost } from "@/apis/mustpost";
 import { groupValidation } from "@/components/grouppost/common/GroupValidation";
 import { mustValidation } from "@/components/mustpost/common/MustValidation";
 import { START_DATE } from "@/constants/date";
-import { TGroupError, TMustError } from "@/types/types";
+import {
+  GroupPostData,
+  GroupPostResponse,
+  MustPostData,
+  MustPostResponse,
+  PostResponseType,
+  PostType,
+  TGroupError,
+  TMustError,
+} from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { EditorProps } from "@toast-ui/react-editor";
+
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-
-interface BasePostData<ErrorType> {
-  title: string;
-  imgUrl: string;
-  editorRef: EditorProps;
-  setError: React.Dispatch<React.SetStateAction<ErrorType>>;
-  link: string;
-  price: number;
-  item: string;
-}
-
-interface MustPostData extends BasePostData<TMustError> {
-  selectedCategoryId: string;
-  company: string;
-  itemName: string;
-}
-
-interface GroupPostData extends BasePostData<TGroupError> {
-  endDate: string;
-  peopleNum: number;
-  regularPrice: number;
-  checkBox: boolean;
-  isFree: boolean;
-}
-
-// API 응답 타입
-interface MustPostResponse {
-  id: string;
-  user_id: string;
-  title: string;
-  category_id: string;
-  content: string;
-  img_url: string;
-  item: string;
-  location: string;
-  price: number;
-  link: string;
-}
-
-interface GroupPostResponse {
-  id: string;
-  user_id: string;
-  title: string;
-  end_date: string;
-  people_num: number;
-  price: number;
-  regular_price: number;
-  content: string;
-  item: string;
-  link: string;
-  img_url: string;
-  is_free: boolean;
-  is_finished: boolean;
-  start_date: string;
-}
-
-type PostType = "must" | "group";
-type PostResponseType<T extends PostType> = T extends "must"
-  ? MustPostResponse
-  : GroupPostResponse;
 
 export function usePostSubmit<T extends PostType>(
   postData: T extends "must"

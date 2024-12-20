@@ -1,7 +1,23 @@
+import { EditorProps } from "@toast-ui/react-editor";
 import { Tables } from "./supabase";
 
 export type Profile = Tables<"profiles">;
 export type TProfile = Omit<Profile, "created_at" | "user_id">;
+
+export type PostType = "must" | "group";
+export type PostResponseType<T extends PostType> = T extends "must"
+  ? MustPostResponse
+  : GroupPostResponse;
+
+export type BasePostData<ErrorType> = {
+  title: string;
+  imgUrl: string;
+  editorRef: EditorProps;
+  setError: React.Dispatch<React.SetStateAction<ErrorType>>;
+  link: string;
+  price: number;
+  item: string;
+};
 
 export type MustPost = Tables<"must_posts">;
 export type MustWish = Tables<"must_wishes">;
@@ -34,6 +50,13 @@ export type TMustError = Record<
   string
 >;
 
+export type MustPostData = BasePostData<TMustError> & {
+  selectedCategoryId: string;
+  company: string;
+  itemName: string;
+};
+
+export type MustPostResponse = Omit<MustPost, "created_at">;
 export type TProfileError = Record<
   "nicknameError" | "detailAddressError" | "imageUrlError",
   string
@@ -124,6 +147,16 @@ export type TGroupError = Record<
   string
 >;
 
+export type GroupPostData = BasePostData<TGroupError> & {
+  endDate: string;
+  peopleNum: number;
+  regularPrice: number;
+  checkBox: boolean;
+  isFree: boolean;
+};
+
+export type GroupPostResponse = Omit<GroupPost, "created_at">;
+
 export type Chat = Tables<"chat">;
 
 export type Payment = Tables<"payments">;
@@ -139,3 +172,44 @@ export type TEditAlarm = Pick<Alarm, "user_id" | "id" | "is_read">;
 export type TDeleteAlarm = Pick<Alarm, "user_id" | "id">;
 
 export type Comment = Tables<"must_comments">;
+
+export type TPlayList = {
+  id: string;
+  snippet: {
+    title: string;
+    description: string;
+    channelId: string;
+    thumbnails: {
+      default: { url: string; width: number; height: number };
+      medium: { url: string; width: number; height: number };
+      high: { url: string; width: number; height: number };
+    };
+    channelTitle: string;
+  };
+};
+
+export type TVideoList = {
+  snippet: {
+    title: string;
+    description: string;
+    thumbnails: {
+      default: { url: string; width: number; height: number };
+      medium: { url: string; width: number; height: number };
+      high: { url: string; width: number; height: number };
+    };
+    resourceId: {
+      videoId: string;
+    };
+  };
+};
+
+export type TVideo = {
+  playlistId: string;
+  playlistTitle: string;
+  videos: {
+    title: string;
+    thumbnail: string;
+    videoUrl: string;
+    videoId: string;
+  }[];
+};

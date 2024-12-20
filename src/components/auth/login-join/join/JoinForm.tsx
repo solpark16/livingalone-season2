@@ -1,16 +1,11 @@
 "use client";
 import { useInputChange } from "@/hooks/common/useInput";
-import { useRouter } from "next/navigation";
-import { Notify } from "notiflix";
 import React, { useState } from "react";
 import Input from "../../common/Input";
 import Button from "@/components/common/button/Button";
-import { JoinValidation } from "../../common/JoinValidation";
-import { join } from "@/apis/auth";
+import { useSubmitJoin } from "@/hooks/auth/useSubmitJoin";
 
 const JoinForm = () => {
-  const router = useRouter();
-
   const { values: input, handler: onChangeInput } = useInputChange({
     nickname: "",
     email: "",
@@ -21,38 +16,8 @@ const JoinForm = () => {
   const [passwordType, setPasswordType] = useState(true);
   const [passwordConfirmType, setPasswordConfirmType] = useState(true);
 
-  const [error, setError] = useState({
-    emailError: "",
-    passwordError: "",
-    passwordConfirmError: "",
-    nicknameError: "",
-  });
-
   const { nickname, email, password, passwordConfirm } = input;
-
-  const handleSubmitJoin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const joinData = { nickname, email, password };
-    const isValid = JoinValidation(
-      setError,
-      email,
-      password,
-      passwordConfirm,
-      nickname
-    );
-    if (!isValid) return;
-    const data = await join(joinData);
-
-    if (data.message === "User already registered") {
-      return setError((prev) => ({
-        ...prev,
-        emailError: "이미 등록된 이메일 입니다.",
-      }));
-    }
-
-    Notify.success("회원가입이 성공적으로 완료되었습니다.");
-    router.push("/login");
-  };
+  const { error, handleSubmitJoin } = useSubmitJoin(input);
 
   return (
     <div className="flex flex-col justify-start items-center">

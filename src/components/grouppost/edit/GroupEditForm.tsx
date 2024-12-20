@@ -17,10 +17,9 @@ import { groupValidation } from "../common/GroupValidation";
 
 import Button from "@/components/common/button/Button";
 import Error from "@/components/common/error/Error";
-import IsLoading from "@/components/common/loading/IsLoading";
-// import Input from "@/components/common/input/Input";
 import Input from "@/components/auth/common/Input";
 import ImageUploader from "@/components/common/input/ImageUploader";
+import IsLoading from "@/components/common/loading/IsLoading";
 
 function GroupEditForm({ params }: { params: { id: string } }) {
   const { id } = params;
