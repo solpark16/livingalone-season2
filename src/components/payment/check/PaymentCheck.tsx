@@ -9,7 +9,13 @@ import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
 import { useEffect, useRef } from "react";
 
-function PaymentCheck({ paymentId, code }: { paymentId: string; code: string }) {
+function PaymentCheck({
+  paymentId,
+  code,
+}: {
+  paymentId: string;
+  code: string;
+}) {
   const user = useAuthStore((state) => state.user);
   const router = useRouter();
   const hasRun = useRef(false);
@@ -32,12 +38,18 @@ function PaymentCheck({ paymentId, code }: { paymentId: string; code: string }) 
               const cancelResponse = await refundPayment(paymentId);
               if (cancelResponse.data.cancellation.status !== "SUCCEEDED") {
                 Notify.failure("마이페이지 > 결제 내역에서 환불해주세요.");
-                throw new Error(`Cancellation failed: ${cancelResponse.statusText}`);
+                throw new Error(
+                  `Cancellation failed: ${cancelResponse.statusText}`
+                );
               }
-              const notified = await fetch(`/api/payment/complete?paymentId=${paymentId}`);
+              const notified = await fetch(
+                `/api/payment/complete?paymentId=${paymentId}`
+              );
               const paymentData = await notified.json();
               if (paymentData.status === "PAID") {
-                Notify.failure("즉시 환불에 실패했습니다. 마이페이지 > 결제 내역에서 환불해주세요.");
+                Notify.failure(
+                  "즉시 환불에 실패했습니다. 마이페이지 > 결제 내역에서 환불해주세요."
+                );
               }
               if (paymentData.status === "FAILED") {
                 Notify.failure("결제에 실패했습니다. 다시 시도해주세요.");
@@ -61,7 +73,9 @@ function PaymentCheck({ paymentId, code }: { paymentId: string; code: string }) 
             };
             postPaymentHistory();
           } catch (error) {
-            Notify.failure("즉시 환불에 실패했습니다. 마이페이지 > 결제 내역에서 환불해주세요.");
+            Notify.failure(
+              "즉시 환불에 실패했습니다. 마이페이지 > 결제 내역에서 환불해주세요."
+            );
           }
         }
       };
@@ -72,7 +86,12 @@ function PaymentCheck({ paymentId, code }: { paymentId: string; code: string }) 
 
   return (
     <div className="flex justify-center items-center">
-      <Image src="/img/loading-spinner.svg" alt="로딩중" width={200} height={200} />
+      <Image
+        src="/img/loading-spinner.svg"
+        alt="로딩중"
+        width={200}
+        height={200}
+      />
     </div>
   );
 }
