@@ -12,12 +12,14 @@ export function useYoutubeData() {
     queryKey: ["videoData"],
     queryFn: async () => {
       const playLists: TPlayList[] = await getPlayList();
+      console.log(playLists);
       return Promise.all(
         playLists.map(async (playlist) => {
           const videos: TVideoList[] = await getVideos(playlist.id);
           return {
             playlistId: playlist.id,
             playlistTitle: playlist.snippet.title,
+            playlistDescription: playlist.snippet.description,
             videos: videos.map((video) => ({
               title: video.snippet.title,
               thumbnail: video.snippet.thumbnails.medium.url,

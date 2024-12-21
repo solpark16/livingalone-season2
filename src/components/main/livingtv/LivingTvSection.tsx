@@ -19,7 +19,7 @@ function LivingTVSection() {
   const mainVideoList = mainPlayList?.videos;
 
   return (
-    <div className="container mx-auto w-full max-w-[1200px] px-[12px] xl:px-0">
+    <div className="container mx-auto w-full max-w-[1200px] mb-[100px] px-[12px] xl:px-0">
       <MainSectionTitle
         title="자취 티비"
         content="자취에 유용한 정보와 다양한 영상을 확인해보세요."

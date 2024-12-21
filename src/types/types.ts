@@ -206,6 +206,7 @@ export type TVideoList = {
 export type TVideo = {
   playlistId: string;
   playlistTitle: string;
+  playlistDescription: string;
   videos: {
     title: string;
     thumbnail: string;
