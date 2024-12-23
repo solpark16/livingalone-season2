@@ -1,5 +1,6 @@
 "use client";
 
+import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
 import { useGetMyGroup } from "@/hooks/mypage/useGetMyGroup";
@@ -22,7 +23,7 @@ function MyGroup() {
           ))}
         </ul>
       ) : (
-        <div>내가 쓴 공구가 없습니다.</div>
+        <Empty content="작성한 공구가 없습니다." />
       )}
     </>
   );
