@@ -2,7 +2,6 @@
 import { insertComment } from "@/apis/mustpost";
 import { getMyProfile } from "@/apis/mypage";
 import Button from "@/components/common/button/Button";
-import useAddAlarm from "@/hooks/alarm/useAddAlarm";
 import { Profile } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -25,7 +24,7 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
   const [countComment, setCountComment] = useState(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { data: profile, isPending } = useQuery<Profile | undefined>({
+  const { data: profile } = useQuery<Profile | undefined>({
     queryKey: ["profile", user?.id],
     queryFn: () => (user ? getMyProfile(user.id) : undefined),
     enabled: !!user,
@@ -38,12 +37,10 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
 
   const { mutate: addComment } = useMutation({
     mutationFn: (newComment: TComment) => insertComment(newComment),
-
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", postId] });
       setLoading(false);
     },
-
     onError: () => {
       setLoading(false);
     },
@@ -82,17 +79,15 @@ function CommentForm({ postId, userId }: { postId: string; userId: string }) {
     addComment(newComment);
     setContent("");
 
-    //알람 추가
-    const chatAlarmData = {
-      type: "comment",
-      user_id: userId,
-      group_post_id: "",
-      must_post_id: postId,
-      link: `/mustpost/read/${postId}`,
-      is_read: false,
-    };
-
-    useAddAlarm(chatAlarmData);
+    // //알람 추가
+    // const chatAlarmData = {
+    //   type: "comment",
+    //   user_id: userId,
+    //   group_post_id: "",
+    //   must_post_id: postId,
+    //   link: `/mustpost/read/${postId}`,
+    //   is_read: false,
+    // };
   };
 
   return (

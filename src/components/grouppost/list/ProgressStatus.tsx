@@ -15,12 +15,20 @@ function ProgressStatus() {
 
   useEffect(() => {
     return setIsFinished(false);
-  }, []);
+  }, [setIsFinished]);
 
   return (
     <div className="flex gap-[10px] py-[50px]">
-      <Button {...activeStyle(isFinished)} content="진행중" onClick={() => setIsFinished(false)} />
-      <Button {...activeStyle(!isFinished)} content="종료됨" onClick={() => setIsFinished(true)} />
+      <Button
+        {...activeStyle(isFinished)}
+        content="진행중"
+        onClick={() => setIsFinished(false)}
+      />
+      <Button
+        {...activeStyle(!isFinished)}
+        content="종료됨"
+        onClick={() => setIsFinished(true)}
+      />
     </div>
   );
 }

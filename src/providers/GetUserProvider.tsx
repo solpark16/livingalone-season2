@@ -8,7 +8,7 @@ function GetUserProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     getUser().then((res) => saveUser(res.data.user));
-  }, []);
+  }, [saveUser]);
   return <>{children}</>;
 }
 
