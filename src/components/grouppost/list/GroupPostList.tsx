@@ -7,7 +7,14 @@ import useGroupPostsFetch from "@/hooks/grouppost/useGroupPostsFetch";
 import GroupPostCard from "./Card/GroupPostCard";
 
 function GroupPostList() {
-  const { isFinished, groupPosts, isFetchingNextPage, observerRef, isPending, isError } = useGroupPostsFetch();
+  const {
+    isFinished,
+    groupPosts,
+    isFetchingNextPage,
+    observerRef,
+    isPending,
+    isError,
+  } = useGroupPostsFetch();
 
   if (isPending) return <IsLoading />;
 
@@ -17,7 +24,7 @@ function GroupPostList() {
     <>
       {groupPosts && groupPosts.length ? (
         <>
-          <ul className="w-full grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-8 md:gap-y-[64px]">
+          <ul className="w-full grid grid-cols-2 gap-x-3 md:gap-x-8 gap-y-8 md:gap-y-[64px]">
             {groupPosts.map((post) => {
               return (
                 <li key={post.id}>
