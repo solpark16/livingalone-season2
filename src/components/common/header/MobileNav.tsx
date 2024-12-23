@@ -128,9 +128,9 @@ function MobileNav() {
             </li>
             <li>
               {user ? (
-                <Link href="/mypage">
+                <Link href="/my-page">
                   <div className="flex flex-col justify-center items-center gap-[3px]">
-                    {pathname === "/mypage" ? (
+                    {pathname === "/my-page" ? (
                       <>
                         <Image
                           src="/img/mo-icon-mypage-on.svg"

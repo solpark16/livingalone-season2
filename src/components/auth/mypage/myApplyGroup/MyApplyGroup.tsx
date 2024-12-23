@@ -1,4 +1,5 @@
 "use client";
+import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
 import GroupPostCard from "@/components/grouppost/list/Card/GroupPostCard";
@@ -34,7 +35,7 @@ function MyApplyGroup() {
           ))}
         </ul>
       ) : (
-        <div>신청한 공구가 없습니다.</div>
+        <Empty content="신청한 공구가 없습니다." />
       )}
     </>
   );
