@@ -13,8 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Report } from "notiflix";
 import { FormEvent, useEffect, useState } from "react";
 import Input from "../../common/Input";
-import { ProfileValidation } from "@/components/auth/mypage/MyInfo/ProfileValidation";
-
+import { ProfileValidation } from "./ProfileValidation";
 function ProfileForm() {
   const user = useAuthStore((state) => state.user);
   const userId = user?.id as string;
@@ -46,7 +45,7 @@ function ProfileForm() {
         nickname: prevProfile.nickname,
       });
     }
-  }, [prevProfile]);
+  }, [prevProfile, setValues]);
 
   const queryClient = useQueryClient();
 
