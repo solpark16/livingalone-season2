@@ -3,6 +3,7 @@ import { TPlayList, TVideoList, TVideo } from "@/types/types";
 import { useQuery } from "@tanstack/react-query";
 
 export function useYoutubeData() {
+  const mainPlayListId = "PLIEC5cdXEn76Rs9XIKYwAzqVeAYdNNFC7";
   const {
     data: videoData = [],
     isLoading,
@@ -17,6 +18,7 @@ export function useYoutubeData() {
           return {
             playlistId: playlist.id,
             playlistTitle: playlist.snippet.title,
+            playlistDescription: playlist.snippet.description,
             videos: videos.map((video) => ({
               title: video.snippet.title,
               thumbnail: video.snippet.thumbnails.medium.url,
@@ -29,5 +31,5 @@ export function useYoutubeData() {
     },
   });
 
-  return { videoData, isLoading, isError };
+  return { videoData, isLoading, isError, mainPlayListId };
 }
