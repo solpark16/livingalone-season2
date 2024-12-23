@@ -3,7 +3,7 @@ import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
 import { useMustPostsFetch } from "@/hooks/mustpost/useMustPostsFetch";
-import MustPostCard from "./card/MustPostCard";
+import MustPostCard from "./Card/MustPostCard";
 
 function MustPostList() {
   const { mustPosts, isPending, isError, observerRef, isFetchingNextPage } =

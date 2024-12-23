@@ -34,7 +34,7 @@ function VideoList() {
                     className="rounded-lg"
                   />
 
-                  <span className="mt-5 text-base md:text-xl line-clamp-2">
+                  <span className="mt-5 text-[14px] md:text-lg line-clamp-2">
                     {video.title}
                   </span>
                 </a>
