@@ -1,5 +1,5 @@
 import { getMyWishMust } from "@/apis/mypage";
-import { TMustWishData } from "@/types/types";
+import { MyWishMust } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useQuery } from "@tanstack/react-query";
 
@@ -11,7 +11,7 @@ export function useGetMyWish() {
     data: myWishMustLists = [],
     isPending,
     isError,
-  } = useQuery<TMustWishData[]>({
+  } = useQuery<MyWishMust[]>({
     queryKey: ["wish", userId],
     queryFn: () => getMyWishMust(userId),
   });

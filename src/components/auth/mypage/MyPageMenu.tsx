@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 function MyPageMenu() {
   const pathname = usePathname();
   return (
-    <ul className="flex items-center mt-[30px] mb-[40px]">
+    <ul className="hidden md:flex items-center mt-[30px] mb-[40px]">
       {mypageMenu.map((menu) => (
         <li
           key={menu.href}
