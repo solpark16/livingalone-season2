@@ -72,6 +72,9 @@ const config: Config = {
           2: "#E6E6E6",
           1: "#F4F4F4",
         },
+        lime: {
+          1: "#F0FFB3",
+        },
       },
     },
   },

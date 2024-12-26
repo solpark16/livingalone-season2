@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
 import Error from "../common/error/Error";
 import IsLoading from "../common/loading/IsLoading";
+import Button from "../common/button/Button";
 
 function PaymentMain() {
   const user = useAuthStore((state) => state.user);
@@ -35,43 +36,68 @@ function PaymentMain() {
 
   if (isError) return <Error />;
   return (
-    <div className="bg-green-1 min-h-screen md:pt-[130px] pb-[200px] sm:pb-[400px] md:pb-[300px] lg:pb-[600px] text-center">
-      <div className="bg-green-1 mx-auto max-w-[660px] md:px-[16px] lg:px-0">
-        <div className="relative w-full">
-          <Image
-            src="/img/luckybox-landing/img-luckybox.jpg"
-            alt="선착순 단 100명! 단돈 1000원!"
-            width={0}
-            height={0}
-            className="w-full h-auto hidden md:block"
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Wg8AAi8BVvC05AcAAAAASUVORK5CYII="
-          />
-          <Image
-            src="/img/luckybox-landing/img-luckybox-mo.png"
-            alt="선착순 단 100명! 단돈 1000원!"
-            width={0}
-            height={0}
-            className="w-full h-auto md:hidden block"
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Wg8AAi8BVvC05AcAAAAASUVORK5CYII="
-          />
-        </div>
-
-        <div className="relative mt-[63px]">
-          <span className="absolute top-[-55px] left-[calc(50%-94px)] bg-white py-2 px-8 text-main-7 rounded-full text-[16px] after:pointer">
+    <div className="flex flex-col items-center">
+      <div className="relative w-full">
+        {/* 이미지 div */}
+        <Image
+          src="/img/luckybox-main.svg"
+          alt="럭키박스 메인 이미지"
+          width={0}
+          height={0}
+          placeholder="blur"
+          className="hidden md:block w-full h-auto"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Wg8AAi8BVvC05AcAAAAASUVORK5CYII="
+        />
+        <Image
+          src="/img/luckybox-mobile-main.svg"
+          alt="럭키박스 메인 이미지"
+          width={0}
+          height={0}
+          placeholder="blur"
+          className="block md:hidden w-full h-auto"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Wg8AAi8BVvC05AcAAAAASUVORK5CYII="
+        />
+      </div>
+      <div className="flex flex-col gap-[22px] text-center">
+        <span className="inline-block font-light text-[18px] md:text-[28px] text-gray-6">
+          자취에 꼭 필요한 5만원 상당의
+          <br />
+          필수템이 랜덤하게 들어가 있습니다.
+        </span>
+        <span className="inline-block text-[20px] md:text-[34px] font-extrabold text-main-7 tracking-normal">
+          단 돈 1000원!
+          <br />
+          지금 바로 구매해보세요
+        </span>
+      </div>
+      <div className="flex flex-col items-center mt-[50px]">
+        {/* 글 div */}
+        <div className="relative mb-[16px]">
+          <span className="inline-block w-[161px] bg-red-5 py-[7px] text-white rounded-full text-base font-bold text-center after:pointer">
             남은 럭키박스 {100 - paymentCount}개!
           </span>
-          <button
-            onClick={onClickPaymentBtnHandler}
-            className="font-bold text-[20px] md:text-[24px] text-white bg-main-8 py-[10px] md:py-[16px] w-full max-w-[300px] md:w-[450px] md:max-w-full rounded-full"
-          >
-            구매하기
-          </button>
         </div>
+        <Button
+          size="lg"
+          width="w-[271px] md:w-[340px]"
+          height="h-[57px] md:h-[76px]"
+          bgColor="bg-black"
+          textColor="text-white"
+          textSize="text-lg md:text-[28px]"
+          content="랜덤박스 구매하기"
+          onClick={onClickPaymentBtnHandler}
+        />
+        {/* <button
+          onClick={onClickPaymentBtnHandler}
+          className="font-bold text-[20px] md:text-[24px] text-white bg-black py-[10px] md:py-[16px] w-full max-w-[300px] md:w-[450px] md:max-w-full rounded-full"
+        >
+          구매하기
+        </button> */}
       </div>
     </div>
   );
 }
 
 export default PaymentMain;
+
+// top-[-55px] left-[calc(50%-94px)]

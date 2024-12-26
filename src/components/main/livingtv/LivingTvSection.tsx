@@ -36,7 +36,7 @@ function LivingTVSection() {
                 alt="영상 썸네일"
                 className="rounded-lg w-full"
               />
-              <span className="mt-5 text-base md:text-xl line-clamp-2">
+              <span className="mt-5 text-[14px] md:text-lg line-clamp-2">
                 {video.title}
               </span>
             </a>

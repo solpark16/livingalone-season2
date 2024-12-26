@@ -4,9 +4,11 @@ import { ComponentProps } from "react";
 
 type ButtonProps = {
   size?: string;
+  width?: string;
   height?: string;
   bgColor?: string;
   textColor: string;
+  textSize?: string;
   outline?: string;
   content: string;
   href?: string;
@@ -15,9 +17,11 @@ type ButtonProps = {
 } & ComponentProps<"button">;
 function Button({
   size = "default",
+  width,
   height,
   bgColor,
   textColor,
+  textSize,
   outline,
   href,
   content,
@@ -48,7 +52,7 @@ function Button({
         href={href}
         className={`${
           size === "sm" ? smProps : size === "lg" ? lgProps : defaultProps
-        } ${bgColor} ${textColor} ${outlineProps} ${height}`}
+        } ${bgColor} ${textColor} ${outlineProps} ${width} ${height} ${textSize}`}
       >
         {buttonContents}
       </Link>
@@ -58,7 +62,7 @@ function Button({
     <button
       className={`${
         size === "sm" ? smProps : size === "lg" ? lgProps : defaultProps
-      } ${bgColor} ${textColor} ${outlineProps} cursor-pointer`}
+      } ${bgColor} ${textColor} ${outlineProps} ${width} ${height} ${textSize} cursor-pointer`}
       {...props}
     >
       {buttonContents}

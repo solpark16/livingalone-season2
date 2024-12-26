@@ -111,7 +111,6 @@ function PaymentForm() {
         <div className="flex flex-col w-[504px]"></div>
         <div className="flex flex-col gap-[23px] w-full md:w-[504px] mb-[24px] md:mb-[48px]">
           <Input
-            variant="default"
             label="성함"
             placeholder="주문자의 성함을 입력해주세요"
             value={purchaserName}
@@ -121,7 +120,6 @@ function PaymentForm() {
           />
 
           <Input
-            variant="default"
             label="연락처"
             placeholder="010-XXXX-XXXX"
             value={purchaserPhone}
@@ -131,7 +129,6 @@ function PaymentForm() {
           />
 
           <Input
-            variant="default"
             label="이메일"
             placeholder="주문자의 이메일을 입력해주세요."
             value={purchaserEmail}
@@ -149,7 +146,7 @@ function PaymentForm() {
             주소검색
           </button>
           <Input
-            variant="underline"
+            variantInput="underline"
             placeholder="주소"
             value={purchaserAddress}
             name="recipientAddress"
@@ -158,7 +155,7 @@ function PaymentForm() {
           />
 
           <Input
-            variant="underline"
+            variantInput="underline"
             placeholder="상세 주소(선택 사항)"
             value={purchaserDetailAddress}
             name="purchaserDetailAddress"
