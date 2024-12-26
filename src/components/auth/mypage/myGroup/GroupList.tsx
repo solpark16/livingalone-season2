@@ -1,6 +1,7 @@
 import Button from "@/components/common/button/Button";
 import Label from "@/components/common/label/Label";
 import { TMainGroupPost } from "@/types/types";
+import Link from "next/link";
 import { useState } from "react";
 import ApplyCard from "./ApplyCard";
 
@@ -28,7 +29,9 @@ function GroupList({ post }: GroupListProps) {
             <span className="text-[14px] text-gray-5">
               {post.start_date} ~ {post.end_date}
             </span>
-            <h2 className="text-[18px] font-bold">{post.title}</h2>
+            <h2 className="text-[18px] font-bold">
+              <Link href={`/grouppost/read/${post.id}`}>{post.title}</Link>
+            </h2>
           </div>
         </div>
         <div className="flex flex-col justify-between items-end">
