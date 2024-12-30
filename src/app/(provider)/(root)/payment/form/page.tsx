@@ -5,13 +5,9 @@ import PaymentForm from "@/components/payment/form/PaymentForm";
 
 function PaymentFormPage() {
   return (
-    <>
-      <MobileHeader title="주문서 작성" />
-      <Page>
-        <PaymentForm />
-      </Page>
-      <MobileNav />
-    </>
+    <Page>
+      <PaymentForm />
+    </Page>
   );
 }
 
