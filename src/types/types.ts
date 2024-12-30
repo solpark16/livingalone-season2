@@ -129,6 +129,9 @@ export type TPopularGroupPost = Pick<
   | "img_url"
   | "start_date"
   | "end_date"
+  | "item"
+  | "regular_price"
+  | "is_free"
 > &
   TGroupApplicationsLikes;
 
