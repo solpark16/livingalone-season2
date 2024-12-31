@@ -40,6 +40,10 @@ export type TMustPostList = Pick<
 
 export type TMustWishData = { post_id: string; user_id: string };
 
+export type MyWishMust = Pick<MustWish, "id" | "post_id"> & {
+  must_posts: Pick<MustPost, "title" | "item" | "img_url">;
+};
+
 export type TMustError = Record<
   | "titleError"
   | "categoryError"
@@ -125,6 +129,9 @@ export type TPopularGroupPost = Pick<
   | "img_url"
   | "start_date"
   | "end_date"
+  | "item"
+  | "regular_price"
+  | "is_free"
 > &
   TGroupApplicationsLikes;
 
