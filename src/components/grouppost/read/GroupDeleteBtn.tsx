@@ -30,14 +30,7 @@ function GroupDeleteBtn({ id }: { id: string }) {
     );
   };
 
-  return (
-    <button
-      className="w-[120px] py-[9px] border border-gray-4 text-[20px] text-gray-4 font-bold rounded-full"
-      onClick={deleteGroupPostHandler}
-    >
-      삭제
-    </button>
-  );
+  return <button onClick={deleteGroupPostHandler}>삭제</button>;
 }
 
 export default GroupDeleteBtn;

@@ -46,6 +46,8 @@ function GroupFinishBtn({ id }: { id: string }) {
       link: groupPost.link,
       img_url: groupPost.img_url,
       is_finished: true,
+      is_free: groupPost.is_free,
+      regular_price: groupPost.regular_price,
     };
     if (groupPost) {
       Confirm.show(
@@ -66,7 +68,7 @@ function GroupFinishBtn({ id }: { id: string }) {
   return (
     <button
       onClick={finishGroupPostHandler}
-      className="w-full md:w-[300px] h-[35px] md:h-[44px] flex justify-center items-center font-bold text-base md:text-xl border text-main-8 border-main-8 box-border rounded-full"
+      className="w-full md:w-[280px] flex justify-center items-center text-white font-[700] text-[15px] bg-main-7 rounded-full h-[35px] md:h-[32px]"
     >
       공구 종료하기
     </button>
