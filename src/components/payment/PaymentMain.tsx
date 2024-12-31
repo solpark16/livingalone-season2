@@ -93,5 +93,3 @@ function PaymentMain() {
 }
 
 export default PaymentMain;
-
-// top-[-55px] left-[calc(50%-94px)]

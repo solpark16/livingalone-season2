@@ -138,7 +138,7 @@ function PaymentButton({
   return (
     <Button
       size="lg"
-      bgColor="bg-blue-4"
+      bgColor="bg-main-7"
       textSize="text-[16px] md:text-[18px]"
       textColor="text-gray-1"
       content="결제하기"

@@ -130,8 +130,8 @@ function PaymentForm() {
           <div className="ml-auto">
             <Button
               width="w-[91px]"
-              bgColor="bg-blue-3"
-              textColor="text-gray-1"
+              bgColor="bg-main-2"
+              textColor="text-main-7"
               content="주소검색"
               onClick={() => setIsPostModalOpen((prev) => !prev)}
             />
