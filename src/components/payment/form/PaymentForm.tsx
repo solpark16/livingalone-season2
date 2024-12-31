@@ -136,13 +136,6 @@ function PaymentForm() {
               onClick={() => setIsPostModalOpen((prev) => !prev)}
             />
           </div>
-
-          {/* <button
-            className="w-[73px] mb-1 py-[7px] border border-gray-4 bold text-[12px] rounded-full"
-            onClick={() => setIsPostModalOpen((prev) => !prev)}
-          >
-            주소검색
-          </button> */}
           <Input
             variantInput="underline"
             placeholder="주소"

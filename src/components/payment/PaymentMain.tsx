@@ -87,12 +87,6 @@ function PaymentMain() {
           content="랜덤박스 구매하기"
           onClick={onClickPaymentBtnHandler}
         />
-        {/* <button
-          onClick={onClickPaymentBtnHandler}
-          className="font-bold text-[20px] md:text-[24px] text-white bg-black py-[10px] md:py-[16px] w-full max-w-[300px] md:w-[450px] md:max-w-full rounded-full"
-        >
-          구매하기
-        </button> */}
       </div>
     </div>
   );

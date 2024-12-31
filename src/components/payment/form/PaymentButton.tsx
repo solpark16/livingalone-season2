@@ -144,12 +144,6 @@ function PaymentButton({
       content="결제하기"
       onClick={paymentHandler}
     />
-    // <button
-    //   className="w-full max-w-[300px] md:max-w-full md:w-[500px] py-[10px] md:py-[13px] bg-main-8 bold text-[20px] md:text-[22px] text-gray-1 rounded-full"
-    //   onClick={paymentHandler}
-    // >
-    //   결제하기
-    // </button>
   );
 }
 

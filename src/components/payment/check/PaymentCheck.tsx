@@ -1,6 +1,7 @@
 "use client";
 
 import { insertPayment, refundPayment } from "@/apis/payment";
+import IsLoading from "@/components/common/loading/IsLoading";
 import { TNewPayment } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation } from "@tanstack/react-query";
@@ -80,20 +81,12 @@ function PaymentCheck({
         }
       };
       handlePayment();
+
       hasRun.current = true;
     }
   }, [user, code, paymentId, router]);
 
-  return (
-    <div className="flex justify-center items-center">
-      <Image
-        src="/img/loading-spinner.svg"
-        alt="로딩중"
-        width={200}
-        height={200}
-      />
-    </div>
-  );
+  return <IsLoading />;
 }
 
 export default PaymentCheck;
