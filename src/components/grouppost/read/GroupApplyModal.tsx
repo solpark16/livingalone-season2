@@ -128,7 +128,17 @@ function GroupApplyModal({ id, onClose, userId }: PropsType) {
     setTimeout(() => {
       throttleRef.current = false;
     }, 5000);
-  }, [id, name, phone, address, detailAddress, checkBox, user, alarmMutation]);
+  }, [
+    id,
+    name,
+    phone,
+    address,
+    detailAddress,
+    checkBox,
+    user,
+    addMutation,
+    alarmMutation,
+  ]);
 
   const onCompletePost = (data: { address: string }) => {
     setAddress(data.address);
