@@ -2,8 +2,8 @@
 import Empty from "@/components/common/empty/Empty";
 import Error from "@/components/common/error/Error";
 import IsLoading from "@/components/common/loading/IsLoading";
+import MustPostCard from "@/components/mustpost/list/card/MustPostCard";
 import { useMustPostsFetch } from "@/hooks/mustpost/useMustPostsFetch";
-import MustPostCard from "./Card/MustPostCard";
 
 function MustPostList() {
   const { mustPosts, isPending, isError, observerRef, isFetchingNextPage } =

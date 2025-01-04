@@ -1,8 +1,8 @@
 "use client";
 
-import { insertAlarm } from "@/apis/alarm";
 import { insertGroupApply } from "@/apis/grouppost";
-import { TAddAlarm, TNewGroupApplication } from "@/types/types";
+import { useAddAlarm } from "@/hooks/alarm/useAddAlarm";
+import { TNewGroupApplication } from "@/types/types";
 import { phoneValidate } from "@/utils/phoneValidate";
 import { postRevalidate } from "@/utils/revalidate";
 import { useAuthStore } from "@/zustand/authStore";
@@ -31,6 +31,7 @@ function GroupApplyModal({ id, onClose, userId }: PropsType) {
   const [address, setAddress] = useState<string>("");
   const [detailAddress, setDetailAddress] = useState<string>("");
   const [checkBox, setCheckBox] = useState<boolean>(false);
+  const alarmMutation = useAddAlarm();
 
   const [error, setError] = useState({
     phoneError: "",
@@ -52,10 +53,6 @@ function GroupApplyModal({ id, onClose, userId }: PropsType) {
       postRevalidate(`/grouppost/read/${id}`);
       router.refresh();
     },
-  });
-
-  const { mutate: addAlarm } = useMutation({
-    mutationFn: (chatAlarmData: TAddAlarm) => insertAlarm(chatAlarmData),
   });
 
   const addGroupApplyHandler = useCallback(async () => {
@@ -117,7 +114,7 @@ function GroupApplyModal({ id, onClose, userId }: PropsType) {
     };
     addMutation.mutate(newGroupApply);
 
-    const chatAlarmData = {
+    const alarmData = {
       type: "apply",
       user_id: userId,
       group_post_id: id,
@@ -125,22 +122,13 @@ function GroupApplyModal({ id, onClose, userId }: PropsType) {
       link: `/grouppost/read/${id}`,
       is_read: false,
     };
-    addAlarm(chatAlarmData);
+
+    alarmMutation.mutate(alarmData);
 
     setTimeout(() => {
       throttleRef.current = false;
     }, 5000);
-  }, [
-    id,
-    name,
-    phone,
-    address,
-    detailAddress,
-    checkBox,
-    user,
-    addMutation,
-    addAlarm,
-  ]);
+  }, [id, name, phone, address, detailAddress, checkBox, user, alarmMutation]);
 
   const onCompletePost = (data: { address: string }) => {
     setAddress(data.address);
