@@ -170,7 +170,14 @@ export type Payment = Tables<"payments">;
 export type TNewPayment = Omit<Payment, "created_at">;
 
 export type Alarm = Tables<"alarms">;
-export type TAddAlarm = Omit<Alarm, "id" | "created_at">;
+export type TAddAlarm = {
+  group_post_id: string | null;
+  is_read: boolean;
+  link: string;
+  must_post_id: string | null;
+  type: string;
+  user_id: string;
+};
 export type TAlarm = Tables<"alarms"> & {
   group_posts: { title: string; img_url: string };
   must_posts: { title: string; img_url: string };

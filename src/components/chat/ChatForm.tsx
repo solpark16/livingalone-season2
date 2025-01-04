@@ -1,10 +1,8 @@
 "use client";
-import { insertAlarm } from "@/apis/alarm";
 import { getMyProfile } from "@/apis/mypage";
+import { useAddAlarm } from "@/hooks/alarm/useAddAlarm";
 import { createClient } from "@/supabase/client";
-import { TAddAlarm } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
-import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Confirm, Notify } from "notiflix";
@@ -18,7 +16,15 @@ type TChat = {
   user_id: string;
 };
 
-export default function ChatForm({ postId, userId, onClose }: { postId: string; userId: string; onClose: () => void }) {
+export default function ChatForm({
+  postId,
+  userId,
+  onClose,
+}: {
+  postId: string;
+  userId: string;
+  onClose: () => void;
+}) {
   const supabase = createClient();
   const user = useAuthStore((state) => state.user);
   const id = user?.id as string;
@@ -26,6 +32,7 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const alarmMutation = useAddAlarm();
 
   const fetchInitialMessages = async () => {
     const { data } = await supabase
@@ -70,17 +77,13 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
     return () => {
       supabase.removeChannel(messageSubscription);
     };
-  }, []);
+  }, [fetchInitialMessages, postId, supabase]);
 
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
-
-  const { mutate: addAlarm } = useMutation({
-    mutationFn: (chatAlarmData: TAddAlarm) => insertAlarm(chatAlarmData),
-  });
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -122,15 +125,15 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
       }
 
       if (id !== userId) {
-        const chatAlarmData = {
+        const alarmData = {
           type: "chat",
           user_id: userId,
           group_post_id: postId,
-          must_post_id: "",
+          must_post_id: null,
           link: `/grouppost/read/${postId}`,
           is_read: false,
         };
-        addAlarm(chatAlarmData);
+        alarmMutation.mutate(alarmData);
       }
     }
   };
@@ -146,7 +149,10 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
                   <div className="flex flex-col justify-end">
                     <div className="flex justify-end items-end gap-[10px]">
                       <span className="text-gray-3 text-[10px] text-right">
-                        {message.created_at.split("T").join(" ").substring(0, 16)}
+                        {message.created_at
+                          .split("T")
+                          .join(" ")
+                          .substring(0, 16)}
                       </span>
                       <div className="flex flex-col gap-1 p-[10px] bg-white rounded-lg">
                         <span>{message.text}</span>
@@ -167,7 +173,9 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
                         />
                       </div>
                       <div className="flex flex-col gap-1 p-[10px] bg-white rounded-lg">
-                        <span className="text-[10px] text-gray-3 truncate">{message.profiles.nickname}</span>
+                        <span className="text-[10px] text-gray-3 truncate">
+                          {message.profiles.nickname}
+                        </span>
                         <span>{message.text}</span>
                       </div>
                     </div>
@@ -181,9 +189,14 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
             <div ref={messagesEndRef} />
           </div>
         ) : (
-          <div className="flex justify-center text-gray-2 h-full">공구 채팅을 시작해보세요</div>
+          <div className="flex justify-center text-gray-2 h-full">
+            공구 채팅을 시작해보세요
+          </div>
         )}
-        <form onSubmit={handleSendMessage} className="flex w-full items-center gap-1">
+        <form
+          onSubmit={handleSendMessage}
+          className="flex w-full items-center gap-1"
+        >
           <input
             type="text"
             value={newMessage}
@@ -192,14 +205,22 @@ export default function ChatForm({ postId, userId, onClose }: { postId: string; 
             className="border border-gray-4 rounded-lg py-[5px] px-[8px] md:px-[16px] w-full grow text-[16px]"
           />
           <button type="submit" className="shrink-0">
-            <Image src="/img/icon-send.svg" alt="채팅 보내기" width={32} height={32} />
+            <Image
+              src="/img/icon-send.svg"
+              alt="채팅 보내기"
+              width={32}
+              height={32}
+            />
           </button>
         </form>
         <button onClick={onClose} className="absolute right-[8px] top-[8px]">
           <Image src="/img/icon-close.svg" alt="닫기" width={16} height={16} />
         </button>
       </div>
-      <div onClick={onClose} className="fixed inset-0 bg-black bg-opacity-50"></div>
+      <div
+        onClick={onClose}
+        className="fixed inset-0 bg-black bg-opacity-50"
+      ></div>
     </div>
   );
 }
