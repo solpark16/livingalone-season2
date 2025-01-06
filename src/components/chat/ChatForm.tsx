@@ -82,15 +82,11 @@ export default function ChatForm({
         post_id: postId,
       };
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("chat")
         .insert(chatInfo)
         .select("*, profiles!inner(user_id, nickname, profile_image_url)")
         .single();
-
-      if (data) {
-        setMessages((prev) => [...prev, data]);
-      }
 
       if (error) {
         Notify.failure(`채팅 전송에 실패했습니다. ${error}`);
