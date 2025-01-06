@@ -33,7 +33,7 @@ export default function ChatForm({
   const supabase = createClient();
   const user = useAuthStore((state) => state.user);
   const id = user?.id as string;
-  const { messages, setMessages } = useChatMessages(postId);
+  const { messages } = useChatMessages(postId);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -82,11 +82,7 @@ export default function ChatForm({
         post_id: postId,
       };
 
-      const { error } = await supabase
-        .from("chat")
-        .insert(chatInfo)
-        .select("*, profiles!inner(user_id, nickname, profile_image_url)")
-        .single();
+      const { error } = await supabase.from("chat").insert(chatInfo);
 
       if (error) {
         Notify.failure(`채팅 전송에 실패했습니다. ${error}`);
@@ -129,7 +125,7 @@ export default function ChatForm({
         </div>
         <div className="h-full flex flex-col justify-between items-center bg-white p-[15px] rounded-b-lg">
           {messages.length > 0 ? (
-            <div className="overflow-y-scroll w-full custom_scrollbar">
+            <div className="overflow-y-scroll w-full custom_scrollbar flex flex-col gap-[10px]">
               {messages.map((message: ChatMessage) => (
                 <ChatBubble
                   key={message.id}
