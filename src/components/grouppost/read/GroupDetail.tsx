@@ -8,11 +8,11 @@ import { GroupPost } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import ShareButton from "../../common/share/ShareButton";
+import LabelInfo from "../common/LabelInfo";
 import GroupContent from "./GroupContent";
 import GroupDetailBtnList from "./GroupDetailBtnList";
 import GroupEditBtnList from "./GroupEditBtnList";
 import GroupPopularList from "./GroupPopularList";
-import LabelInfo from "../common/LabelInfo";
 
 type Props = {
   params: { id: string };
@@ -176,7 +176,9 @@ async function GroupDetail({ params }: Props) {
               <GroupEditBtnList userId={user_id} id={id} />
             </div>
 
-            {!is_finished && <Chat postId={id} userId={user_id} />}
+            {!is_finished && (
+              <Chat postId={id} userId={user_id} title={title} />
+            )}
           </div>
         </div>
       </InnerLayout>

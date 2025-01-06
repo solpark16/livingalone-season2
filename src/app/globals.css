@@ -48,4 +48,8 @@ li {
   .must_post_card:hover .sub span {
     @apply text-main-7;
   }
+
+  .custom_scrollbar {
+    @apply [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-white [&::-webkit-scrollbar-thumb]:bg-main-7;
+  }
 }
