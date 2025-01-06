@@ -19,9 +19,7 @@ interface InputProps {
 
 const variantInputStyles = {
   default:
-    "w-full px-[15px] py-[11px] border border-gray-1 bg-gray-1 text-xs md:text-[14px] text-gray-6 placeholder-gray-4 focus:outline-none rounded-lg transition",
-  // underline:
-  //   "border-b w-full px-1 py-2 md:text-[20px] text-[16px] placeholder-gray-2 focus:outline-none focus:border-black transition rounded-none", -> 기존 마이페이지에서 사용하던 언더라인 input
+    "w-full px-[15px] py-[11px] border border-gray-1 bg-gray-1 text-xs md:text-[14px] text-gray-6 placeholder:text-gray-4 focus:outline-none rounded-lg transition",
   underline:
     "w-full border-b border-gray-4 py-[7px] text-xs md:text-base text-gray-6 outline-none",
 };
@@ -37,7 +35,6 @@ const variantFormStyles = {
   row: "flex items-center",
 };
 
-// 3. forwardRef로 전달 받음
 const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   {
     name,
@@ -69,7 +66,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <div className={`${variantFormStyles[variantForm]}`}>
       {label && (
         <label
-          // htmlFor={inputId} -> 기존 라벨 css
           className={`${variantLabelStyles[variantLabel]}`}
           htmlFor={inputId}
         >
@@ -121,7 +117,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       )}
       {type === "file" && (
         <input
-          // 4. ref 담기
           ref={ref}
           type="file"
           className={`${variantInputStyles[variantInput]} text-[10px] py-[10px]`}

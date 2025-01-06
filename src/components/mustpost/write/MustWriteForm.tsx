@@ -7,7 +7,6 @@ import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
 import SelectCategory from "./SelectCategory";
 
-// import Input from "@/components/common/input/Input";
 import Input from "@/components/auth/common/Input";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
