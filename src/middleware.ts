@@ -15,7 +15,13 @@ export const config = {
      * Feel free to modify this pattern to include more paths.
      */
     // "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-    "/mypage/:path*",
+    "/my-info",
+    "/my-wish-must",
+    "/my-must",
+    "/my-like-group",
+    "/my-apply-group",
+    "/my-group",
+    "/my-payments",
     "/payment/form",
     "/payment/check",
     "/payment/complete",
