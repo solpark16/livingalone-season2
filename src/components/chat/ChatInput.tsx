@@ -20,13 +20,14 @@ function ChatInput({
         value={newMessage}
         onChange={(e) => setNewMessage(e.target.value)}
         placeholder="채팅을 입력하세요."
-        className="border border-gray-3 rounded-[4px] p-[8px] w-full grow text-[14px]"
+        className="border border-gray-3 rounded-[4px] px-2 py-1 w-full grow text-[14px]"
       />
       <Button
         size="sm"
         bgColor="bg-blue-6"
         content="보내기"
         textColor="text-white"
+        height="h-[30px]"
         type="submit"
       />
     </form>
