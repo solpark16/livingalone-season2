@@ -48,7 +48,7 @@ function SearchList({ searchValue }: { searchValue: string }) {
   return (
     <div className="flex flex-col items-center justify-center pt-[24px] md:pt-0">
       <div className="flex flex-col items-center justify-center w-full">
-        <Title />
+        <Title title="통합검색" />
         <div className="flex flex-col justify-center items-center w-full md:w-auto md:mb-[30px]">
           <Suspense>
             <SearchBar />
