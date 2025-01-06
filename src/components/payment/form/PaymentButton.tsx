@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/common/button/Button";
 import PortOne from "@portone/browser-sdk/v2";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
@@ -135,12 +136,14 @@ function PaymentButton({
   };
 
   return (
-    <button
-      className="w-full max-w-[300px] md:max-w-full md:w-[500px] py-[10px] md:py-[13px] bg-main-8 bold text-[20px] md:text-[22px] text-gray-1 rounded-full"
+    <Button
+      size="lg"
+      bgColor="bg-main-7"
+      textSize="text-[16px] md:text-[18px]"
+      textColor="text-gray-1"
+      content="결제하기"
       onClick={paymentHandler}
-    >
-      결제하기
-    </button>
+    />
   );
 }
 

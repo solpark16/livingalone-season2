@@ -19,7 +19,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { mustValidation } from "../common/MustValidation";
 import SelectCategory from "../write/SelectCategory";
 
-// import Input from "@/components/common/input/Input";
 import Input from "@/components/auth/common/Input";
 import Button from "@/components/common/button/Button";
 import Error from "@/components/common/error/Error";

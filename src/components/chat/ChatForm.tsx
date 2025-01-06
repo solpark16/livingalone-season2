@@ -1,9 +1,10 @@
 "use client";
-import { useAddAlarm } from "@/hooks/alarm/useAddAlarm";
-import { useChatMessages } from "@/hooks/chat/useChatMessages";
+import { insertAlarm } from "@/apis/alarm";
+import { useChatMessages } from "@/hooks/chat/useChatMessage";
 import { createClient } from "@/supabase/client";
-import { ChatMessage } from "@/types/types";
+import { ChatMessage, TAddAlarm } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Confirm, Notify } from "notiflix";
 import { useEffect, useRef, useState } from "react";
@@ -32,12 +33,10 @@ export default function ChatForm({
   const supabase = createClient();
   const user = useAuthStore((state) => state.user);
   const id = user?.id as string;
-
-  const { messages } = useChatMessages(postId);
+  const { messages, setMessages } = useChatMessages(postId);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const alarmMutation = useAddAlarm();
 
   const formatTime = (time: string) =>
     time.split("T").join(" ").substring(0, 16);
@@ -48,50 +47,68 @@ export default function ChatForm({
     }
   }, [messages]);
 
+  const { mutate: addAlarm } = useMutation({
+    mutationFn: (chatAlarmData: TAddAlarm) => insertAlarm(chatAlarmData),
+  });
+
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!newMessage) return Notify.failure("내용을 입력해주세요.");
 
     if (!user) {
-      return Confirm.show(
+      Confirm.show(
         "로그인 후 이용 가능",
         "로그인하러 가시겠습니까?",
         "로그인 하기",
         "취소",
-        () => router.push("/login"),
-        () => undefined
+        () => {
+          router.push("/login");
+        },
+        () => {
+          return;
+        }
       );
     }
 
     const offset = new Date().getTimezoneOffset() * 60000;
     const today = new Date(Date.now() - offset).toISOString();
 
-    const chatInfo = {
-      created_at: today,
-      text: newMessage,
-      user_id: user.id,
-      post_id: postId,
-    };
-
-    const { error } = await supabase.from("chat").insert(chatInfo);
-
-    if (error) {
-      Notify.failure(`채팅 전송에 실패했습니다. ${error}`);
-    } else {
-      setNewMessage("");
-    }
-
-    if (id !== userId) {
-      const alarmData = {
-        type: "chat",
-        user_id: userId,
-        group_post_id: postId,
-        must_post_id: null,
-        link: `/grouppost/read/${postId}`,
-        is_read: false,
+    if (user) {
+      const chatInfo = {
+        created_at: today,
+        text: newMessage,
+        user_id: user.id,
+        post_id: postId,
       };
-      alarmMutation.mutate(alarmData);
+
+      const { data, error } = await supabase
+        .from("chat")
+        .insert(chatInfo)
+        .select("*, profiles!inner(user_id, nickname, profile_image_url)")
+        .single();
+
+      if (data) {
+        setMessages((prev) => [...prev, data]);
+      }
+
+      if (error) {
+        Notify.failure(`채팅 전송에 실패했습니다. ${error}`);
+      } else {
+        setNewMessage("");
+      }
+
+      if (id !== userId) {
+        const chatAlarmData = {
+          type: "chat",
+          user_id: userId,
+          group_post_id: postId,
+          must_post_id: null,
+          link: `/grouppost/read/${postId}`,
+          is_read: false,
+        };
+        addAlarm(chatAlarmData);
+      }
     }
   };
 

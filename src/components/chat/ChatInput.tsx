@@ -27,6 +27,7 @@ function ChatInput({
         bgColor="bg-blue-6"
         content="보내기"
         textColor="text-white"
+        type="submit"
       />
     </form>
   );

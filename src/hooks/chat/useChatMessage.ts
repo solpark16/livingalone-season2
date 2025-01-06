@@ -1,12 +1,11 @@
 import { getMyProfile } from "@/apis/mypage";
 import { createClient } from "@/supabase/client";
 import { TChat } from "@/types/types";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
-export const useChatMessages = (postId: string) => {
-  const supabase = useMemo(() => createClient(), []);
+export function useChatMessages(postId: string) {
   const [messages, setMessages] = useState<TChat[]>([]);
-
+  const supabase = createClient();
   const fetchInitialMessages = async () => {
     const { data } = await supabase
       .from("chat")
@@ -14,17 +13,15 @@ export const useChatMessages = (postId: string) => {
       .eq("post_id", postId)
       .order("created_at", { ascending: true });
 
-    console.log(data);
-
     if (data) {
       setMessages(data);
     }
   };
   useEffect(() => {
     fetchInitialMessages();
+    const channel = supabase.channel(`chat_${postId}`); // 고유한 채널명 사용
 
-    const messageSubscription = supabase
-      .channel("chat1")
+    const messageSubscription = channel
       .on(
         "postgres_changes",
         {
@@ -52,7 +49,7 @@ export const useChatMessages = (postId: string) => {
     return () => {
       supabase.removeChannel(messageSubscription);
     };
-  }, []);
+  }, [postId]);
 
-  return { messages };
-};
+  return { messages, setMessages };
+}

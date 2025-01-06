@@ -12,6 +12,9 @@ import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import PaymentButton from "./PaymentButton";
+import IsLoading from "@/components/common/loading/IsLoading";
+import Error from "@/components/common/error/Error";
+import Button from "@/components/common/button/Button";
 
 function PaymentForm() {
   const user = useAuthStore((state) => state.user);
@@ -87,29 +90,14 @@ function PaymentForm() {
       });
     }
   }, [profile, user]);
-  if (isPending)
-    return (
-      <div className="flex justify-center items-center">
-        <Image
-          src="/img/loading-spinner.svg"
-          alt="로딩중"
-          width={200}
-          height={200}
-        />
-      </div>
-    );
+  if (isPending) return <IsLoading />;
 
-  if (isError)
-    return <div className="flex justify-center items-center">에러...</div>;
+  if (isError) return <Error />;
   return (
     <InnerLayout>
-      <div className="flex flex-col justify-center items-center pb-0 md:pb-[300px] lg:pb-0">
-        <h3 className="hidden md:block mb-[66px] font-bold text-[30px]">
-          주문서 작성
-        </h3>
-
-        <div className="flex flex-col w-[504px]"></div>
-        <div className="flex flex-col gap-[23px] w-full md:w-[504px] mb-[24px] md:mb-[48px]">
+      <div className="flex flex-col justify-center items-center px-[15px] py-[50px] md:py-[70px] bg-white rounded-lg">
+        <h3 className="mb-[66px] font-bold text-[30px]">주문서 작성</h3>
+        <div className="flex flex-col gap-[23px] w-full md:w-[504px] mb-[24px] md:mb-[48px] ">
           <Input
             label="성함"
             placeholder="주문자의 성함을 입력해주세요"
@@ -139,12 +127,15 @@ function PaymentForm() {
         </div>
 
         <div className="flex flex-col gap-2 w-full md:w-[504px]">
-          <button
-            className="w-[73px] mb-1 py-[7px] border border-gray-4 bold text-[12px] rounded-full"
-            onClick={() => setIsPostModalOpen((prev) => !prev)}
-          >
-            주소검색
-          </button>
+          <div className="ml-auto">
+            <Button
+              width="w-[91px]"
+              bgColor="bg-main-2"
+              textColor="text-main-7"
+              content="주소검색"
+              onClick={() => setIsPostModalOpen((prev) => !prev)}
+            />
+          </div>
           <Input
             variantInput="underline"
             placeholder="주소"
@@ -164,7 +155,7 @@ function PaymentForm() {
         </div>
 
         <div className="flex justify-center items-center">
-          <div className="flex flex-col gap-2 w-[268px] md:w-[484px] mt-[56px] md:mt-[35px] mb-[20px] md:mb-[46px]">
+          <div className="flex flex-col gap-2 md:w-[484px] mt-[56px] md:mt-[35px] mb-[40px] md:mb-[46px]">
             <div className="flex">
               <input
                 id="firstCheckBox"
@@ -176,7 +167,7 @@ function PaymentForm() {
               />
               <label
                 htmlFor="firstCheckBox"
-                className="flex gap-2 items-center md:font-bold text-[16px] cursor-pointer"
+                className="flex gap-2 items-center md:font-bold text-[14px] md:text-[16px] cursor-pointer"
               >
                 {firstCheckBox ? (
                   <Image
@@ -207,7 +198,7 @@ function PaymentForm() {
               />
               <label
                 htmlFor="secondCheckBox"
-                className="flex gap-2 items-center md:font-bold text-[16px] text-[#FF0000] cursor-pointer"
+                className="flex gap-2 items-center md:font-bold text-[14px] md:text-[16px] text-[#FF0000] cursor-pointer"
               >
                 {secondCheckBox ? (
                   <Image
