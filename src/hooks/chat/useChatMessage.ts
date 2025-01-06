@@ -1,4 +1,3 @@
-import { getMyProfile } from "@/apis/mypage";
 import { createClient } from "@/supabase/client";
 import { TChat } from "@/types/types";
 import { useEffect, useState } from "react";
@@ -31,18 +30,15 @@ export function useChatMessages(postId: string) {
           filter: `post_id=eq.${postId}`,
         },
         async (payload: any) => {
-          const profile = await getMyProfile(payload.new.user_id);
-          setMessages((currentMessages) => [
-            ...currentMessages,
-            {
-              ...payload.new,
-              profiles: {
-                nickname: profile.nickname,
-                profile_image_url: profile.profile_image_url,
-                user_id: profile.user_id,
-              },
-            },
-          ]);
+          const { data: newMessage } = await supabase
+            .from("chat")
+            .select("*, profiles!inner(user_id, nickname, profile_image_url)")
+            .eq("id", payload.new.id)
+            .single();
+
+          if (newMessage) {
+            setMessages((currentMessages) => [...currentMessages, newMessage]);
+          }
         }
       )
       .subscribe();
