@@ -5,9 +5,10 @@ import ChatForm from "./ChatForm";
 interface ChatProps {
   postId: string;
   userId: string;
+  title: string;
 }
 
-function Chat({ postId, userId }: ChatProps) {
+function Chat({ postId, userId, title }: ChatProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const onClose = () => {
     setIsModalOpen(false);
@@ -23,7 +24,12 @@ function Chat({ postId, userId }: ChatProps) {
         </button>
       </div>
       {isModalOpen && (
-        <ChatForm postId={postId} userId={userId} onClose={onClose} />
+        <ChatForm
+          postId={postId}
+          userId={userId}
+          onClose={onClose}
+          title={title}
+        />
       )}
     </>
   );

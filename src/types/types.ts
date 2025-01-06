@@ -166,6 +166,26 @@ export type GroupPostResponse = Omit<GroupPost, "created_at">;
 
 export type Chat = Tables<"chat">;
 
+export type TChat = {
+  created_at: string;
+  id: string;
+  profiles: { user_id: string; nickname: string; profile_image_url: string };
+  text: string;
+  user_id: string;
+};
+
+export type ChatMessage = {
+  created_at: string;
+  id: string;
+  profiles: {
+    user_id: string;
+    nickname: string;
+    profile_image_url: string;
+  };
+  text: string;
+  user_id: string;
+};
+
 export type Payment = Tables<"payments">;
 export type TNewPayment = Omit<Payment, "created_at">;
 

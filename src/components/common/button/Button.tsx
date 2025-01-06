@@ -29,7 +29,7 @@ function Button({
   imgAlt = "url 아이콘",
   ...props
 }: ButtonProps) {
-  const smProps = "px-[7px] py-[4px] text-xs font-bold rounded";
+  const smProps = "px-[7px] py-[4px] text-xs font-bold rounded shrink-0";
   const defaultProps =
     "px-[13px] py-[4px] md:px-5 md:py-[7px] text-[13px] md:text-[15px] font-bold rounded-full";
   const lgProps =

@@ -1,12 +1,14 @@
 "use client";
-import { getMyProfile } from "@/apis/mypage";
 import { useAddAlarm } from "@/hooks/alarm/useAddAlarm";
+import { useChatMessages } from "@/hooks/chat/useChatMessages";
 import { createClient } from "@/supabase/client";
+import { ChatMessage } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Confirm, Notify } from "notiflix";
 import { useEffect, useRef, useState } from "react";
+import ChatBubble from "./ChatBubble";
+import ChatInput from "./ChatInput";
 
 type TChat = {
   created_at: string;
@@ -20,64 +22,25 @@ export default function ChatForm({
   postId,
   userId,
   onClose,
+  title,
 }: {
   postId: string;
   userId: string;
   onClose: () => void;
+  title: string;
 }) {
   const supabase = createClient();
   const user = useAuthStore((state) => state.user);
   const id = user?.id as string;
-  const [messages, setMessages] = useState<TChat[]>([]);
+
+  const { messages } = useChatMessages(postId);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const alarmMutation = useAddAlarm();
 
-  const fetchInitialMessages = async () => {
-    const { data } = await supabase
-      .from("chat")
-      .select("*, profiles!inner( user_id , nickname, profile_image_url)")
-      .eq("post_id", postId)
-      .order("created_at", { ascending: true });
-
-    if (data) {
-      setMessages(data);
-    }
-  };
-  useEffect(() => {
-    fetchInitialMessages();
-
-    const messageSubscription = supabase
-      .channel("chat1")
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "chat",
-          filter: `post_id=eq.${postId}`,
-        },
-        async (payload: any) => {
-          const profile = await getMyProfile(payload.new.user_id);
-          setMessages((currentMessages) => [
-            ...currentMessages,
-            {
-              ...payload.new,
-              profiles: {
-                nickname: profile.nickname,
-                profile_image_url: profile.profile_image_url,
-                user_id: profile.user_id,
-              },
-            },
-          ]);
-        }
-      )
-      .subscribe();
-    return () => {
-      supabase.removeChannel(messageSubscription);
-    };
-  }, [fetchInitialMessages, postId, supabase]);
+  const formatTime = (time: string) =>
+    time.split("T").join(" ").substring(0, 16);
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -91,135 +54,94 @@ export default function ChatForm({
     if (!newMessage) return Notify.failure("내용을 입력해주세요.");
 
     if (!user) {
-      Confirm.show(
+      return Confirm.show(
         "로그인 후 이용 가능",
         "로그인하러 가시겠습니까?",
         "로그인 하기",
         "취소",
-        () => {
-          router.push("/login");
-        },
-        () => {
-          return;
-        }
+        () => router.push("/login"),
+        () => undefined
       );
     }
 
     const offset = new Date().getTimezoneOffset() * 60000;
     const today = new Date(Date.now() - offset).toISOString();
 
-    if (user) {
-      const chatInfo = {
-        created_at: today,
-        text: newMessage,
-        user_id: user.id,
-        post_id: postId,
+    const chatInfo = {
+      created_at: today,
+      text: newMessage,
+      user_id: user.id,
+      post_id: postId,
+    };
+
+    const { error } = await supabase.from("chat").insert(chatInfo);
+
+    if (error) {
+      Notify.failure(`채팅 전송에 실패했습니다. ${error}`);
+    } else {
+      setNewMessage("");
+    }
+
+    if (id !== userId) {
+      const alarmData = {
+        type: "chat",
+        user_id: userId,
+        group_post_id: postId,
+        must_post_id: null,
+        link: `/grouppost/read/${postId}`,
+        is_read: false,
       };
-
-      const { error } = await supabase.from("chat").insert(chatInfo);
-
-      if (error) {
-        Notify.failure(`채팅 전송에 실패했습니다. ${error}`);
-      } else {
-        setNewMessage("");
-      }
-
-      if (id !== userId) {
-        const alarmData = {
-          type: "chat",
-          user_id: userId,
-          group_post_id: postId,
-          must_post_id: null,
-          link: `/grouppost/read/${postId}`,
-          is_read: false,
-        };
-        alarmMutation.mutate(alarmData);
-      }
+      alarmMutation.mutate(alarmData);
     }
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-[99] px-[16px] py-[0px] md:px-0 md:py-[80px]">
-      <div className="relative w-full mx-auto bg-gray-6 p-[16px] md:pt-[32px] rounded-lg z-[999] box-border flex flex-col justify-end items-center top-[-30px] max-w-[300px] md:max-w-[343px] h-full max-h-[500px] md:max-h-[760px] ">
-        {messages.length > 0 ? (
-          <div className="overflow-y-scroll flex flex-col gap-[10px] py-[16px] w-full">
-            {messages.map((message) =>
-              user && user.id === message.user_id ? (
-                <div key={message.id}>
-                  <div className="flex flex-col justify-end">
-                    <div className="flex justify-end items-end gap-[10px]">
-                      <span className="text-gray-3 text-[10px] text-right">
-                        {message.created_at
-                          .split("T")
-                          .join(" ")
-                          .substring(0, 16)}
-                      </span>
-                      <div className="flex flex-col gap-1 p-[10px] bg-white rounded-lg">
-                        <span>{message.text}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div key={message.id} className="flex flex-col justify-start">
-                  <div className="flex items-end text-gray-5 gap-[10px] mt-2">
-                    <div className="grid grid-cols-[32px_1fr] gap-2">
-                      <div className="relative overflow-hidden w-[32px] h-[32px] rounded-full aspect-square">
-                        <Image
-                          src={message.profiles.profile_image_url}
-                          alt={message.profiles.nickname}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-1 p-[10px] bg-white rounded-lg">
-                        <span className="text-[10px] text-gray-3 truncate">
-                          {message.profiles.nickname}
-                        </span>
-                        <span>{message.text}</span>
-                      </div>
-                    </div>
-                    <span className="text-gray-3 text-[10px]">
-                      {message.created_at.split("T").join(" ").substring(0, 16)}
-                    </span>
-                  </div>
-                </div>
-              )
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-        ) : (
-          <div className="flex justify-center text-gray-2 h-full">
-            공구 채팅을 시작해보세요
-          </div>
-        )}
-        <form
-          onSubmit={handleSendMessage}
-          className="flex w-full items-center gap-1"
-        >
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="채팅을 입력하세요."
-            className="border border-gray-4 rounded-lg py-[5px] px-[8px] md:px-[16px] w-full grow text-[16px]"
-          />
-          <button type="submit" className="shrink-0">
-            <Image
-              src="/img/icon-send.svg"
-              alt="채팅 보내기"
-              width={32}
-              height={32}
-            />
+    <div className=" z-[99] fixed inset-0 flex items-center justify-center px-[16px] py-[0px] md:px-0 md:py-[80px]">
+      <div className="z-[999] relative w-full mx-auto top-[-30px] max-w-[300px] md:max-w-[370px] h-full max-h-[500px] md:max-h-[760px] ">
+        <div className="flex items-center bg-blue-5 p-[15px] rounded-t-lg">
+          <button onClick={onClose}>
+            <svg
+              width="12"
+              height="22"
+              viewBox="0 0 12 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M11 1L1 11L11 21" stroke="white" />
+            </svg>
           </button>
-        </form>
-        <button onClick={onClose} className="absolute right-[8px] top-[8px]">
-          <Image src="/img/icon-close.svg" alt="닫기" width={16} height={16} />
-        </button>
+          <h4 className="pl-[15px] text-white bold text-[18px] truncate">
+            {title}
+          </h4>
+        </div>
+        <div className="h-full flex flex-col justify-between items-center bg-white p-[15px] rounded-b-lg">
+          {messages.length > 0 ? (
+            <div className="overflow-y-scroll w-full custom_scrollbar">
+              {messages.map((message: ChatMessage) => (
+                <ChatBubble
+                  key={message.id}
+                  message={message}
+                  isCurrentUser={user?.id === message.user_id}
+                  formatTime={formatTime}
+                />
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
+          ) : (
+            <span className="text-gray-5 pt-[250px]">
+              공구 채팅을 시작해보세요
+            </span>
+          )}
+          <ChatInput
+            newMessage={newMessage}
+            setNewMessage={setNewMessage}
+            handleSendMessage={handleSendMessage}
+          />
+        </div>
       </div>
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black bg-opacity-50"
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm"
       ></div>
     </div>
   );
