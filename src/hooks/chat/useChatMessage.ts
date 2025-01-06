@@ -20,29 +20,42 @@ export function useChatMessages(postId: string) {
     fetchInitialMessages();
     const channel = supabase.channel(`chat_${postId}`); // 고유한 채널명 사용
 
-    const messageSubscription = channel
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "chat",
-          filter: `post_id=eq.${postId}`,
-        },
-        async (payload: any) => {
-          const { data: newMessage } = await supabase
-            .from("chat")
-            .select("*, profiles!inner(user_id, nickname, profile_image_url)")
-            .eq("id", payload.new.id)
-            .single();
+    const messageSubscription = channel.on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "chat",
+        filter: `post_id=eq.${postId}`,
+      },
+      async (payload: any) => {
+        console.log("Received payload:", payload); // 여기 추가
+        console.log("Payload new data:", payload.new); // 상세 데이터 확
+        const { data: newMessage } = await supabase
+          .from("chat")
+          .select("*, profiles!inner(user_id, nickname, profile_image_url)")
+          .eq("id", payload.new.id)
+          .single();
 
-          if (newMessage) {
-            setMessages((currentMessages) => [...currentMessages, newMessage]);
-          }
+        if (newMessage) {
+          setMessages((currentMessages) => [...currentMessages, newMessage]);
         }
-      )
-      .subscribe();
+      }
+    );
+    channel.subscribe(async (status) => {
+      console.log("Channel status:", status); // 추가
+      if (status === "SUBSCRIBED") {
+        console.log("Subscribed to chat channel:", postId);
+        const status = await channel.track({
+          online_at: new Date().toISOString(),
+        });
+        console.log("Presence status:", status);
+      } else {
+        console.log("Failed to subscribe:", status); // 추가
+      }
+    });
     return () => {
+      channel.unsubscribe();
       supabase.removeChannel(messageSubscription);
     };
   }, [postId]);
