@@ -6,11 +6,14 @@ function QueryProvider({ children }: PropsWithChildren) {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000,
+        staleTime: 1000 * 60 * 5, // 5분
+        refetchOnWindowFocus: false,
       },
     },
   });
-  return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
 }
 
 export default QueryProvider;
