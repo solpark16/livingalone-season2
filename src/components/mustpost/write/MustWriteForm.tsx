@@ -5,17 +5,22 @@ import { MustCategory, TMustError } from "@/types/types";
 import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
-import SelectCategory from "./SelectCategory";
 
-import Input from "@/components/auth/common/Input";
+import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import { usePostSubmit } from "@/hooks/common/usePostSubmit";
+import IsLoading from "@/components/common/loading/IsLoading";
 
+const SelectCategory = dynamic(() => import("./SelectCategory"), {
+  ssr: false,
+  loading: () => <div className="h-[40px]" />,
+});
 const EditorModule = dynamic(
   () => import("@/components/common/editor/EditorModule"),
   {
     ssr: false,
+    loading: () => <IsLoading />,
   }
 );
 
@@ -109,7 +114,7 @@ function MustWriteForm() {
             variantInput="underline"
             type="text"
             value={company}
-            placeholder="제작업체 또는 브랜드를 입력해주세요."
+            placeholder="브랜드를 입력해주세요."
             onChange={onChangeInput}
             error={error.companyError}
           />
@@ -134,7 +139,7 @@ function MustWriteForm() {
             variantInput="underline"
             type="text"
             value={link || ""}
-            placeholder="(선택사항) 상품 소개 페이지 링크를 넣어주세요."
+            placeholder="(선택) 소개 페이지를 넣어주세요."
             onChange={onChangeInput}
           />
           <ImageUploader

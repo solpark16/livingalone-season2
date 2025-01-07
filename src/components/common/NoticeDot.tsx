@@ -1,5 +1,3 @@
-import React from "react";
-
 function NoticeDot() {
   return (
     <div className="w-[18px] flex justify-center shrink-0">

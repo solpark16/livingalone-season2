@@ -9,7 +9,7 @@ import { TGroupError } from "@/types/types";
 import { EditorProps } from "@toast-ui/react-editor";
 import dynamic from "next/dynamic";
 
-import Input from "@/components/auth/common/Input";
+import Input from "@/components/common/input/Input";
 import { usePostSubmit } from "@/hooks/common/usePostSubmit";
 import Image from "next/image";
 import { useRef, useState } from "react";

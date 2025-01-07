@@ -26,7 +26,7 @@ function MobileNav() {
 
   return (
     <>
-      <div className="block md:hidden pt-[10px] pb-[15px] fixed bottom-0 inset-x-0 w-screen h-[60px] flex items-center shadow-[0_-4px_10px_0_rgba(0,0,0,0.1)] bg-white z-[999]">
+      <div className="md:hidden pt-[10px] pb-[15px] fixed bottom-0 inset-x-0 w-screen h-[60px] flex items-center shadow-[0_-4px_10px_0_rgba(0,0,0,0.1)] bg-white z-[999]">
         <div className="relative w-full mx-auto z-[100]">
           <ul className="w-full min-w-[320px] grid grid-cols-5">
             <li>

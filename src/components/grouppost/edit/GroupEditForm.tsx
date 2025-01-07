@@ -1,7 +1,7 @@
 "use client";
 
 import { getGroupPost, updateGroupPost } from "@/apis/grouppost";
-import EditorModule from "@/components/common/editor/EditorModule";
+
 import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import { GroupPost, TGroupError, TNewGroupPost } from "@/types/types";
@@ -17,9 +17,17 @@ import { groupValidation } from "../common/GroupValidation";
 
 import Button from "@/components/common/button/Button";
 import Error from "@/components/common/error/Error";
-import Input from "@/components/auth/common/Input";
+import Input from "@/components/common/input/Input";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import IsLoading from "@/components/common/loading/IsLoading";
+import dynamic from "next/dynamic";
+
+const EditorModule = dynamic(
+  () => import("@/components/common/editor/EditorModule"),
+  {
+    ssr: false,
+  }
+);
 
 function GroupEditForm({ params }: { params: { id: string } }) {
   const { id } = params;

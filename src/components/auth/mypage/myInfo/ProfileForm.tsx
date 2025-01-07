@@ -12,7 +12,7 @@ import { useAuthStore } from "@/zustand/authStore";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Report } from "notiflix";
 import { FormEvent, useEffect, useState } from "react";
-import Input from "../../common/Input";
+import Input from "../../../common/input/Input";
 import { ProfileValidation } from "./ProfileValidation";
 function ProfileForm() {
   const user = useAuthStore((state) => state.user);

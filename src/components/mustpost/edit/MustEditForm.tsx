@@ -1,6 +1,5 @@
 "use client";
 import { getMustPost, updateMustPost } from "@/apis/mustpost";
-import EditorModule from "@/components/common/editor/EditorModule";
 import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import {
@@ -19,15 +18,23 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { mustValidation } from "../common/MustValidation";
 import SelectCategory from "../write/SelectCategory";
 
-import Input from "@/components/auth/common/Input";
+import Input from "@/components/common/input/Input";
 import Button from "@/components/common/button/Button";
 import Error from "@/components/common/error/Error";
 import ImageUploader from "@/components/common/input/ImageUploader";
 import IsLoading from "@/components/common/loading/IsLoading";
+import dynamic from "next/dynamic";
 
 type TMustPost = MustPost & {
   must_categories: { id: string; name: string };
 };
+
+const EditorModule = dynamic(
+  () => import("@/components/common/editor/EditorModule"),
+  {
+    ssr: false,
+  }
+);
 
 function MustEditForm({ params }: { params: { id: string } }) {
   const { id } = params;

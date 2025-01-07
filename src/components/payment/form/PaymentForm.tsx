@@ -1,7 +1,7 @@
 "use client";
 
 import { getMyProfile } from "@/apis/mypage";
-import Input from "@/components/auth/common/Input";
+import Input from "@/components/common/input/Input";
 import InnerLayout from "@/components/common/page/InnerLayout";
 import { useInputChange } from "@/hooks/common/useInput";
 import { Profile } from "@/types/types";

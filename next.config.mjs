@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -26,4 +27,11 @@ const nextConfig = {
   // },
 };
 
-export default nextConfig;
+export default async () => {
+  const withBundleAnalyzer = (await import("@next/bundle-analyzer")).default({
+    enabled: process.env.ANALYZE === "true",
+    openAnalyzer: false,
+  });
+
+  return withBundleAnalyzer(nextConfig);
+};

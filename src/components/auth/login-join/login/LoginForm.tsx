@@ -6,7 +6,7 @@ import { useAuthStore } from "@/zustand/authStore";
 import { useRouter } from "next/navigation";
 import { Notify, Report } from "notiflix";
 import { useState } from "react";
-import Input from "../../common/Input";
+import Input from "../../../common/input/Input";
 import Button from "@/components/common/button/Button";
 import { LoginValidation } from "../../common/LoginValidation";
 

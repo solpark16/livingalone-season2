@@ -4,7 +4,6 @@ import { getGroupPost, updateGroupPost } from "@/apis/grouppost";
 import { GroupPost, TNewGroupPost } from "@/types/types";
 import { postRevalidate } from "@/utils/revalidate";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { Confirm } from "notiflix";
 import SkeletonGroupFinishBtn from "./SkeletonGroupFinishBtn";
 

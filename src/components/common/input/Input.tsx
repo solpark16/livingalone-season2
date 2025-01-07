@@ -1,63 +1,130 @@
-import { ComponentProps } from "react";
+import Image from "next/image";
+import { forwardRef, useId } from "react";
 
-type inputProps = {
-  viewSize?: string;
-  name: string;
-  inputWidth?: string;
-  labelName: string;
+interface InputProps {
+  variantInput?: "default" | "underline";
+  variantLabel?: "default" | "row" | "smRow";
+  variantForm?: "col" | "row";
+  label?: string;
+  type?: string;
   value?: string | number;
-  type: string;
+  name?: string;
   placeholder?: string;
+  readOnly?: boolean;
+  defaultValue?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
-} & ComponentProps<"input">;
-function Input({
-  viewSize = "default",
-  name,
-  inputWidth,
-  labelName,
-  value,
-  type,
-  placeholder,
-  error,
-  ...props
-}: inputProps) {
-  const defaultInputProps =
-    "w-full border-b border-gray-4 py-[7px] text-xs md:text-base text-gray-6 outline-none";
-  // const smInputProps = "";
-  //
+  setPasswordType?: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const defaultLabelProps =
-    "shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6";
-  const smLabelProps =
-    "shrink-0 inline-block mr-2 text-sm font-semibold text-gray-6";
+const variantInputStyles = {
+  default:
+    "px-[15px] py-[11px] border border-gray-1 bg-gray-1 md:text-[14px] rounded-lg transition",
+  underline: "border-b border-gray-4 py-[7px] md:text-base",
+};
+
+const variantLabelStyles = {
+  default: "mb-2 md:mb-[7px] font-semibold text-xs md:text-[14px] text-gray-5",
+  row: "shrink-0 inline-block w-[45px] md:w-[55px] mr-[13px] md:mr-5 text-[13px] md:text-base font-semibold text-gray-6",
+  smRow: "shrink-0 inline-block mr-2 text-sm font-semibold text-gray-6",
+};
+
+const variantFormStyles = {
+  col: "flex flex-col",
+  row: "flex items-center",
+};
+
+const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  {
+    name,
+    label,
+    variantInput = "default",
+    variantLabel = "default",
+    variantForm = "col",
+    type = "text",
+    value,
+    placeholder,
+    onChange,
+    readOnly = false,
+    error,
+    setPasswordType,
+    defaultValue,
+  },
+  ref
+) {
+  const inputId = useId();
+
+  const onToggleHide = () => {
+    if (setPasswordType) {
+      setPasswordType((prev) => !prev);
+    }
+  };
 
   return (
-    <div>
-      <div className="flex items-center">
+    //하나의 인풋-라벨
+    <div className={`${variantFormStyles[variantForm]}`}>
+      {label && (
         <label
-          htmlFor={name}
-          className={`
-        ${viewSize === "sm" ? smLabelProps : defaultLabelProps}
-        `}
+          className={`${variantLabelStyles[variantLabel]}`}
+          htmlFor={inputId}
         >
-          {labelName}
+          {label}
         </label>
+      )}
+      {type !== "file" && (
+        <div className="relative w-full">
+          <input
+            className={`input-placeholder w-full h-[39px] text-xs outline-none text-gray-6 ${
+              variantInputStyles[variantInput]
+            } ${error ? "border-red-6" : "border-gray-1"}`}
+            type={type}
+            value={value}
+            name={name}
+            placeholder={placeholder}
+            onChange={onChange}
+            readOnly={readOnly}
+            id={inputId}
+            defaultValue={defaultValue}
+          />
+          {setPasswordType && (
+            <button
+              onClick={onToggleHide}
+              type="button"
+              className="absolute top-[10px] right-4"
+            >
+              {type === "text" ? (
+                <Image
+                  src="/img/icon-eye.png"
+                  alt="눈 아이콘"
+                  width={20}
+                  height={20}
+                />
+              ) : (
+                <Image
+                  src="/img/icon-eye-see.png"
+                  alt="눈 아이콘"
+                  width={20}
+                  height={20}
+                />
+              )}
+            </button>
+          )}
+          {error && (
+            <p className={`text-red-6 text-[11px] mt-[3px]`}>{error}</p>
+          )}
+        </div>
+      )}
+      {type === "file" && (
         <input
-          id={name}
-          name={name}
-          type={type}
-          value={value}
+          ref={ref}
+          type="file"
+          className={`${variantInputStyles[variantInput]} text-[10px] py-[10px]`}
           placeholder={placeholder}
-          className={`
-            ${defaultInputProps} ${inputWidth || ""}
-        `}
-          {...props}
+          onChange={onChange}
         />
-        {/* ${viewSize === "sm" ? smInputProps : defaultInputProps} */}
-      </div>
-      {error && <p className={`text-red-6 text-[12px] mt-[3px]`}>{error}</p>}
+      )}
     </div>
   );
-}
+});
 
 export default Input;
