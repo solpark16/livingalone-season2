@@ -1,5 +1,6 @@
 "use client";
 import { TAlarm } from "@/types/types";
+import { memo } from "react";
 import AlarmCard from "./AlarmCard";
 
 function AlarmItem({ alarm }: { alarm: TAlarm }) {
@@ -30,4 +31,4 @@ function AlarmItem({ alarm }: { alarm: TAlarm }) {
   );
 }
 
-export default AlarmItem;
+export default memo(AlarmItem);

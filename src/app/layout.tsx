@@ -35,6 +35,11 @@ export const metadata: Metadata = {
       url: "/img/meta-image.png",
     },
   },
+  other: {
+    'link[rel="preconnect"][href="https://wtgehzvyirdsifnqqfzn.supabase.co"]':
+      "",
+    'link[rel="preconnect"][href="https://supabase.co"]': "",
+  },
 };
 
 export default function RootLayout({
