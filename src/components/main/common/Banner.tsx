@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { memo } from "react";
 
 function Banner() {
   return (
@@ -12,7 +13,10 @@ function Banner() {
             width={0}
             height={0}
             className="h-auto w-full"
-            loading="lazy"
+            priority
+            quality={75}
+            loading="eager"
+            fetchPriority="high"
           />
         </Link>
       </div>
@@ -20,4 +24,4 @@ function Banner() {
   );
 }
 
-export default Banner;
+export default memo(Banner);

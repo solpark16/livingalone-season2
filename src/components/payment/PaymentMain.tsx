@@ -7,13 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
+import Button from "../common/button/Button";
 import Error from "../common/error/Error";
 import IsLoading from "../common/loading/IsLoading";
-import Button from "../common/button/Button";
 
 function PaymentMain() {
   const user = useAuthStore((state) => state.user);
-  const userId = user?.id as string;
   const router = useRouter();
 
   const { data: paymentCount } = useQuery({
