@@ -37,24 +37,20 @@ function PaymentMain() {
   return (
     <div className="flex flex-col items-center">
       <div className="relative w-full">
-        {/* 이미지 div */}
         <Image
-          src="/img/luckybox-main.svg"
+          src="/img/luckybox-main.webp"
           alt="럭키박스 메인 이미지"
-          width={0}
-          height={0}
-          placeholder="blur"
-          className="hidden md:block w-full h-auto"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Wg8AAi8BVvC05AcAAAAASUVORK5CYII="
+          width={932}
+          height={807}
+          className="hidden md:block"
+          priority
         />
         <Image
-          src="/img/luckybox-mobile-main.svg"
+          src="/img/luckybox-mobile-main.webp"
           alt="럭키박스 메인 이미지"
-          width={0}
-          height={0}
-          placeholder="blur"
-          className="block md:hidden w-full h-auto"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8Wg8AAi8BVvC05AcAAAAASUVORK5CYII="
+          width={320}
+          height={527}
+          className="block md:hidden"
         />
       </div>
       <div className="flex flex-col gap-[22px] text-center">
@@ -70,7 +66,6 @@ function PaymentMain() {
         </span>
       </div>
       <div className="flex flex-col items-center mt-[50px]">
-        {/* 글 div */}
         <div className="relative mb-[16px]">
           <span className="inline-block w-[161px] bg-red-5 py-[7px] text-white rounded-full text-base font-bold text-center after:pointer">
             남은 럭키박스 {100 - paymentCount}개!

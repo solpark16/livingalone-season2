@@ -2,13 +2,15 @@
 import { useYoutubeData } from "@/hooks/livingtv/useYoutubeData";
 import IsLoading from "../common/loading/IsLoading";
 import Error from "../common/error/Error";
-import Link from "next/link";
 import Image from "next/image";
+import { useMemo } from "react";
 
 function VideoList() {
   const { videoData, isLoading, isError, mainPlayListId } = useYoutubeData();
-  const filteredPlayList = videoData.filter(
-    (playlist) => playlist.playlistId !== mainPlayListId
+  const filteredPlayList = useMemo(
+    () =>
+      videoData.filter((playlist) => playlist.playlistId !== mainPlayListId),
+    [videoData, mainPlayListId]
   );
 
   if (isLoading) return <IsLoading />;
@@ -32,6 +34,7 @@ function VideoList() {
                     height={162}
                     alt="영상 썸네일"
                     className="rounded-lg"
+                    priority
                   />
 
                   <span className="mt-5 text-[14px] md:text-lg line-clamp-2">

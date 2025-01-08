@@ -22,7 +22,7 @@ function PostImage({ img_url, link }: PostImageProps) {
           }`}
           width={0}
           height={0}
-          priority={true}
+          priority
           onLoad={() => setIsLoading(false)}
         />
 
