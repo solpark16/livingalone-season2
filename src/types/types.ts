@@ -94,6 +94,22 @@ export type TMainGroupPost = Pick<
   | "is_free"
 > &
   TGroupApplications;
+export type TGroupPostList = Pick<
+  GroupPost,
+  | "id"
+  | "title"
+  | "price"
+  | "people_num"
+  | "is_finished"
+  | "img_url"
+  | "start_date"
+  | "end_date"
+  | "item"
+  | "regular_price"
+  | "is_free"
+  | "content"
+> &
+  TGroupApplications;
 
 export type TGroupApplicationData = Pick<GroupApplication, "id" | "post_id"> & {
   group_posts: Pick<
