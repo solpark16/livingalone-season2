@@ -1,7 +1,6 @@
 "use client";
 import { useAuthStore } from "@/zustand/authStore";
 import Link from "next/link";
-import React from "react";
 import MustDeleteBtn from "./MustDeleteBtn";
 
 function MustPostAction({ userId, id }: { userId: string; id: string }) {

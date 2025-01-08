@@ -1,5 +1,3 @@
-import React from "react";
-
 function SkeletonComments() {
   return (
     <div className="md:animate-pulse">

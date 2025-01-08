@@ -4,7 +4,6 @@ import { deleteGroupPost } from "@/apis/grouppost";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Confirm } from "notiflix";
-import React from "react";
 
 function GroupDeleteBtn({ id }: { id: string }) {
   const router = useRouter();

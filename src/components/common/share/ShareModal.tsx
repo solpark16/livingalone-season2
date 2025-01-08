@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { Notify } from "notiflix";
 import KakaoShareButton from "./KakaoShareButton";
 

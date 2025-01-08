@@ -1,4 +1,4 @@
-import Input from "@/components/auth/common/Input";
+import Input from "@/components/common/input/Input";
 import { useSearchAddress } from "@/hooks/common/useSearchAddress";
 import { Profile } from "@/types/types";
 import DaumPostcode from "react-daum-postcode";

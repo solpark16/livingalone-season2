@@ -1,4 +1,5 @@
 "use client";
+// 컴포넌트 사용 안 할 경우 public 이미지도 제거 해주세요!
 import { useIsOpen } from "@/zustand/isOpenStore";
 import Image from "next/image";
 import Link from "next/link";

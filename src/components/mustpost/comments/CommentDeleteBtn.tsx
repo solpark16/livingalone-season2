@@ -1,7 +1,6 @@
 import { deleteMustComment } from "@/apis/mustpost";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Confirm } from "notiflix";
-import React from "react";
 
 function CommentDeleteBtn({
   commentId,

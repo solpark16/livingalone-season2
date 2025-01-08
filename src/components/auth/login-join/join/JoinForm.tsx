@@ -1,7 +1,7 @@
 "use client";
 import { useInputChange } from "@/hooks/common/useInput";
 import React, { useState } from "react";
-import Input from "../../common/Input";
+import Input from "../../../common/input/Input";
 import Button from "@/components/common/button/Button";
 import { useSubmitJoin } from "@/hooks/auth/useSubmitJoin";
 

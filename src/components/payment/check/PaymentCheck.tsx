@@ -5,7 +5,6 @@ import IsLoading from "@/components/common/loading/IsLoading";
 import { TNewPayment } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
 import { useMutation } from "@tanstack/react-query";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
 import { useEffect, useRef } from "react";
