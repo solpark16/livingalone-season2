@@ -1,3 +1,4 @@
+import MobileBanner from "@/components/common/banner/MobileBanner";
 import Image from "next/image";
 import Link from "next/link";
 import { memo } from "react";
@@ -23,6 +24,7 @@ function Banner() {
           />
         </Link>
       </div>
+      <MobileBanner />
     </div>
   );
 }
