@@ -40,11 +40,4 @@ const nextConfig = {
   // },
 };
 
-export default async () => {
-  const withBundleAnalyzer = (await import("@next/bundle-analyzer")).default({
-    enabled: process.env.ANALYZE === "true",
-    openAnalyzer: false,
-  });
-
-  return withBundleAnalyzer(nextConfig);
-};
+export default nextConfig;
