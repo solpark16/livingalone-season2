@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
       })
       .order("created_at", { ascending: false })
       .range(offset, offset + MUST_ITEM_PER_PAGE - 1);
+
     return NextResponse.json({ data, count });
   } catch (error) {
     return NextResponse.json({ error: "데이터를 가져오는 데 실패했습니다." });

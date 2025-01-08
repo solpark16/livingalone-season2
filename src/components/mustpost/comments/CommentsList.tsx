@@ -1,16 +1,17 @@
 "use client";
-import { getComments, updatenewComment } from "@/apis/mustpost";
+import { updatenewComment } from "@/apis/mustpost";
+import { useGetComments } from "@/hooks/mustpost/useComments";
+import { MustComments } from "@/types/types";
 import { useAuthStore } from "@/zustand/authStore";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { Notify } from "notiflix";
-import React, { useState } from "react";
+import { useState } from "react";
 import CommentBox from "./CommentBox";
-import { MustComments } from "@/types/types";
-import CommentZero from "./CommentZero";
-import SkeletonComments from "./SkeletonComments";
 import CommentEdit from "./CommentEdit";
+import CommentZero from "./CommentZero";
 import CommentsPagination from "./CommentsPagination";
+import SkeletonComments from "./SkeletonComments";
 
 export type TEditComment = {
   commentId: string | null;
@@ -25,10 +26,8 @@ function CommentsList({ postId }: { postId: string }) {
   const user = useAuthStore((state) => state.user);
   const [page, setPage] = useState(1);
 
-  const { data: commentsData, isPending } = useQuery({
-    queryKey: ["comments", postId, page],
-    queryFn: () => getComments(postId, page),
-  });
+  const { commentsData, isPending } = useGetComments(postId, page);
+
   const comments = commentsData?.data || [];
   const totalComments = commentsData?.count || 0;
   const totalPages = Math.ceil(totalComments / commentsData?.limit);
@@ -40,11 +39,6 @@ function CommentsList({ postId }: { postId: string }) {
       queryClient.invalidateQueries({ queryKey: ["comments", postId] });
     },
   });
-
-  const handleEditComment = (commentId: string, content: string) => {
-    setEditCommentId(commentId);
-    setEditComment(content);
-  };
 
   const handleUpdateComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

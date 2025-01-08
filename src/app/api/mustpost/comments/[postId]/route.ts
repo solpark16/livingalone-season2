@@ -13,6 +13,15 @@ export async function GET(
   const offset = (page - 1) * limit;
 
   try {
+    if (!page) {
+      const { count } = await supabase
+        .from("must_comments")
+        .select("*, must_posts(*), profiles(*)", { count: "exact" })
+        .eq("post_id", postId);
+
+      return NextResponse.json({ count });
+    }
+
     const { data, count } = await supabase
       .from("must_comments")
       .select("*, must_posts(*), profiles(*)", { count: "exact" })
