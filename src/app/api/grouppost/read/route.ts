@@ -7,7 +7,7 @@ export async function GET() {
     const { data } = await supabase
       .from("group_posts")
       .select(
-        `id, title, is_finished, price, people_num , img_url, start_date, end_date, group_applications(id), group_likes(id)`
+        `id, title, is_finished, price, people_num , regular_price, img_url, start_date, end_date, group_applications(id), group_likes(id)`
       )
       .eq("is_finished", false);
     return NextResponse.json(data);

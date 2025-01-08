@@ -29,7 +29,6 @@ function GroupSearchResult({ searchValue }: { searchValue: string }) {
       post.title.includes(searchValue) ||
       post.content.includes(searchValue)
   );
-  console.log(searchedList);
   return (
     <div className="w-full mb-[120px]">
       <h4 className="flex items-center gap-[5px] md:gap-[10px] text-lg md:text-[26px] font-[700] mb-[5px] md:mb-[31px] text-gray-6">
