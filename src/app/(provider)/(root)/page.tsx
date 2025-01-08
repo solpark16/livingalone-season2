@@ -1,12 +1,22 @@
-import TopButton from "@/components/common/button/TopButton";
 import IsLoading from "@/components/common/loading/IsLoading";
-import Banner from "@/components/main/common/Banner";
-import GroupSection from "@/components/main/group/GroupSection";
-import LivingTvSection from "@/components/main/livingtv/LivingTvSection";
-import MustSection from "@/components/main/must/MustSection";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
 function HomePage() {
+  const TopButton = dynamic(
+    () => import("@/components/common/button/TopButton")
+  );
+  const Banner = dynamic(() => import("@/components/main/common/Banner"));
+  const GroupSection = dynamic(
+    () => import("@/components/main/group/GroupSection")
+  );
+  const LivingTvSection = dynamic(
+    () => import("@/components/main/livingtv/LivingTvSection")
+  );
+  const MustSection = dynamic(
+    () => import("@/components/main/must/MustSection")
+  );
+
   return (
     <Suspense fallback={<IsLoading />}>
       <main className="bg-main-1 pb-[240px]">
