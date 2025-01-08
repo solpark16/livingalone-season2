@@ -8,7 +8,7 @@ export function useChatMessages(postId: string) {
   const fetchInitialMessages = async () => {
     const { data } = await supabase
       .from("chat")
-      .select("*, profiles!inner( user_id , nickname, profile_image_url)")
+      .select("*, profiles!inner(user_id , nickname, profile_image_url)")
       .eq("post_id", postId)
       .order("created_at", { ascending: true });
 
