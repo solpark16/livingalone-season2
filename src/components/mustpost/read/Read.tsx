@@ -1,8 +1,10 @@
+"use server";
 import { getMustPostDetail } from "@/apis/mustpost";
 import Button from "@/components/common/button/Button";
+import IsLoading from "@/components/common/loading/IsLoading";
 import InnerLayout from "@/components/common/page/InnerLayout";
 import { MustPost } from "@/types/types";
-import Image from "next/image";
+import { Suspense } from "react";
 import Comments from "../comments/Comments";
 import MorePost from "./MorePost";
 import ReadPost from "./ReadPost";
@@ -24,18 +26,7 @@ type TMustPostDetail = {
 async function Read({ params }: Props) {
   const { id } = params;
   const data = await getMustPostDetail(id);
-  if (!data) {
-    return (
-      <div className="flex justify-center items-center">
-        <Image
-          src="/img/loading-spinner.svg"
-          alt="로딩중"
-          width={200}
-          height={200}
-        />
-      </div>
-    );
-  }
+
   const {
     user_id,
     created_at,
@@ -52,7 +43,7 @@ async function Read({ params }: Props) {
   } = data as TMustPostDetail;
 
   return (
-    <>
+    <Suspense fallback={<IsLoading />}>
       <InnerLayout>
         <div className="flex flex-col justify-center items-center">
           <ReadPost
@@ -83,7 +74,7 @@ async function Read({ params }: Props) {
           outline="border border-main-7"
         />
       </div>
-    </>
+    </Suspense>
   );
 }
 
