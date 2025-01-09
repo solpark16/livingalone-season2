@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "genTypes": "supabase gen types --lang=typescript --project-id wtgehzvyirdsifnqqfzn --schema public > src/types/supabase.ts"
+    "genTypes": "supabase gen types --lang=typescript --project-id wtgehzvyirdsifnqqfzn --schema public > src/types/supabase.ts",
+    "optimize-svg": "svgo -f ./public/img --config=svgo.config.mjs"
   },
   "dependencies": {
     "@portone/browser-sdk": "^0.0.8",
@@ -30,7 +31,6 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -39,6 +39,7 @@
     "eslint-config-next": "14.2.5",
     "postcss": "^8",
     "supabase": ">=1.8.1",
+    "svgo": "^3.3.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
