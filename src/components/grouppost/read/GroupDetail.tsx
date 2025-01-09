@@ -159,11 +159,11 @@ async function GroupDetail({ params }: Props) {
             <div className="flex justify-end text-gray-4 mt-[10px] mb-[71px] items-center">
               <Like postId={id} /> ・
               <ShareButton
-                postId={data.id}
+                postId={id}
                 title={title}
                 content={item}
                 imgUrl={img_url}
-              />{" "}
+              />
               <GroupEditBtnList userId={user_id} id={id} />
             </div>
 
