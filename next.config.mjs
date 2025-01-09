@@ -16,15 +16,6 @@ const nextConfig = {
     path: "/_next/image",
   },
 
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
-
-    return config;
-  },
-
   // async headers() {
   //   return [
   //     {
