@@ -59,11 +59,3 @@ li {
   color: theme("colors.gray.4");
   font-size: 14px;
 }
-/* const variantInputStyles = {
-  default:
-    // "w-full px-[15px] py-[11px] border border-gray-1 bg-gray-1 text-xs md:text-[14px] text-gray-6 outline-none rounded-lg transition",
-    "px-[15px] py-[11px] border border-gray-1 bg-gray-1 md:text-[14px] rounded-lg transition",
-  underline:
-    // "w-full border-b border-gray-4 py-[7px] text-xs md:text-base text-gray-6 outline-none",
-    "border-b border-gray-4 py-[7px] md:text-base",
-}; */
