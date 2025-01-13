@@ -20,7 +20,7 @@ function Footer() {
         <ul className="flex items-center justify-end text-[16px] gap-[11px]">
           <li>
             <a
-              href="https://github.com/erinmzo/livingalone"
+              href="https://github.com/solpark16/livingalone-season2/"
               target="_blank"
               title="깃헙으로 이동"
             >
@@ -34,7 +34,7 @@ function Footer() {
           </li>
           <li>
             <a
-              href="https://teamsparta.notion.site/A06-6-6-bdcf4b23863d4d1e871ba7fc936e60d8"
+              href="https://nifty-hockey-6b6.notion.site/2-174c1938761380e09b8ace1edae13052?pvs=4"
               target="_blank"
               title="노션으로 이동"
             >
