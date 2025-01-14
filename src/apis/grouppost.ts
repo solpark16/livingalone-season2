@@ -114,3 +114,9 @@ export async function deleteLike(likeData: TGroupLikeData) {
     body: JSON.stringify(likeData),
   });
 }
+
+export async function getGroupPostOnSearch() {
+  const response = await fetch(`/api/grouppost/search`);
+  const data = await response.json();
+  return data;
+}
