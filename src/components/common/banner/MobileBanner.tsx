@@ -7,7 +7,7 @@ function MobileBanner() {
     <Link
       href="/payment"
       prefetch={false}
-      className="flex justify-center items-center py-[22px] md:hidden aspect-[320/130] w-full max-w-[320px] mx-auto"
+      className="flex justify-center items-center  md:hidden aspect-[320/130] w-full max-w-[320px] mx-auto"
     >
       <Image
         src="/img/mobile-luckybox-banner.webp"
@@ -19,6 +19,7 @@ function MobileBanner() {
         loading="eager"
         fetchPriority="high"
         sizes="(max-width: 320px) 100vw, 320px"
+        className="py-[22px]"
       />
     </Link>
   );
