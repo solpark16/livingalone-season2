@@ -1,12 +1,14 @@
 import { getGroupDetail } from "@/apis/grouppost";
 import Chat from "@/components/chat/Chat";
 import Like from "@/components/common/like/Like";
+import IsLoading from "@/components/common/loading/IsLoading";
 import InnerLayout from "@/components/common/page/InnerLayout";
 import Title from "@/components/common/read/Title";
 import UserInfo from "@/components/common/read/UserInfo";
 import { GroupPost } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import ShareButton from "../../common/share/ShareButton";
 import LabelInfo from "../common/LabelInfo";
 import GroupContent from "./GroupContent";
@@ -29,18 +31,7 @@ type TGroupPostDetail = {
 async function GroupDetail({ params }: Props) {
   const { id } = params;
   const data = await getGroupDetail(id);
-  if (!data) {
-    return (
-      <div className="flex justify-center items-center">
-        <Image
-          src="/img/loading-spinner.svg"
-          alt="로딩중"
-          width={200}
-          height={200}
-        />
-      </div>
-    );
-  }
+
   const {
     title,
     content,
@@ -64,7 +55,7 @@ async function GroupDetail({ params }: Props) {
   );
 
   return (
-    <>
+    <Suspense fallback={<IsLoading />}>
       <InnerLayout>
         <div>
           <Title title={title} />
@@ -168,11 +159,11 @@ async function GroupDetail({ params }: Props) {
             <div className="flex justify-end text-gray-4 mt-[10px] mb-[71px] items-center">
               <Like postId={id} /> ・
               <ShareButton
-                postId={data.id}
+                postId={id}
                 title={title}
                 content={item}
                 imgUrl={img_url}
-              />{" "}
+              />
               <GroupEditBtnList userId={user_id} id={id} />
             </div>
 
@@ -190,7 +181,7 @@ async function GroupDetail({ params }: Props) {
           </button>
         </Link>
       </div>
-    </>
+    </Suspense>
   );
 }
 
