@@ -7,7 +7,7 @@ import ProgressStatus from "@/components/grouppost/list/ProgressStatus";
 function GroupListPage() {
   return (
     <Page>
-      <PageTitle title="자랑해 자취템" />
+      <PageTitle title="같이 사 공구템" />
       <ProgressStatus />
       <GroupPostList />
       <TopButton />
