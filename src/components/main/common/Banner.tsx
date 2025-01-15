@@ -6,7 +6,7 @@ import { memo } from "react";
 export const revalidate = 3600;
 function Banner() {
   return (
-    <div className="bg-gradient-to-r from-[#DDFFCD] to-[#FFFCB0] border-b border-b-gray-3">
+    <div className="bg-gradient-to-r from-[#DDFFCD] via-[#ddffcd] via-40% to-[#FFFCB0] to-50% border-b border-b-gray-3">
       <div className="relative w-full xl:max-w-[1200px] mx-auto hidden md:block">
         <Link href="/payment" prefetch={false}>
           <Image
