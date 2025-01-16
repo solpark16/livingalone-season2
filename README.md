@@ -108,4 +108,4 @@
 <br>
 <br>
 
-![README 푸터](https://github.com/user-attachments/assets/a56ebd94-41f3-43d0-92a0-a446d3f0a242)
+![README 푸터](https://github.com/user-attachments/assets/64446cec-3087-4951-ac4c-eb7777649451)
